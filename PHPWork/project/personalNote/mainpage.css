@@ -1,0 +1,67 @@
+body {
+    font: 1em Verdana, Arial, Helvetica, sans-serif;
+    background: #ccc;
+    color: #000;
+    text-align: center; /* Centers the container */
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    width: 830px; /* 780px is just wide enough to fill and 800px screen */
+    margin: 0 auto; /* It's important to set the margin to auto if you want the layout to center */
+    background: #fff;
+    text-align: left;
+    border: 1px solid #999;
+}
+
+#header, #column1, #column2, #column3, #column4 ,#footer{
+    padding: 10px;  /* This sets a 10px padding on all of our content boxes */
+}
+
+#header {
+    background: #999;
+    margin: 0;
+    padding 0;
+}
+
+#section1 {
+    float: left; /* Sets this section to the left */
+    background: #fff;
+    width: 385px;
+}
+
+    #column1 {
+        float: left; /* Sets this column to the left inside its section */
+        background: #ccc;
+        width: 167px;
+    }
+
+    #column2 {
+        float: right; /* Sets this column to the right inside its section*/
+        background: #ccc;
+        width: 168px;
+    }
+
+#section2 {
+    float: right; /*Sets this sectionto the right */
+    background: #fff;
+    width: 435px;
+}
+
+    #column3 {
+        float: left; /* Sets this column to the left inside its section */
+        background: #ccc;
+        width: 217px;
+    }
+
+    #column4 {
+        float: right; /* Sets this column to the right inside its section*/
+        background: #ccc;
+        width: 168px;
+    }
+
+#footer {
+    background: #999;
+    clear: both;
+}

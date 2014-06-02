@@ -1,0 +1,17 @@
+delete
+from userinformation;
+
+delete
+from tbdtable;
+
+delete
+from notestable;
+
+delete
+from imagetable;
+
+delete
+from hyperlinktable;
+
+
+<!--	<input type="file" name="image" id='image' />  <?php header("location: notetomyself.php"); ?> />  -->

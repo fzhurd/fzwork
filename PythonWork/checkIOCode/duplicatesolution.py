@@ -16,8 +16,6 @@ def checkio(data):
             data.remove(uni)
         counter=0
             
-    
-     
   #  data = newData
     return data
 

@@ -3,8 +3,6 @@
 # Input: Two dates -- from and to inclusive (datetime.date).
 # Output: An integer.
 
-
-
 from datetime import date
 from datetime import timedelta
 
@@ -14,7 +12,7 @@ def checkio(from_date, to_date):
     enddate = to_date
     count=0
     
-    
+    #loop the dates
     while currentdate <= enddate:     
        
         theDay = currentdate.weekday()

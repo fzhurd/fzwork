@@ -1,0 +1,219 @@
+The Unix Commands
+
+????????????? 
+
+# Create a new tar archive.
+# the folder dirname/ is compressed into archive_name.tar
+tar cvf archive_name.tar dirname/
+# Extract from an existing tar archive
+tar xvf archive_name.tar
+# View an existing tar archive
+tar tvf archive_name.tar
+
+
+# Search for a given string in a file (case in-sensitive search).
+grep -i "the" demo_file
+# Print the matched line, along with the 3 lines after it.
+grep -A 3 -i "example" demo_text
+# Search for a given string in all files recursively
+grep -r "ramesh" *
+# Match regular expression in files
+grep "lines.*empty" demo_file
+# Match the string as a whole word
+grep -iw "is" demo_file
+# When you want to count that how many lines matches the given pattern/
+string, then use the option -c
+grep -c "go" demo_text
+# To show the line number of file with the line matched
+grep -n "go" demo_text
+
+
+# Find the passwd file under root and two levels down. 
+#(i.e root — level 1, and two sub-directories — level 2 and 3 )
+find / -maxdepth 3 -name passwd
+# Find files using file-name ( case in-sensitve find)
+find -iname "MyCProgram.c"
+# Execute commands on files found by the find command
+# it is to calculate the file's signature which is a hashcode
+find -iname "MyCProgram.c" -exec md5sum {} ;
+# Find all empty files in home directory
+find ~ -empty
+# Shows the files or directories whose name are not MyCProgram.c 
+find -maxdepth 1 -not -iname "MyCProgram.c"
+# Find files which has read permission only to group
+find . -perm 040 -type f -exec ls -l {} ;
+# The following command will display the top 5 largest file in the current 
+directory and its subdirectory.
+find . -type f -exec ls -s {} ; | sort -n -r | head -5
+# Top 5 smallest: Technique is same as finding the bigger files, but the 
+only difference the sort is ascending order.
+find . -type f -exec ls -s {} ; | sort -n  | head -5
+# Find files bigger than the given size
+find ~ -size +100M
+# Find files smaller than the given size
+find ~ -size -100M
+
+
+# When you substitute a path name which has ‘/’, you can use @ as a 
+delimiter instead of ‘/’. 
+# In the sed example below, in the last line of the input file, /opt/omni/
+lbin was changed to /opt/tools/bin
+sed 's@/opt/omni/lbin@/opt/tools/bin@g' path.txt
+# sed & Usage: Substitute /usr/bin/ to /usr/bin/local
+sed 's@/usr/bin@&/local@g' path.txt
+# sed & Usage: Match the whole line
+sed 's@^.*$@<<<&>>>@g' path.txt
+# Grouping using ()
+# Get only the first path in each line, the number "1" is for the first 
+matched group
+sed 's/(/[^:]*).*/1/g' path.txt
+# In the above command $ specifies substitution to happen only for the last 
+line.
+# Output shows that the order of the path values in the last line has been 
+reversed.
+sed '$s@([^:]*):([^:]*):([^:]*)@3:2:1@g' path.txt
+# Get the list of usernames in /etc/passwd file
+# This sed example displays only the first field from the /etc/passwd file.
+sed 's/([^:]*).*/1/' /etc/passwd
+# Parenthesize first character of each word
+echo "Welcome To The Geek Stuff" | sed 's/(b[A-Z])/(1)/g'
+# Convert DOS format to UNIX format
+sed 's/$/r/' input.txt > output.txt
+# Commify the simple number
+sed 's/(^|[^0-9.])([0-9]+)([0-9]{3})/12,3/g' numbers
+
+
+# Remove duplicate lines using awk
+awk '!($0 in array) { array[$0]; print }' temp
+# Print all lines from /etc/passwd that has the same uid and gid
+awk -F ':' '$3==$4' passwd.txt
+# Print only specific field from a file
+awk '{print $2,$5;}' employee.txt
+# Awk reads and parses each line from input based on whitespace character by
+default and set the variables $1,$2
+# Awk FS variable is used to set the field separator for each record
+# Awk FS can be set to any single character or regular expression
+# 1 Using -F command line option: awk -F 'FS' 'commands' inputfilename as 
+following
+awk -F':' '{print $3,$4;}' /etc/passwd
+# 2 Awk FS can be set like normal variable: awk 'BEGIN{FS="FS";}' as 
+following
+BEGIN{
+FS=":";
+print "NametUserIDtGroupIDtHomeDirectory";
+}
+{
+    print $1"t"$3"t"$4"t"$6;
+}
+END {
+    print NR,"Records Processed";
+}
+# And the execution of the awk script
+awk -f etc_passwd.awk /etc/passwd
+# Output field separator: field 3 and 4 are connected with "="
+awk -F':' 'BEGIN{OFS="=";} {print $3,$4;}' /etc/passwd
+# Awk RS Example: Record Separator variable and its execution
+BEGIN {
+    RS="nn";
+    FS="n";
+
+}
+{
+    print $1,$2;
+}
+awk -f student.awk  student.txt
+# Awk ORS Example: Output Record Separator Variable
+awk 'BEGIN{ORS="=";} {print;}' student-marks
+# Awk NR Example: Number of Records Variable
+awk '{print "Processing Record - ",NR;}END {print NR, "Students Records are 
+processed";}' student-marks
+# Awk NF Example: Number of Fields in a record
+awk '{print NR,"->",NF}' student-marks
+# Awk FILENAME Example: Name of the current input file
+awk '{print FILENAME}' student-marks
+# Awk FNR Example: Number of Records relative to the current input file
+awk '{print FILENAME, FNR;}' student-marks bookdetails
+#  diff command examples :Ignore white space while comparing.
+diff -w name_list.txt name_list_new.txt
+
+
+# sort command examples Sort a file in ascending order
+sort names.txt
+# Sort a file in descending order
+sort -r names.txt
+# Sort passwd file by 3rd field. Filed separator is : (-t)  by a key (-k)
+sort -t: -k 3n /etc/passwd | more
+
+
+# To view oracle related environment variables
+export | grep ORACLE
+# To export an environment variable:
+export ORACLE_HOME=/u01/app/oracle/product/10.2.0
+
+
+# To create a *.gz compressed file:
+gzip test.txt
+# To uncompress a *.gz file:
+gzip -d test.txt.gz
+# To extract a *.zip compressed file:
+unzip test.zip
+
+
+# To view current running processes
+ps -ef | more
+# To view current running processes in a tree structure. H option stands for
+process hierarchy.
+ps -efH | more
+# for kill
+ps -ef | grep vim
+kill -9 7243
+
+
+# To displays only the processes that belong to a particular user use -u 
+option. 
+# The following will show only the top processes that belongs to oracle user.
+top -u oracle
+
+
+# Miscellaneous
+# Displays the file system disk space usage. By default df -k displays 
+output in bytes
+df -k
+# Get confirmation before removing the file.
+rm -i filename.txt
+# Following example recursively removes all files and directories under the 
+example directory
+rm -r example
+# Copy file1 to file2 preserving the mode, ownership and timestamp.
+cp -p file1 file2
+# Rename file1 to file2. if file2 exists prompt for confirmation before 
+overwritting it.
+mv -i file1 file2
+# Give full access to user and group (i.e read, write and execute ) on a 
+specific file
+chmod ug+rwx file.txt
+# Revoke all access for the group (i.e read, write and execute ) on a 
+specific file.
+chmod g-rwx file.txt
+# Apply the file permissions recursively to all the files in the sub-
+directories. o is for others
+chmod -R ugo+rwx file.txt
+# One more way to change
+chmod 777 file.txt
+# create a directory
+mkdir ~/temp
+# Use ifconfig command to view or configure a network interface on the Linux
+system
+ifconfig -a
+# Print N number of lines from the file named filename.txt
+tail -n N filename.txt
+# To install apache using yum
+yum install httpd
+# To upgrade apache using yum
+yum update httpd
+# To uninstall/remove apache using yum.
+yum remove httpd
+# Can do the samethings using rpm
+# The quick and effective method to download software, music, video from 
+internet is using wget command.
+wget http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-3.2.1.tar.gz

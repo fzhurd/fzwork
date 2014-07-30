@@ -18,7 +18,6 @@ from sqlalchemy import create_engine
 import logging
 import operator
 from time import time
- 
 import nose
 from nose.plugins.base import Plugin
 

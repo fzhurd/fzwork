@@ -1,0 +1,63 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<script src="scripts/script.js"></script>
+</head>
+<body>
+
+<h3> Game Rules </h3>
+
+<ul class = 'rule'>
+<li>You play as the 'X' and the computer is the 'O'.  </li>
+<li>Select the square you want to put your X into by clicking them.  </li>
+<li>You cannot occupy a square that is already occupied.</li>
+<li>The first player to get three squares in a row wins.</li>
+<li>Any time you could quit or reset the game</li>
+
+</ul>
+
+<center class = "container">
+
+<h1>Welcome to Tic-Tac-Toe Game!</h1>
+  
+<h1> Good Luck!! </h1>
+<form name=game>
+<table border=0>
+<td>
+<table border=1>
+<tr>
+<td><a href="javascript:yourChoice('A')"><img src="images/blank.jpg" border=0 height=100 width=100 name=A alt="Top-Left"></a></td>
+<td><a href="javascript:yourChoice('B')"><img src="images/blank.jpg" border=0 height=100 width=100 name=B alt="Top-Center"></a></td>
+<td><a href="javascript:yourChoice('C')"><img src="images/blank.jpg" border=0 height=100 width=100 name=C alt="Top-Right"></a></td>
+</tr>
+<tr>
+<td><a href="javascript:yourChoice('D')"><img src="images/blank.jpg" border=0 height=100 width=100 name=D alt="Middle-Left"></a></td>
+<td><a href="javascript:yourChoice('E')"><img src="images/blank.jpg" border=0 height=100 width=100 name=E alt="Middle-Center"></a></td>
+<td><a href="javascript:yourChoice('F')"><img src="images/blank.jpg" border=0 height=100 width=100 name=F alt="Middle-Right"></a></td>
+</tr>
+<tr>
+<td><a href="javascript:yourChoice('G')"><img src="images/blank.jpg" border=0 height=100 width=100 name=G alt="Bottom-Left"></a></td>
+<td><a href="javascript:yourChoice('H')"><img src="images/blank.jpg" border=0 height=100 width=100 name=H alt="Bottom-Center"></a></td>
+<td><a href="javascript:yourChoice('I')"><img src="images/blank.jpg" border=0 height=100 width=100  name=I alt="Bottom-Right"></a></td>
+</tr>
+</table>
+</td>
+<td>
+<table>
+<tr><td><input type=text size=5 name=you></td><td>Times of You Win </td></tr>
+<tr><td><input type=text size=5 name=computer></td><td>Times of Computer Win </td></tr>
+<tr><td><input type=text size=5 name=ties></td><td>Ties</td></tr>
+</table>
+</td>
+</table>
+<input type=button value="Play Again" onClick="playAgain();">
+&nbsp;&nbsp;
+<input type=button value="Game Help" onClick="help();">
+&nbsp;&nbsp;
+<input type=button value="Quit Game" onClick="quitGame();">
+</form>
+</center>
+
+</body>
+
+</html>

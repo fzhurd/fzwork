@@ -20,10 +20,11 @@ import operator
 from time import time
 import nose
 from nose.plugins.base import Plugin
+from nose.plugins import Plugin
 
 class RegexPicker(Plugin):
     
-    name = "RegexPicker"
+    name = "regexpicker"
 
     def __init__(self):
         Plugin.__init__(self)

@@ -21,9 +21,9 @@ from time import time
 import nose
 from nose.plugins.base import Plugin
 
-class RegexPicker(plugin):
+class RegexPicker(Plugin):
     
-    name = "regexpicker"
+    name = "RegexPicker"
 
     def __init__(self):
         Plugin.__init__(self)

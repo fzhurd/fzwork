@@ -3,19 +3,12 @@
 
 import datetime
 import unittest
-import pymongo
-import subprocess
 import dateutil.parser
 import os
-from subprocess import call
-from multiprocessing import Process
-from threading import Thread
 from nose.tools import *
 from bson.son import SON
 import sqlalchemy
 from sqlalchemy import create_engine
-
-import logging
 import operator
 from time import time
 import nose
@@ -26,6 +19,7 @@ class TestTimer(Plugin):
   
     name = 'test-timer'
     score = 1
+    enabled = True
  
     def _timeTaken(self):
         if hasattr(self, '_timer'):

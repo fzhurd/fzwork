@@ -15,6 +15,7 @@ class Person(object):
         return information
 
     def __call__(self):
+        print 'called'
         pass
 
 
@@ -28,10 +29,17 @@ def main():
     print p1
     print getattr(p1, 'age')
 
-    print '$$$$$$$$$$$$$$$$$$$$$$4'
+    print '$$$$$$$$$$$$$$$$$$$$$$'
 
-    p2=p1()
-    print p2
+    # p2=p1()
+    # print p2
+    # print p2.__dic__
+
+    p3 = Person('mary', 20)
+    print p3()
+    print Person
+    # setattr(p2,'name','john')
+    # print getattr(p2, 'name')
 
 
 

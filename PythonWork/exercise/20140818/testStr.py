@@ -41,6 +41,16 @@ def main():
     # setattr(p2,'name','john')
     # print getattr(p2, 'name')
 
+    students = ['david','frank','wong', 'jerry', 'john']
+
+    for s in students:
+        print s
+
+    print  [ s for s in students if s.startswith('j') ]
+
+    lg =  (s for s in students if s.startswith('j') ) 
+    
+
 
 
 if __name__ == '__main__':

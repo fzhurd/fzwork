@@ -48,7 +48,22 @@ def main():
 
     print  [ s for s in students if s.startswith('j') ]
 
+    li = [ s for s in students if s.startswith('j') ]
+
+    print li
+
+    for l in li:
+        print l
+
+    print '************************************8'
     lg =  (s for s in students if s.startswith('j') ) 
+
+    for i in lg:
+        print i
+
+    # print lg.next()
+    # print lg.next()
+
     
 
 

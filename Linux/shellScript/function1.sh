@@ -1,6 +1,10 @@
 #!/bin/bash  
-p ()  
+p_num ()  
 {  
-    echo "hello"  
+    num=$1  
+    echo $num  
 }  
-p  
+for n in $@  
+do  
+    p_num $n  
+done 

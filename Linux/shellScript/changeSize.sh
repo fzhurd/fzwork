@@ -1,11 +1,6 @@
- #!/bin/bash  
-while line=`ls /export/um_lpp_source`  
+#!/bin/bash  
+for i in  1 2 3 4 5 6 7 8 9   
 do  
-    if test $line=""  
-    then  echo "NULL"  
-    sleep 1  
-    else echo $line  
-    chfs -a size=3G /export/um_lpp_source  
-    exit 0  
-    fi  
+    echo "the number of $i computer is "  
+    ping -c 1 192.168.0.$i  
 done  

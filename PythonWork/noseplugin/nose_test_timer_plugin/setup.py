@@ -1,23 +1,12 @@
 # usr/bin/python
 # -*- coding: utf-8 
 
-import unittest
-import pymongo
-import subprocess
-import dateutil.parser
-import os
-from subprocess import call
-from multiprocessing import Process
-from threading import Thread
 from nose.tools import *
-
-import sqlalchemy
-from sqlalchemy import create_engine
-
-import logging
 
 import nose
 from nose.plugins.base import Plugin
+from setuptools import setup
+from setuptools import find_packages
 
 
 try:

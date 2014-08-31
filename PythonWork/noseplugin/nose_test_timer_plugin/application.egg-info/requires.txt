@@ -1,0 +1,1 @@
+nose.plugins.0.10

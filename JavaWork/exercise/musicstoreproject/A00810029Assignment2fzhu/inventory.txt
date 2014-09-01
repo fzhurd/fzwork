@@ -1,0 +1,7 @@
+Alpine|Alto Sax|AAS143|198490|450.0|10.0|1000|40|40
+Danelectro|Bass|D56BASS-AQUA|336177|395.0|10.0|100|40|20
+Orange|Amplifier|BT1000-H|319578|899.0|10.0|100|40|20
+Planet Waves|Superpicks|1ORD2-5|301075|4.5|10.0|100|40|20
+Korg|X50|Music Synthesizer|X50|735.0|10.0|100|40|20
+make|DVD|modal|99999|800.0|10.0|600|40|20
+make|new instrument|modal|56789|500|20|300|120|90

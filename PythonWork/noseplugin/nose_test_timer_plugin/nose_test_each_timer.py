@@ -63,6 +63,7 @@ class TestTimer(Plugin):
         self._register_time(test)
  
  
+ 
 if __name__ == '__main__':
     nose.main(addplugins=[TestTimer()])
 

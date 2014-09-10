@@ -1,6 +1,5 @@
 #!/bin/bash  
 
-
 colls=( t1.json t2.json t3.json  )
 
 for c in ${colls[@]}

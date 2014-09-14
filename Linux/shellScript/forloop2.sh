@@ -26,7 +26,7 @@ done
 
 
 NUMBERS="1 2 3 4 5"
-# echo $NUMBERS
+
 
 for i in `echo $NUMBERS`
 

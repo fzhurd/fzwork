@@ -96,8 +96,5 @@ class TestSuite(unittest.TestSuite):
             self._tests.append(Test(test, config=self.conf))
 
 
-
-
-
 if __name__ == '__main__':
     nose.main(addplugins=[CollectQuery()])

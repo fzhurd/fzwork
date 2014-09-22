@@ -12,7 +12,7 @@ else
 fi
 
 
-directory=${1-`pwd`}
+directory=${l-`pwd`}
 
 echo "symbolic links in directory \"$directory\""
 

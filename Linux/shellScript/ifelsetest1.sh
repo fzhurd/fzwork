@@ -10,3 +10,14 @@ else
 	echo  "$letter_sequence not found in word $word"
 
 fi
+
+
+directory=${1-`pwd`}
+
+echo "symbolic links in directory \"$directory\""
+
+for file in "$( find $directory -type l )"
+do
+	echo "$file"
+
+done | sort

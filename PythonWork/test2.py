@@ -20,9 +20,30 @@ from bson.code import Code
 from threading import Thread
 from bson.son import SON
 
-def main():
-	print 'hi'
+class Student(object):
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
 
+	def __str__(self):
+		name_str = 'studnet name: '+ self.name+"\n"
+		age_str =  'student age: '+ str(self.age)
+		return name_str + age_str
+
+	__repr__ = __str__
+
+def main():
+	student1 = Student('frank', 100)
+	setattr(student1, 'gender', 'male')
+	print student1
+	print student1.gender
+	setattr(Student, 'grade', 'junior')
+	print Student.grade
+
+
+
+	print dir(student1)
+	print dir(Student)
 
 if __name__=="__main__":
 	main()

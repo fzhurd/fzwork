@@ -39,6 +39,7 @@ def main():
 	print student1.gender
 	setattr(Student, 'grade', 'junior')
 	print Student.grade
+	print Student('john', 200)
 
 
 

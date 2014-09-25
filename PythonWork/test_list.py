@@ -47,3 +47,11 @@ if e:
 elif not e:
 	print True
 
+print type(e)
+
+f = ''
+if f:
+	print False
+elif not f:
+	print True
+print type(f)

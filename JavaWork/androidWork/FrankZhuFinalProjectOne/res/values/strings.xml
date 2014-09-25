@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Frank Zhu Final Project</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_city_select">CitySelectActivity</string>
+    <string name="select">Choose a country</string>
+
+    <string-array name="country_array">
+        <item>Canada</item>
+        <item>Australia</item>
+         <item>Belgium</item>    
+         <item>China</item>
+         <item>Denmark</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>Italy</item>
+        <item>New Zealand</item>
+        <item>United Kingdom</item>
+        <item>USA</item>
+    </string-array>
+
+    <string name="title_activity_weather_main">WeatherMainActivity</string>
+
+</resources>

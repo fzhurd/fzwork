@@ -1,0 +1,4 @@
+1|Frank|Zhu|Amex|A00810029|Albert Str.|Richmond|V8Y 6E4
+2|Daniel|Zhang|Visa|A001233|BC street.|Vancouver|V6U 4E6
+3|Lily|Ding|Amex|a00000|St Albans|Richmond|V6Y 4E6
+4|Jason|Luis|Amex|A00810099|Beach str|Burnaby|V6Y 4E6

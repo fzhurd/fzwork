@@ -40,3 +40,10 @@ print len(d)
 for i in d:
 	print i
 
+e =""
+
+if e:
+	print False
+elif not e:
+	print True
+

@@ -16,7 +16,7 @@ import tempfile
 
 from pymongo import MongoClient
 
-temp = tempfile.TemporaryFile()
+temp = tempfile.NamedTemporaryFile()
 # temp2 = tempfile.TemporaryFile()
 
 # temp.write('Some data')
@@ -36,7 +36,7 @@ print '****************************'
 
 # t2 = temp2.read()
 
-# print os.path.getsize(temp.name)
+print os.path.getsize(temp.name)
 # print os.path.getsize(temp2.name)
 
 

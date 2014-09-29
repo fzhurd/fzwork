@@ -23,6 +23,8 @@ temp2 = tempfile.NamedTemporaryFile()
 temp.write('Some data')
 temp.seek(0)
 
+#print temp3
+
 print temp
 print temp.name
 print temp.read()

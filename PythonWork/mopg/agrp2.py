@@ -27,7 +27,7 @@ from pymongo import MongoClient
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-x",  action = 'append', dest='xdest', required=False, type = str, help="Input the created database name in Postgres")
+    parser.add_argument("-x",   nargs='+', dest='xdest', required=False, type = str, help="Input the created database name in Postgres")
     parser.add_argument("-y",  dest = 'ydest', required=False,  type = str, help="Input the extension name")
 
     args = parser.parse_args()

@@ -26,7 +26,7 @@ from pymongo import MongoClient
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-m",  dest='mdest', required=False, type = str, help="Input the created database name in Postgres")
+    parser.add_argument("-m",  action = 'append', dest='mdest', required=False, type = str, help="Input the created database name in Postgres")
     parser.add_argument("-n",  dest = 'ndest', required=False,  type = str, help="Input the extension name")
 
     args = parser.parse_args()
@@ -37,6 +37,19 @@ def main():
 
     print p1
     print p2
+
+    for i in p1:
+        print i
+
+    s1 = " ".join(p1)
+    print 's1:', s1
+
+    #     q= i+' '
+    # print 'q: ', q
+    # p1b =p1.split(',')
+    # print p1b
+    # subprocess.call([ './agrp2.py', '-x', "%s", '-y', "%s"] % (p1, p2))
+    subprocess.call('./agrp2.py -x %s -y %s' % (s1, p2), shell=True)
     
 
 

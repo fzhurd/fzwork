@@ -24,9 +24,16 @@ import pymongo
 from pymongo import MongoClient
 
 
+def read_in_the_field_names(file_name):
+	with open(file_name) as fhandler:
+		for i in fhandler:
+			print i
+
+
 
 def main():
-	pass
+
+	read_in_the_field_names('fields.txt')
 
 
 if __name__=='__main__':

@@ -57,6 +57,7 @@ def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_co
 def read_in_the_field_names(file_name):
 	with open(file_name) as fhandler:
 		for i in fhandler:
+			print type(i)
 			print i
 
 

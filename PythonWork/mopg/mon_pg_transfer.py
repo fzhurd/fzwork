@@ -79,7 +79,15 @@ def main():
 	cursor = db.ebsco_test.find()
 
 	for i in cursor:
+
 		print i
+
+		each_field = i
+
+		try:
+			print each_field
+		except Exception as e:
+			print e
 
 
 if __name__=='__main__':

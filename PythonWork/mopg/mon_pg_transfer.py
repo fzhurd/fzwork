@@ -50,6 +50,7 @@ def setup_mongo_connection(mongodb = 'test'):
 
 
 def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_collection_name):
+
 	pass
 
 
@@ -76,6 +77,9 @@ def main():
 	db = setup_mongo_connection()
 
 	cursor = db.ebsco_test.find()
+
+	for i in cursor:
+		print i
 
 
 if __name__=='__main__':

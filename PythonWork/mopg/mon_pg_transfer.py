@@ -49,7 +49,9 @@ def setup_mongo_connection(mongodb = 'test'):
 
 
 
-def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_collection_name):
+def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_collection_name, field_name_files):
+
+	field_names =read_into_the_pg_field_names(field_name_files)
 
 	pass
 

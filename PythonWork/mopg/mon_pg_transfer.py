@@ -28,6 +28,8 @@ def setup_pg_connection(postgres_db_url, db='test'):
 
     global connectionPsql
 
+    postgres_db_url = 'postgres://test:test@localhost:5432/'
+
     postgres_db_url = postgres_db_url +db
 
     engine = create_engine(postgres_db_url)
@@ -72,7 +74,7 @@ def read_into_the_pg_field_names(file_name):
 def main():
 
 	read_into_the_pg_field_names('fields.txt')
-	postgres_db_url = 'postgres://test:test@localhost:5432/'
+	#postgres_db_url = 'postgres://test:test@localhost:5432/'
 
 	setup_pg_connection(postgres_db_url, 'test')
 

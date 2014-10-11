@@ -57,6 +57,9 @@ def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_co
 
 	field_names =read_into_the_pg_field_names(field_name_files)
 
+	for f in field_name:
+		f.split('.')
+
 	pass
 
 

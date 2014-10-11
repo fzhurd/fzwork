@@ -24,15 +24,17 @@ import pymongo
 from pymongo import MongoClient
 
 
-def setup_pg_connection(postgres_db_url, db='test'):
+def setup_pg_connection(postgres_db_url, db='postgres'):
 
     global connectionPsql
 
-    postgres_db_url = 'postgres://test:test@localhost:5432/'
+    # postgres_db_url = 'postgres://test:test@localhost:5432/'
 
-    postgres_db_url = postgres_db_url +db
+    # postgres_db_url = postgres_db_url +db
 
-    engine = create_engine(postgres_db_url)
+    # engine = create_engine(postgres_db_url)
+
+   	engine = create_engine('postgres://test:test@localhost:5432/%s' %db)
 
     engine.echo = True
 

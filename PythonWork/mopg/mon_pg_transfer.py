@@ -87,16 +87,31 @@ def main():
 
 	cursor = db.ebsco_test.find()
 
-	for i in cursor:
+	for c in cursor:
 
-		print i
+		print c
 
-		each_field = i
+		each_field = c
 
 		try:
 			print each_field
 		except Exception as e:
 			print e
+
+
+
+		# "metadata.dcterms:educationLevel"  15
+		try:
+			educationLevel = c['metadata']['dcterms:educationLevel']
+			educationLevel = json.dumps(educationLevel, ensure_ascii=False)
+			# educationLevel = dict(educationLevel)
+			print educationLevel
+			print type(educationLevel), '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+		except Exception as e:
+			educationLevel = None
+			# educationLevel = dict(educationLevel)
+			print 'no fields for educationLevel &&&&&&&&&&&&', educationLevel
+
 
 
 if __name__=='__main__':

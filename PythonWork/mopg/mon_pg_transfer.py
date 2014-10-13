@@ -71,14 +71,14 @@ def main():
 	db = setup_mongo_connection()
 	db['tm'].insert({'name':'david','age':10})
 
-	read_into_the_pg_field_names('fields.txt')
+	# read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'
 
-	setup_pg_connection( 'test')
+	# setup_pg_connection( 'test')
 
-	db = setup_mongo_connection()
+	# db = setup_mongo_connection()
 
-	cursor = db.ebsco_test.find()
+	# cursor = db.ebsco_test.find()
 
 
 	'''

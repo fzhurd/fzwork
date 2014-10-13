@@ -78,6 +78,8 @@ def read_into_the_pg_field_names(file_name):
 
 def main():
 
+	setup_mongo_connection()
+
 	read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'
 
@@ -86,6 +88,9 @@ def main():
 	db = setup_mongo_connection()
 
 	cursor = db.ebsco_test.find()
+
+
+	'''
 
 	for c in cursor:
 
@@ -112,7 +117,7 @@ def main():
 			# educationLevel = dict(educationLevel)
 			print 'no fields for educationLevel &&&&&&&&&&&&', educationLevel
 
-
+'''
 
 if __name__=='__main__':
 	main()

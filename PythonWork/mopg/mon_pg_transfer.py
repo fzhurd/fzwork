@@ -24,22 +24,12 @@ import pymongo
 from pymongo import MongoClient
 
 
-def setup_pg_connection(postgres_db_url, db='postgres'):
+def setup_pg_connection( db='postgres'):
 
     global connectionPsql
-
-    # postgres_db_url = 'postgres://test:test@localhost:5432/'
-
-    # postgres_db_url = postgres_db_url +db
-
-    # engine = create_engine(postgres_db_url)
-
-   	engine = create_engine('postgres://test:test@localhost:5432/%s' %db)
-
+    engine = create_engine('postgres://test:test@localhost:5432/%s' %db)
     engine.echo = True
-
     connectionPsql = engine.connect()
-
     connectionPsql.connection.connection.set_isolation_level(0)
 
 
@@ -78,12 +68,13 @@ def read_into_the_pg_field_names(file_name):
 
 def main():
 
-	setup_mongo_connection()
+	db = setup_mongo_connection()
+	db['tm'].insert({'name':'david','age':10})
 
 	read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'
 
-	setup_pg_connection(postgres_db_url, 'test')
+	setup_pg_connection( 'test')
 
 	db = setup_mongo_connection()
 

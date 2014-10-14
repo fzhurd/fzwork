@@ -26,23 +26,25 @@ from pymongo import MongoClient
 
 
 def main():
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-m",  action = 'append', dest='mdest', required=False, type = str, help="Input the created database name in Postgres")
+	parser.add_argument("-n",  dest = 'ndest', required=False,  type = str, help="Input the extension name")
+	args = parser.parse_args()
+
+	p1 = args.mdest
+
+	p2 = args.ndest
+
+	print p1
+	print p2
+
+
 	# la = ['a':'A', 'b':'B','c':'C','d':'D']
 	# lb = [{'a':'A'}, {'b':'B'},{'c':'C'},{'d':'D'}]
 
 	# print la
 	# print lb
-	parser = argparse.ArgumentParser()
-    parser.add_argument("-m",  action = 'append', dest='mdest', required=False, type = str, help="Input the created database name in Postgres")
-    parser.add_argument("-n",  dest = 'ndest', required=False,  type = str, help="Input the extension name")
-
-    args = parser.parse_args()
-
-    p1 = args.mdest
-
-    p2 = args.ndest
-
-
-
 
 
 if __name__=="__main__":

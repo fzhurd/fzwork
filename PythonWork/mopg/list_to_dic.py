@@ -39,6 +39,15 @@ def main():
 	print p1
 	print p2
 
+	p1b = " ".join(p1)
+	print p1b
+	print p1b.split()
+
+	for i in p1b.split():
+		t = i.split(':')
+		print type(t),t[0],t[1]
+		# print t[0], t[1]
+
 
 	# la = ['a':'A', 'b':'B','c':'C','d':'D']
 	# lb = [{'a':'A'}, {'b':'B'},{'c':'C'},{'d':'D'}]

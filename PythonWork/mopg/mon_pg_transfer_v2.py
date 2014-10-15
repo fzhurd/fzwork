@@ -73,6 +73,11 @@ def main():
     db['tm'].insert({'name':'david'})
     db['tm'].insert({'name':'david','gender':'male'})
 
+    x = '127.0.0.1:27177.test.a'
+
+    x =x.split('.')
+    print x
+
 	# read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'
 

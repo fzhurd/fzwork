@@ -80,6 +80,8 @@ def main():
     print x[-1]
     x[-1]='b'
     print x
+    t = '.'.join(x)
+    print t
 
 	# read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'

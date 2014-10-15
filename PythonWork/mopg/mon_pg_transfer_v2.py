@@ -77,6 +77,9 @@ def main():
 
     x =x.split('.')
     print x
+    print x[-1]
+    x[-1]='b'
+    print x
 
 	# read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'

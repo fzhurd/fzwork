@@ -93,7 +93,8 @@ def main():
 	# cursor = db.ebsco_test.find()
 
 
-       
+    #db.test_ren.update({'name':"127.0.0.1:27017.test.ebsco_test"},{$set:{'name':"127.0.0.1:27017.test.ebsco_test_new"}},{multi:true})
+
 
 if __name__=='__main__':
 	main()

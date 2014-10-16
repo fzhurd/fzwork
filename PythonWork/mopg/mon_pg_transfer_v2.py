@@ -68,7 +68,7 @@ def read_into_the_pg_field_names(file_name):
 
 def main():
     db = setup_mongo_connection()
-    # db['tm'].ensure_index('name', 'gender', "unique"= True)
+    
     db['tm'].ensure_index([('name',pymongo.ASCENDING),  ('unique',True)] )
     db['tm'].insert({'name':'david'})
     db['tm'].insert({'name':'david','gender':'male'})

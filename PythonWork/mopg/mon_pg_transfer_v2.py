@@ -68,20 +68,30 @@ def read_into_the_pg_field_names(file_name):
 
 def main():
     db = setup_mongo_connection()
+    setup_pg_connection(postgres_db_url, 'test')
+
+
+    cursor = db.collection_name.find()
+
+    for c in cursor:
+        try:
+            print 
+        except Exception as e:
+            print
     
-    db['tm'].ensure_index([('name',pymongo.ASCENDING),  ('unique',True)] )
-    db['tm'].insert({'name':'david'})
-    db['tm'].insert({'name':'david','gender':'male'})
+    # db['tm'].ensure_index([('name',pymongo.ASCENDING),  ('unique',True)] )
+    # db['tm'].insert({'name':'david'})
+    # db['tm'].insert({'name':'david','gender':'male'})
 
-    x = '127.0.0.1:27177.test.a'
+    # x = '127.0.0.1:27177.test.a'
 
-    x =x.split('.')
-    print x
-    print x[-1]
-    x[-1]='b'
-    print x
-    t = '.'.join(x)
-    print t
+    # x =x.split('.')
+    # print x
+    # print x[-1]
+    # x[-1]='b'
+    # print x
+    # t = '.'.join(x)
+    # print t
 
 	# read_into_the_pg_field_names('fields.txt')
 	#postgres_db_url = 'postgres://test:test@localhost:5432/'

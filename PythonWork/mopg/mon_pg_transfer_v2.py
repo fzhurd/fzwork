@@ -55,12 +55,14 @@ def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_co
 
 
 def read_into_the_pg_field_names(file_name):
-	fields_name=[]
+	fields_name_total=[]
 	with open(file_name) as fhandler:
 		for i in fhandler:
 			print type(i)
 			print i
-			fields_name.append(i)
+
+            field_full_name_part = i.split('.')
+			fields_name_total.append(i)
 
 		return fields_name
 
@@ -70,7 +72,6 @@ def main():
     db = setup_mongo_connection()
     setup_pg_connection(postgres_db_url, 'test')
 
-
     cursor = db.collection_name.find()
 
     for c in cursor:
@@ -78,6 +79,9 @@ def main():
             print 
         except Exception as e:
             print
+
+    connectionPsql.execute("INSERT INTO table_postgres  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s  )", description, publisher,language,abstractor,isbn, header, issn, pageCount, issue,keywords, sponsor, referenceCount, title, subject, educationLevel, peer_reviewed, date,accessRights, metadata, audience,dateAdded, creator,source,citation,level,note,contract_number,report_number,the_type,identifier, _id )
+
     
     # db['tm'].ensure_index([('name',pymongo.ASCENDING),  ('unique',True)] )
     # db['tm'].insert({'name':'david'})

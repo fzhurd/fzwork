@@ -52,7 +52,8 @@ def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_co
 
 	pass
 
-
+def create_localtable(fields_file):
+    pass
 
 def read_into_the_pg_field_names(file_name):
 	fields_name_total=[]

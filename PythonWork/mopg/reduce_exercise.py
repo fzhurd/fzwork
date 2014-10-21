@@ -23,10 +23,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import pymongo
 from pymongo import MongoClient
+from operator import getitem
 
 
 def main():
-	print 'hi'
+
+    d = {'a': {'b': {'c': 100}}}
+    l =['a','b','c']
+    x = reduce(getitem,l,d)
+    print x
 
 
 if __name__=='__main__':

@@ -28,7 +28,31 @@ import pymongo
 from pymongo import MongoClient
 from operator import getitem
 
+def setup_pg_connection(postgres_db_url, db='test'):
 
+    global connectionPsql
+    global metadata
+
+    url = postgres_db_url +db
+
+    engine = create_engine( url)
+
+    engine.echo = True
+
+    connectionPsql = engine.connect()
+
+    metadata = MetaData(bind=engine, schema="test")
+
+    connectionPsql.connection.connection.set_isolation_level(0)
+
+def setup_mongo_connection(mongodb = 'test'):
+
+	dbconnection = pymongo.MongoClient('localhost', 27017)
+	db = dbconnection[mongodb]
+
+	return db
+
+	
 def main():
 	print 'hi'
 

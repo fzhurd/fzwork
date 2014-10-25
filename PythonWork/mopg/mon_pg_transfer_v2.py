@@ -50,7 +50,42 @@ def mongo_to_pg_transfer(mongo_db_name, mongo_collection_name, pg_db_name, pg_co
 	for f in field_name:
 		f.split('.')
 
-	pass
+
+def create_pg_table(postgres_db_url, file_name, pg_local_table_name):
+
+    setup_pg_connection(postgres_db_url, 'test')
+
+    syntax = []
+
+    with open(file_name) as fhandler:
+
+        for each_line in fhandler:
+
+            each_line = each_line.rstrip()
+
+            each_line_name_type = [ ]
+
+            each_line_part = each_line.split()
+
+            each_line_part_first = '"'+each_line_part[0]+'"'
+
+            each_line_name_type.append(each_line_part_first)
+
+            for i in xrange(1, len(each_line_part )):
+
+                each_line_name_type.append(each_line_part[i])
+
+            each_line_full =  " ".join(each_line_name_type)
+
+            syntax.append(each_line_full)
+
+    sentence = ', '.join(syntax)
+    #print sentence
+    query = "Create Table %s ( %s )" %(pg_local_table_name, sentence)
+
+    connectionPsql.execute(query)
+
+    connectionPsql.connection.connection.set_isolation_level(1)
 
 def create_localtable(fields_file):
     pass

@@ -22,3 +22,10 @@ Awk Example 6. Print the list of employees in Technology department
 Now department name is available as a fourth field, so need to check if $4 matches with the string “Technology”, if yes print the line.
 
 $ awk '$4 ~/Technology/' employee.txt
+
+
+Awk Example 7. Print number of employees in Technology department
+$ awk 'BEGIN { count=0;}
+$4 ~ /Technology/ { count++; }
+END { print "Number of employees in Technology Dept =",count;}' employee.txt
+Number of employees in Tehcnology Dept = 3

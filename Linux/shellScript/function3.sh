@@ -8,3 +8,6 @@ function fSum()
  fSum 5 7;
  total=$(fSum 3 2);
  echo $total,$?;
+
+ total2=$(fSum 300 200);
+ echo $total2,$?;

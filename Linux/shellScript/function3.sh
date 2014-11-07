@@ -19,13 +19,14 @@ function fSum()
 
 
 echo $(uname);
+echo '***********************'
 declare num=1000;
  
 uname()
 {
     echo "test!";
     ((num++));
-    return 100;
+    return 10000;
 }
 testvar()
 {

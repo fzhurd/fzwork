@@ -59,10 +59,30 @@ class myDecorator(object):
  
     def __call__(self):
         print "inside myDecorator.__call__()"
+
+
+class entryExit(object):
  
-@myDecorator
-def aFunction():
-    print "inside aFunction()"
+    def __init__(self, f):
+        self.f = f
+ 
+    def __call__(self):
+        print "Entering", self.f.__name__
+        self.f()
+        print "Exited", self.f.__name__
+ 
+@entryExit
+def func1():
+    print "inside func1()"
+ 
+@entryExit
+def func2():
+    print "inside func2()"
+ 
+func1()
+func2()
+ 
+
 
 def main():
 	c = C()
@@ -71,6 +91,13 @@ def main():
 	comment_class = ID3v2FrameClassFactory.get_class_from_frame_identifier('COMM')
 	print title_class
 	print comment_class
+
+    @myDecorator
+    def aFunction():
+        print "inside aFunction()"
+
+
+    aFunction()
 	
 if __name__ == '__main__':
 	main()

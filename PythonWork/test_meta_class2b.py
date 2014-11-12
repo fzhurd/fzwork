@@ -32,6 +32,10 @@ def outer(some_func):
         return ret + 1
         return inner
 
+
+
+        
+@outer
 def foo():
     return 1
 

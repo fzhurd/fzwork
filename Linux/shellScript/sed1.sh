@@ -27,3 +27,7 @@ $ sed "3s/my/your/g" pets.txt
 #   my fish's name is george
 # This is my goat
 #   my goat's name is adam
+
+
+#list the top 10 process cost most memory
+ps aux | sort -nk +4 | tail

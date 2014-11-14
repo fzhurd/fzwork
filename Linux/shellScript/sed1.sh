@@ -31,3 +31,11 @@ $ sed "3s/my/your/g" pets.txt
 
 #list the top 10 process cost most memory
 ps aux | sort -nk +4 | tail
+
+
+ssh user@server bash < /path/to/local/script.sh
+# 在远程机器上运行一段脚本。这条命令最大的好处就是不用把脚本拷到远程机器上。
+ssh user@host cat /path/to/remotefile | diff /path/to/localfile -
+# 比较一个远程文件和一个本地文件
+net rpc shutdown -I ipAddressOfWindowsPC -U username%password
+# 远程关闭一台Windows的机器

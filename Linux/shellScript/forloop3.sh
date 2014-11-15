@@ -1,11 +1,9 @@
 #!/bin/bash  
 
-
-  
-for file in $(ls /tmp/test/mytest |grep sh)   #for in格式是shell for的基本格式，根js的for in类似  
-do               # 循环开始你就把它当成{  
- echo $file  
-done             #循环结束你就把它当成}  
+# for file in $(ls /tmp/test/mytest |grep sh)   #for in格式是shell for的基本格式，根js的for in类似  
+# do               # 循环开始你就把它当成{  
+#  echo $file  
+# done             #循环结束你就把它当成}  
   
 for ((i=0;i<10;i++))        #注意是双小括号，由于受其他语言的影响，很容易搞错  
 do  
@@ -26,4 +24,21 @@ do
  echo -n $i  
 done  
   
+exit 0  
+
+
+#!/bin/bash  
+i=0  
+while ((i<10))  
+do  
+ echo $i  
+ ((i += 1))  
+done  
+  
+i=0  
+while [ $i -lt 10 ]  #注意括号内侧二边的空格  
+do  
+ echo $i  
+ let "i+=1"   #加1  
+done  
 exit 0  

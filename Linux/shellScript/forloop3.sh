@@ -90,3 +90,21 @@ else
 fi                                 #if要有结束标签的，根XML很像,不闭合，就报错  
   
 exit 0  
+
+
+
+case $1 in  
+ start)  
+ echo "start ok"  
+ ;;       #注意一点，要注意是双分号  
+ stop)  
+ echo "stop  ok"  
+ ;;  
+ restart)  
+ echo "restart ok"  
+ ;;  
+ *)  
+ echo "no param"  
+ ;;  
+esac      #注意闭合标签  
+exit 0  

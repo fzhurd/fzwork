@@ -3,11 +3,18 @@ import sys
 import os
 
 
-def is_list_of_dict(input_field):
+def is_list_of_dict_all(input_field):
     
-    is_dict = all(isinstance(i, dict) for i in input_field)
+    is_dict_all = all(isinstance(i, dict) for i in input_field)
 
-    return is_dict
+    return is_dict_all
+
+
+def is_list_of_dict_any(input_field):
+    
+    is_dict_any = any(isinstance(i, dict) for i in input_field)
+
+    return is_dict_any
 
 def main():
 	pass

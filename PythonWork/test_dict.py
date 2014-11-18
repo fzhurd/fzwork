@@ -17,7 +17,25 @@ def is_list_of_dict_any(input_field):
     return is_dict_any
 
 def main():
-	pass
+
+	lis1 =[{'a1':1},{'a2':2},{'a3':3}]
+	lis2 =[{'a1':1},'a2', 'a3']
+	lis3= ['a1','a2', 'a3']
+
+	print 'check all-1: ',is_list_of_dict_all(lis1)
+	print 'check any-1: ',is_list_of_dict_any(lis1)
+
+	print '***********************************'
+
+	print 'check all-2: ',is_list_of_dict_all(lis2)
+	print 'check any-2: ',is_list_of_dict_any(lis2)
+
+	print '***********************************'
+
+	print 'check all-3: ',is_list_of_dict_all(lis3)
+	print 'check any-3: ',is_list_of_dict_any(lis3)
+
+
 
 # class Student(object):
 # 	def __init__(self, studentId, name):

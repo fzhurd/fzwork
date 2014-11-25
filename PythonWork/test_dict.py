@@ -35,10 +35,23 @@ def main():
 	print 'check all-3: ',is_list_of_dict_all(lis3)
 	print 'check any-3: ',is_list_of_dict_any(lis3)
 
-	h= [{'a':1},{'b':2},{'c':'cname'}]
+	h= [{'a':1, 'a2':'11', 'a3':True},{'b':2},{'c':'cname'}]
 
+	un ={}
+	st ='.'
 	for i in h:
-		print i
+		print i,'*******************'
+		
+		for k,v in i.items():
+			print 'key: ', k, ' value: ',v
+			full_column_lis= ['h', str(k)]
+			full_column_name = st.join(full_column_lis)
+			print full_column_name
+
+
+
+
+
 
 
 

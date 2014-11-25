@@ -35,6 +35,11 @@ def main():
 	print 'check all-3: ',is_list_of_dict_all(lis3)
 	print 'check any-3: ',is_list_of_dict_any(lis3)
 
+	h= [{'a':1},{'b':2},{'c':'cname'}]
+
+	for i in h:
+		print i
+
 
 
 # class Student(object):

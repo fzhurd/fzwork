@@ -47,6 +47,21 @@ def main():
 			full_column_lis= ['h', str(k)]
 			full_column_name = st.join(full_column_lis)
 			print full_column_name
+			un.update({full_column_name:'h'})
+
+	print un
+
+	#{'h.a': 'h', 'h.c': 'h', 'h.b': 'h', 'h.a3': 'h', 'h.a2': 'h'}
+
+	if 'h.a' in un:
+		print un['h.a']
+	else:
+		print 'h.a is no in'
+		
+	if 'h.d' in un:
+		print un['h.d']
+	else:
+		print 'h.d is not in'
 
 
 

@@ -42,12 +42,14 @@ def main():
 	for i in h:
 		print i,'*******************'
 		
+		
 		for k,v in i.items():
 			print 'key: ', k, ' value: ',v
 			full_column_lis= ['h', str(k)]
 			full_column_name = st.join(full_column_lis)
 			print full_column_name
 			un.update({full_column_name:'h'})
+
 
 	print un
 
@@ -57,7 +59,7 @@ def main():
 		print un['h.a']
 	else:
 		print 'h.a is no in'
-		
+
 	if 'h.d' in un:
 		print un['h.d']
 	else:

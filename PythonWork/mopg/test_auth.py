@@ -119,31 +119,7 @@ def main():
     connectionPsql.execute("INSERT INTO table_postgres  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s  )", description, publisher,language,abstractor,isbn, header, issn, pageCount, issue,keywords, sponsor, referenceCount, title, subject, educationLevel, peer_reviewed, date,accessRights, metadata, audience,dateAdded, creator,source,citation,level,note,contract_number,report_number,the_type,identifier, _id )
 
     
-    # db['tm'].ensure_index([('name',pymongo.ASCENDING),  ('unique',True)] )
-    # db['tm'].insert({'name':'david'})
-    # db['tm'].insert({'name':'david','gender':'male'})
 
-    # x = '127.0.0.1:27177.test.a'
-
-    # x =x.split('.')
-    # print x
-    # print x[-1]
-    # x[-1]='b'
-    # print x
-    # t = '.'.join(x)
-    # print t
-
-	# read_into_the_pg_field_names('fields.txt')
-	#postgres_db_url = 'postgres://test:test@localhost:5432/'
-
-	# setup_pg_connection( 'test')
-
-	# db = setup_mongo_connection()
-
-	# cursor = db.ebsco_test.find()
-
-
-    #db.test_ren.update({'name':"127.0.0.1:27017.test.ebsco_test"},{$set:{'name':"127.0.0.1:27017.test.ebsco_test_new"}},{multi:true})
 
 
 if __name__=='__main__':

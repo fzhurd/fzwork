@@ -21,6 +21,12 @@ from functools import wraps
 from pymongo import MongoClient
 
 
+def set_up_mongo_connection(host, port,db):
+	pass
+
+
+
+
 
 '''
 Decorator that reports the execution time.
@@ -30,8 +36,13 @@ def timethis(func):
 	@wraps(func)
 	def wrapper(*args, **kwargs):
 		start = time.time()
+		print 'start query time: ', start
+
 		result = func(*args, **kwargs)
+
 		end = time.time()
+		print 'end query time: ', end
+
 		print(func.__name__, end-start)
 		return result
 	return wrapper
@@ -43,7 +54,7 @@ def countdown(num):
 
 
 def main():
-	countdown(100)
+	countdown(100000)
 
 
 

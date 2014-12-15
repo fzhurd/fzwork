@@ -13,13 +13,14 @@ import sys
 import time
 import uuid
 import tempfile
+import kerberos
 #import PDB
 
 from pymongo import MongoClient
 
 def main():
-	pass
+	print 'hi'
 
 
-if __name__=='__maind__':
-	maind()
+if __name__=='__main__':
+	main()

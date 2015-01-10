@@ -21,7 +21,39 @@ from functools import wraps
 from pymongo import MongoClient
 
 import threading
-from DBUtils import PooledDB
+import psycopg2
+import psycopg2.pool
+
+# create pool with min number of connections of 1, max of 10
+a = psycopg2.pool.SimpleConnectionPool(1,10,database='test')
+
+
+@contextmanager
+def getcursor():
+    con = a.getconn()
+    try:
+        yield con.cursor()
+    finally:
+        a.putconn(con)
+
+with getcursor() as cur
+    cur.execute("select count(*) from foo")
+    # do something with result
+
+# all done, other code goes here
+
+imax = 1000
+def withpool():
+    for i in xrange(imax):
+        with getcursor() as cur:
+            cur.execute("select 1")
+
+def withoutpool():
+    for i in xrange(imax):
+        con = psycopg2.connect(database='geocode')
+        cur = con.cursor()
+        cur.execute("select 1")
+        con.close()
 
 
 def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='postgres'):

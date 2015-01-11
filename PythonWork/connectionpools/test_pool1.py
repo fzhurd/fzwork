@@ -34,6 +34,7 @@ def getcursor():
     con = a.getconn()
     try:
         yield con.cursor()
+        print con.cursor()
     finally:
         a.putconn(con)
 

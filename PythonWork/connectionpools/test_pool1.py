@@ -34,7 +34,7 @@ def getcursor():
     con = a.getconn()
     try:
         yield con.cursor()
-        print con.cursor()
+        # print con.cursor()
     finally:
         a.putconn(con)
 
@@ -44,17 +44,21 @@ with getcursor() as cur:
 
 # all done, other code goes here
 
-imax = 1000
+imax = 100
 def withpool():
     for i in xrange(imax):
         with getcursor() as cur:
             cur.execute("select 1")
+            for i in cur:
+                print i
 
 def withoutpool():
     for i in xrange(imax):
-        con = psycopg2.connect(database='test')
+        con = psycopg2.connect(database='test',user='test', host='localhost', password='test')
         cur = con.cursor()
-        cur.execute("select 1")
+        cur.execute("select * from test1")
+        for i in cur:
+            print i
         con.close()
 
 
@@ -68,6 +72,7 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
 def main():
 
     withpool()
+    # withoutpool()
  
    
    

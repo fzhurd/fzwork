@@ -26,35 +26,45 @@ import psycopg2.pool
 from contextlib import contextmanager
 
 # create pool with min number of connections of 1, max of 10
-a = psycopg2.pool.SimpleConnectionPool(1,10,database='test', user='test', host='localhost', password='test')
+a = psycopg2.pool.SimpleConnectionPool(1,100,database='test', user='test', host='localhost', password='test')
+# a = psycopg2.pool.ThreadedConnectionPool(1,100,database='test', user='test', host='localhost', password='test')
 
 
 @contextmanager
 def getcursor():
     con = a.getconn()
+    con.autocommit = True
+    print con, '**********************************'
     try:
         yield con.cursor()
         # print con.cursor()
     finally:
         a.putconn(con)
 
-with getcursor() as cur:
-    cur.execute("select count(*) from test1")
+# with getcursor() as cur:
+#     cur.execute("select count(*) from test1")
     # do something with result
 
 # all done, other code goes here
 
-imax = 100
+imax = 10
 def withpool():
+    i=0
     for i in xrange(imax):
+        i = i+1
+        print i, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
         with getcursor() as cur:
-            cur.execute("select 1")
-            for i in cur:
-                print i
+            cur.execute("select * from test1")
+            for j in cur:
+                print j
 
 def withoutpool():
+    i=0
     for i in xrange(imax):
+        i=i+1
+        print i, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2'
         con = psycopg2.connect(database='test',user='test', host='localhost', password='test')
+        print con, '######################################'
         cur = con.cursor()
         cur.execute("select * from test1")
         for i in cur:
@@ -71,8 +81,8 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
 
 def main():
 
-    withpool()
-    # withoutpool()
+    # withpool()
+    withoutpool()
  
    
    

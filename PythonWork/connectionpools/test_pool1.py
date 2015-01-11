@@ -36,7 +36,7 @@ def getcursor():
     finally:
         a.putconn(con)
 
-with getcursor() as cur
+with getcursor() as cur:
     cur.execute("select count(*) from foo")
     # do something with result
 
@@ -50,7 +50,7 @@ def withpool():
 
 def withoutpool():
     for i in xrange(imax):
-        con = psycopg2.connect(database='geocode')
+        con = psycopg2.connect(database='test')
         cur = con.cursor()
         cur.execute("select 1")
         con.close()
@@ -65,7 +65,7 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
 
 def main():
 
-    pass
+    withpool()
  
    
    

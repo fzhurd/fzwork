@@ -23,9 +23,10 @@ from pymongo import MongoClient
 import threading
 import psycopg2
 import psycopg2.pool
+from contextlib import contextmanager
 
 # create pool with min number of connections of 1, max of 10
-a = psycopg2.pool.SimpleConnectionPool(1,10,database='test')
+a = psycopg2.pool.SimpleConnectionPool(1,10,database='test', user='test', host='localhost', password='test')
 
 
 @contextmanager
@@ -37,7 +38,7 @@ def getcursor():
         a.putconn(con)
 
 with getcursor() as cur:
-    cur.execute("select count(*) from foo")
+    cur.execute("select count(*) from test1")
     # do something with result
 
 # all done, other code goes here

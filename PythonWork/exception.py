@@ -11,9 +11,12 @@ class MyError(Exception):
         return repr(self.value)
 
 
-        
+
 def main():
-    print 'hi'
+    try:
+        raise MyError(2*2)
+    except MyError, e:
+        print 'My exception occurred, value:', e.value
 
 
 

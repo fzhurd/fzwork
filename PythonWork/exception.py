@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import sys
 import os
+import pymongo
 
 class MyError(Exception):
     def __init__(self, value):
@@ -15,6 +16,8 @@ class MyError(Exception):
 def main():
     try:
         raise MyError(2*2)
+    except pymongo.OperationFailure:
+        print 'this exception is from pymongo'
     except MyError, e:
         print 'My exception occurred, value:', e.value
 

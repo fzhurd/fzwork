@@ -2,9 +2,10 @@
 import sys
 import os
 import pymongo
+import psycopg2
 
 def main():
-	print 'hi'
+    perform_sql_query('select * from test1', 'test', 'test','127.0.0.1',5432,'test')
 
 def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='postgres'):
     connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
@@ -18,9 +19,10 @@ def perform_sql_query(pg_query, pg_user, pg_password, pg_host, pg_port=5432, pg_
 
     connection_psql = set_up_pg_connection(pg_user, pg_password, pg_host, pg_port, pg_db)
 
-    result_source_cursor = connection_psql.cursor('time_sonarsql_user_cursor')
-    pg_query = 'select * from test1;'
-    result_source_cursor.execute(pg_query)
+    result_source_cursor = connection_psql.cursor('my_cursor')
+    # pg_query = 'select * from test1;'
+    cur = result_source_cursor.execute(pg_query)
+    print cur
 
 
 if __name__=='__main__':

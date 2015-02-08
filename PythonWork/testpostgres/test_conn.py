@@ -21,8 +21,10 @@ def perform_sql_query(pg_query, pg_user, pg_password, pg_host, pg_port=5432, pg_
 
     result_source_cursor = connection_psql.cursor('my_cursor')
     # pg_query = 'select * from test1;'
-    cur = result_source_cursor.execute(pg_query)
-    print cur
+    result_source_cursor.execute(pg_query)
+    print result_source_cursor
+    for c in result_source_cursor:
+        print c
 
 
 if __name__=='__main__':

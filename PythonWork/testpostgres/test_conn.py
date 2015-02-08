@@ -14,14 +14,12 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
 
 
 
-def perform_sonar_sql_query(pg_query, pg_user, pg_password, pg_host, pg_port=5432, pg_db='test' ):
+def perform_sql_query(pg_query, pg_user, pg_password, pg_host, pg_port=5432, pg_db='test' ):
 
     connection_psql = set_up_pg_connection(pg_user, pg_password, pg_host, pg_port, pg_db)
 
-    start = time.time()
-    print 'start time:', start
-
     result_source_cursor = connection_psql.cursor('time_sonarsql_user_cursor')
+    pg_query = 'select * from a;'
     result_source_cursor.execute(pg_query)
 
 

@@ -4,6 +4,7 @@ import os
 import pymongo
 import psycopg2
 import ConfigParser
+import subprocess
 
 def main():
     cf = ConfigParser.ConfigParser()
@@ -33,7 +34,7 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
         #sudo -i -u postgres
     except Exception as e:
         # print e.Message()
-        pass
+        subprocess.check_call('sudo -i -u postgres' , shell=True)
     connection_psql=psycopg2.connect(connection_string)
     # connection_psql=psycopg2.connect(dbname='postgres')
     return connection_psql

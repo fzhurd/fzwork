@@ -29,10 +29,13 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
     try:
         connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
         pg_host, pg_port, pg_db, pg_user, pg_password)
+        
+        #sudo -i -u postgres
     except Exception as e:
         # print e.Message()
         pass
     connection_psql=psycopg2.connect(connection_string)
+    # connection_psql=psycopg2.connect(dbname='postgres')
     return connection_psql
 
 

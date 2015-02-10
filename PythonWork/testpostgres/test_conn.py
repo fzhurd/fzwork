@@ -28,13 +28,20 @@ def main():
 
 def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='postgres'):
     try:
-        connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
-        pg_host, pg_port, pg_db, pg_user, pg_password)
+        # subprocess.check_call('sudo -i -u postgres' , shell=True)
+        subprocess.check_call('sudo su - postgres' , shell=True)
+        subprocess.check_call('psql -U postgres -d postgres' , shell=True)
+        # connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
+        # pg_host, pg_port, pg_db, pg_user, pg_password)
+        
         
         #sudo -i -u postgres
     except Exception as e:
         # print e.Message()
-        subprocess.check_call('sudo -i -u postgres' , shell=True)
+        
+        subprocess.check_call('sudo su - postgres' , shell=True)
+        # subprocess.check_call('sudo -i -u postgres' , shell=True)
+        subprocess.check_call('psql -U postgres -d postgres' , shell=True)
     connection_psql=psycopg2.connect(connection_string)
     # connection_psql=psycopg2.connect(dbname='postgres')
     return connection_psql

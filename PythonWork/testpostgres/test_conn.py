@@ -26,8 +26,12 @@ def main():
     # perform_sql_query('select * from test1', 'test', 'test','127.0.0.1',5432,'test')
 
 def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='postgres'):
-    connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
+    try:
+        connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
         pg_host, pg_port, pg_db, pg_user, pg_password)
+    except Exception as e:
+        # print e.Message()
+        pass
     connection_psql=psycopg2.connect(connection_string)
     return connection_psql
 

@@ -31,7 +31,7 @@ def set_up_pg_connection(pg_user, pg_host, pg_port=5432, pg_db='postgres'):
     try:
         # subprocess.check_call('sudo -i -u postgres' , shell=True)
         # subprocess.check_call('sudo su - postgres' , shell=True)
-        subprocess.check_call('sudo -u postgres psql -c "ALTER USER postgres PASSWORD \'postgres\';"' , shell=True)
+        subprocess.check_call('sudo -u postgres psql -c "select * from pp;"' , shell=True)
         connection_string = "host='{}' port='{}' dbname='{}' user='{}' ".format(
         pg_host, pg_port, 'postgres', 'postgres')
 

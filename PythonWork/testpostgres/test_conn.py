@@ -37,6 +37,8 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
         # connection_string = "host='{}' port='{}' dbname='{}' user='{}' ".format(
         # pg_host, pg_port, 'postgres', 'postgres')
         if pg_user and pg_password:
+            # select usesuper from pg_user where usename = CURRENT_USER
+
             subprocess.check_call('sudo -u postgres psql -c "CREATE USER test9 WITH SUPERUSER PASSWORD \'test9\'"' , shell=True)
             connection_string = "host='{}' port='{}' dbname='{}' user='{}' password='{}'".format(
                 pg_host, pg_port, pg_db, pg_user, pg_password)  

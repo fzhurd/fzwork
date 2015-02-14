@@ -55,7 +55,8 @@ def set_up_pg_connection(pg_user, pg_password, pg_host, pg_port=5432, pg_db='pos
         subprocess.check_call('sudo su - postgres' , shell=True)
         # subprocess.check_call('sudo -i -u postgres' , shell=True)
         subprocess.check_call('psql -U postgres -d postgres' , shell=True)
-    connection_psql=psycopg2.connect(connection_string)
+    else:
+        connection_psql=psycopg2.connect(connection_string)
     
     # connection_psql=psycopg2.connect(dbname='postgres')
     return connection_psql

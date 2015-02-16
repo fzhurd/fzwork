@@ -32,6 +32,30 @@ def perform_mongo_export(port, db_name='test', collection_name= 'test', file_nam
     return export_used_time
 
 
+def perform_mongo_dump(port, db_name='test', collection_name ='test', file_name = 'test_dump'):
+    start = time.time()
+    print 'dump start time:', start
+    subprocess.call('mongodump --port %d -d %s -c %s -o %s' % (port,
+    db_name, collection_name, file_name), shell=True)
+    end = time.time()
+    print 'dump end time:', end
+    dump_used_time = end - start
+    print 'dump use time', dump_used_time
+    return dump_used_time
+
+
+def perform_mongo_restore(port, db_name='test', file_name = 'test'):
+    start = time.time()
+    print 'restore start time:', start
+    subprocess.call('mongorestore --port %d -d %s -directoryperdb %s --drop' % (port,
+    db_name, file_name), shell=True)
+    end = time.time()
+    print 'restore end time:', end
+    restore_used_time = end - start
+    print 'restore use time', restore_used_time
+    return restore_used_time
+
+
 def main():
     print 'hi'
 

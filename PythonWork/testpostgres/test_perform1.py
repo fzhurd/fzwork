@@ -57,7 +57,10 @@ def perform_mongo_restore(port, db_name='test', file_name = 'test'):
 
 
 def main():
-    print 'hi'
+    mongo_import_time = perform_mongo_import(27017)
+    mongo_export_time = perform_mongo_export(27017)
+    mongo_dump_time = perform_mongo_dump(27017)
+    mongo_restore_time = perform_mongo_restore(27017)
 
 if __name__=='__main__':
     main()

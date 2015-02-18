@@ -55,7 +55,25 @@ def perform_mongo_restore(port, db_name='test', file_name = 'test'):
     print 'restore use time', restore_used_time
     return restore_used_time
 
+'''
+Decorator that reports the execution time.
+'''
+def timethis(func):
 
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        print 'start query time: ', start
+
+        result = func(*args, **kwargs)
+
+        end = time.time()
+        print 'end query time: ', end
+
+        print(func.__name__, end-start)
+        return result
+    return wrapper
+    
 def main():
     mongo_import_time = perform_mongo_import(27017)
     mongo_export_time = perform_mongo_export(27017)

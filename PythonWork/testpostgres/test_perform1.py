@@ -73,6 +73,12 @@ def timethis(func):
         print(func.__name__, end-start)
         return result
     return wrapper
+
+def slice_numbers(num):
+    pass
+
+def remove_created_files():
+    pass
     
 def main():
     mongo_import_time = perform_mongo_import(27017)

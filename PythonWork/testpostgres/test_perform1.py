@@ -74,6 +74,21 @@ def timethis(func):
         return result
     return wrapper
 
+def sum_all_time(time_sum):
+    print '####################### Summary #######################'
+    i =0
+    for tup in time_sum:
+        i= i+1
+        if i==1:
+            print 'Import: '
+        elif i==2:
+            print 'Export: '
+        elif i==3:
+            print 'Dump: '
+        elif i==4:
+            print 'Restore: '
+        calculate_mongo_vs_sonar(tup[0], tup[1])
+
 def slice_numbers(num):
     pass
 

@@ -78,6 +78,16 @@ def countdown(num):
 		num= num-1
 
 
+def get_slice_files(origin_file, sliced_file, slice_size):
+	i=0
+	with open(origin_file) as f:
+		with open(sliced_file, "r+w") as f1:
+			for line in f:
+				if i< slice_size:
+					f1.write(line)
+					i=i+1
+	return sliced_file
+
 def main():
 	res =set_up_mongo_connection("test", 'test', '127.0.0.1', 27017 , 'testjson2' )
 	print res

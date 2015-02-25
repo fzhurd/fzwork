@@ -9,6 +9,7 @@ import time
 from pymongo import MongoClient
 import subprocess
 import getpass
+import  pwd
 
 
 def main():
@@ -25,7 +26,17 @@ def main():
 	print getpass.getuser()
 	# os.setuid(0)
 	# print os.getuid()
-	
+
+	os.getlogin = lambda: pwd.getpwuid(os.getuid())[0]
+
+	print os.getlogin
+
+	if not os.geteuid() == 0:
+		
+		sys.exit('Script must be run as root')
+		os.setuid(0)
+		print os.getuid(
+
 
 
 

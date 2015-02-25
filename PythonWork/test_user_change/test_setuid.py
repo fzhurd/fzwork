@@ -8,14 +8,24 @@ import sys
 import time
 from pymongo import MongoClient
 import subprocess
+import getpass
 
 
 def main():
 	print os.getuid()
 	print os.getgid()
-	os.setuid(0)
-	print os.getuid()
-	# print 'hi'
+	print os.environ['USER']
+	os.environ['USER']='test'
+	print os.environ['USER']
+
+
+	# print os.environ['USERNAME']
+	print os.environ['LOGNAME']
+	# print os.getlogin()
+	print getpass.getuser()
+	# os.setuid(0)
+	# print os.getuid()
+	
 
 
 

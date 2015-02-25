@@ -11,7 +11,11 @@ import subprocess
 
 
 def main():
-	print 'hi'
+	print os.getuid()
+	print os.getgid()
+	os.setuid(0)
+	print os.getuid()
+	# print 'hi'
 
 
 

@@ -31,6 +31,7 @@ def draw_trend(data_file,object_type):
     for lable in lable_list:  
         lable_name.append(lable)  
         data_list.append([])  
+        print data_list
   
     for line in lines[1:]:  
         line_list=line.strip().split(None)  

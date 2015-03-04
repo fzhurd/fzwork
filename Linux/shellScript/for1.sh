@@ -7,3 +7,7 @@ done
 
 # check ps number
 ps aux | wc -l
+
+
+# check file line
+wc -l file_name

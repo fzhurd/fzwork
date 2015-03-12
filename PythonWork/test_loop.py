@@ -201,9 +201,9 @@ def test_dict():
 def main():
     PROCNAME = "top"
     for proc in psutil.process_iter():
-        print proc
-    if proc.name() == PROCNAME:
-        print proc
+        # print proc, type(proc)
+        if proc.name == PROCNAME:
+            print proc, '************************8'
    # test_dict()
 
    

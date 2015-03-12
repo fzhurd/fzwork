@@ -198,7 +198,13 @@ def test_dict():
 
     
 def main():
-   test_dict()
+   # test_dict()
+
+   import psutil
+   PROCNAME = "python.exe"
+   for proc in psutil.process_iter():
+    if proc.name() == PROCNAME:
+        print proc
 
 if __name__=='__main__':
     main()

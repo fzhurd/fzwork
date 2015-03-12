@@ -8,6 +8,7 @@ import sys
 import time
 from pymongo import MongoClient
 import subprocess
+import psutil
 
 
 
@@ -198,13 +199,14 @@ def test_dict():
 
     
 def main():
-   # test_dict()
-
-   import psutil
-   PROCNAME = "python.exe"
-   for proc in psutil.process_iter():
+    PROCNAME = "top"
+    for proc in psutil.process_iter():
+        print proc
     if proc.name() == PROCNAME:
         print proc
+   # test_dict()
+
+   
 
 if __name__=='__main__':
     main()

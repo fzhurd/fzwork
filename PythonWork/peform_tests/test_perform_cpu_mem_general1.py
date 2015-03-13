@@ -110,8 +110,9 @@ def main():
             cpu_percent_usage[proc.pid]=[]
             mem_usage_psutil[proc.pid]=[]
 
-
-    init_thread_measure('t_cpu_mem', test_cpu_mem_percent, (process_name,0.5), True )
+    test_cpu_mem_percent(process_name, interval=0.5)
+    print_mem(proc_name, 0.5, 20)
+    # init_thread_measure('t_cpu_mem', test_cpu_mem_percent, (process_name,0.5), True )
 
     percs = psutil.cpu_percent(interval=0, percpu=True)
     print 'CPU Used in %d Processor CPU: %s' % (len(percs),  cpu_percent_usage)

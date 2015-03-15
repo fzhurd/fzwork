@@ -88,17 +88,19 @@ def main():
     interval = args.interval_dest
     time_out =  args.time_out_dest
 
+    print psutil.Process(1185)
 
     for proc in psutil.process_iter():
+        print proc
       
-        if proc.name() == process_name or proc.pid == process_id :
+        if proc.name == process_name or proc.pid == process_id :
 
             print 'test process: %s PID: %s ' % (proc, proc.pid)
             procids.append(proc.pid)
             cpu_percent_usage[proc.pid]=[]
             mem_usage_psutil[proc.pid]=[]
 
-    test_cpu_mem_percent(process_name, interval, time_out)
+    # test_cpu_mem_percent(process_name, interval, time_out)
 
    
     percs = psutil.cpu_percent(interval=0, percpu=True)

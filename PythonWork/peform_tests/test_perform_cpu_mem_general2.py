@@ -17,8 +17,6 @@ import datetime
 procids=[]
 cpu_percent_usage ={}
 mem_usage_psutil ={}
-# mem_usage_memory_profiler ={}
-
 
 
 def print_avg_max(input_mem):
@@ -27,17 +25,6 @@ def print_avg_max(input_mem):
     print 'The Average of Memory Usage Percentage is: %s ' % str(total/num)
     print 'The Maximum of Memory Usage Percentage is: %s ' % str(max(input_mem))
 
-
-
-
-def draw(x_arr, y_arr, title):
-
-    fig = pl.figure()
-    pl.plot(x_arr, y_arr)
-    pl.xlabel('Time Range')
-    pl.ylabel('Used')
-    fig.suptitle(title, fontsize=16)
-    pl.show()
 
 def print_monitor_result(input_data, title):
     num = len(input_data)
@@ -48,19 +35,7 @@ def print_monitor_result(input_data, title):
         x_arr.append(start)
     draw(x_arr, input_data, title)
 
-def print_mem_profiler(proc_name, interval, timeout):
-
-    mem_usage_memory_profiler[proc_name] =memory_usage(proc=proc_name, interval=interval, timeout=timeout)
-
-    return mem_usage_memory_profiler
-
-def init_thread_measure(thread_name, target_method, args_tup, daemon=True ):
-
-    thread_name = threading.Thread(target=target_method, args=args_tup )
-    thread_name.setDaemon(daemon)
-    thread_name.start()
-
-            
+     
 def test_cpu_mem_percent(process_name, interval, time_out):
     start_time = datetime.datetime.now()
 
@@ -127,10 +102,7 @@ def main():
 
     test_cpu_mem_percent(process_name, interval, time_out)
 
-    # init_thread_measure(str(i), test_cpu_mem_percent, (i, interval, time_out), daemon=False )
-    # print cpu_percent_usage, 'ccccccccccccccccccccccccccccccccccccccccccccccccccc'
-    # print mem_usage_psutil, 'nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn'
-    
+   
     percs = psutil.cpu_percent(interval=0, percpu=True)
     print 'CPU Used in %d Processor CPU: %s' % (len(percs),  cpu_percent_usage)
 
@@ -143,14 +115,6 @@ def main():
         print 'PID: %d' % k
         print_avg_max(v)
 
-
-    # for (c, m) in zip(cpu_percent_usage, mem_usage_psutil):
-    #     print 
-
-
-   
-    # print_monitor_result( mem_usage, "Memory Monitor")
-    # print_monitor_result(cpu_percent_running, "CPU Monitor")
 
 
 if __name__=='__main__':

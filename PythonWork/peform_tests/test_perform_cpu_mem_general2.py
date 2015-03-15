@@ -9,8 +9,6 @@ from pymongo import MongoClient
 from memory_profiler import memory_usage
 import threading
 import psutil
-import matplotlib as mp
-import matplotlib.pyplot as pl
 import datetime
 
 

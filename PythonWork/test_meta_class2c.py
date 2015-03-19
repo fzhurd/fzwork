@@ -14,7 +14,20 @@ import os
 
 
 def main():
-    print 'hi'
+    age = 10
+    print age.__class__
+    print func1.__class__
+
+    print Student.__class__
+
+    student = Student()
+    print student.__class__
+
+class Student(object):
+    pass
+
+def func1():
+    pass
 
 
 if __name__=='__main__':

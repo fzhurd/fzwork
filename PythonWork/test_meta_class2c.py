@@ -23,8 +23,13 @@ def main():
     student = Student()
     print student.__class__
 
+    print student.__class__.__class__
+
+def create():
+    print 'created'
+
 class Student(object):
-    pass
+    __metaclass__=create()
 
 def func1():
     pass

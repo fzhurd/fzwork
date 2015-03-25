@@ -32,7 +32,7 @@ class Student(object):
     __metaclass__=create()
 
 def func1():
-    pass
+    print 'func1'
 
 
 if __name__=='__main__':

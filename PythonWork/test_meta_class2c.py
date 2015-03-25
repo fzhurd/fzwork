@@ -34,6 +34,11 @@ class Student(object):
 def func1():
     print 'func1'
 
+class MyKlass(object):
+    foo = 2
+
+MyKlass = type(name, bases, dct)
+
 
 if __name__=='__main__':
     main()

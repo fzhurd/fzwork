@@ -37,6 +37,10 @@ def func1():
 class MyKlass(object):
     foo = 2
 
+class MyKlass(object):
+    __metaclass__ = MyMeta
+    foo = 2
+
 MyKlass = type(name, bases, dct)
 
 

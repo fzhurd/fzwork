@@ -14,13 +14,9 @@ from time import time
 import nose
 from nose.plugins.base import Plugin
 
-
-
-
- 
 class MyAppPlugin(Plugin):
     name = 'my_app'
-    enabled = False
+    enabled = True
 
     def add_options(self, parser, env=os.environ):
 

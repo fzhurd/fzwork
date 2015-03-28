@@ -35,17 +35,21 @@ class MyAppPlugin(Plugin):
 
 
     def configure(self, options, conf):
+
         """Configure the plugin"""
-Plugin.configure(self, options, conf)
-if options.paste_setup:
-self.enabled = True
-       
+        Plugin.configure(self, options, conf)
+        if options.paste_setup:
+            self.enabled = True
+
     def begin(self):
+
         '''Called before any tests are collected or run.  Resets database.'''
+
         from paste.script.appinstall import SetupCommand
 
         # Select the .ini file to run setup-app on
         test_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'test.ini')
+
         SetupCommand('setup-app').run([test_file])
 
  

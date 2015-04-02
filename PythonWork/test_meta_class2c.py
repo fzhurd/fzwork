@@ -28,11 +28,12 @@ def main():
 def create():
     print 'created'
 
-# class Student(object):
-#     __metaclass__=create()
+class Student(object):
+    pass
+    # __metaclass__=create()
 
-# def func1():
-#     print 'func1'
+def func1():
+    print 'func1'
 
 # class MyKlass(object):
 #     foo = 2
@@ -46,21 +47,13 @@ def create():
 # the metaclass will automatically get passed the same argument
 # that you usually pass to `type`
 def upper_attr(future_class_name, future_class_parents, future_class_attr):
-  """
-    Return a class object, with the list of its attribute turned
-    into uppercase.
-  """
+    attrs = ((name, value) for name, value in future_class_attr.items() if not name.startswith('__'))
+    uppercase_attr = dict((name.upper(), value) for name, value in attrs)
+    return type(future_class_name, future_class_parents, uppercase_attr)
 
-  # pick up any attribute that doesn't start with '__'
-  attrs = ((name, value) for name, value in future_class_attr.items() if not name.startswith('__'))
-  # turn them into uppercase
-  uppercase_attr = dict((name.upper(), value) for name, value in attrs)
 
-  # let `type` do the class creation
-  return type(future_class_name, future_class_parents, uppercase_attr)
-
-__metaclass__ = upper_attr # this will affect all classes in the module
-
+__metaclass__ = upper_attr
+  
 class Foo(): # global __metaclass__ won't work with "object" though
   # but we can define __metaclass__ here instead to affect only this class
   # and this will work with "object" children
@@ -72,7 +65,7 @@ print hasattr(Foo, 'BAR')
 # Out: True
 
 f = Foo()
-print f.BAR
+print f.BAR, '************************8'
 # Out: 'bip'
 
 

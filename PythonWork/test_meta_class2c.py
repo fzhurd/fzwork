@@ -28,20 +28,20 @@ def main():
 def create():
     print 'created'
 
-class Student(object):
-    __metaclass__=create()
+# class Student(object):
+#     __metaclass__=create()
 
-def func1():
-    print 'func1'
+# def func1():
+#     print 'func1'
 
-class MyKlass(object):
-    foo = 2
+# class MyKlass(object):
+#     foo = 2
 
-class MyKlass(object):
-    __metaclass__ = MyMeta
-    foo = 2
+# class MyKlass(object):
+#     __metaclass__ = MyMeta
+#     foo = 2
 
-MyKlass = type(name, bases, dct)
+# MyKlass = type(name, bases, dct)
 
 # the metaclass will automatically get passed the same argument
 # that you usually pass to `type`

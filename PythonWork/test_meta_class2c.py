@@ -70,7 +70,7 @@ print f.BAR, '************************8'
 
 # remember that `type` is actually a class like `str` and `int`
 # so you can inherit from it
-class UpperAttrMetaclass(type):
+class UpperAttrMetaclass1(type):
     # __new__ is the method called before __init__
     # it's the method that creates the object and returns it
     # while __init__ just initializes the object passed as parameter
@@ -89,7 +89,7 @@ class UpperAttrMetaclass(type):
 
         return type(future_class_name, future_class_parents, uppercase_attr)
 
-class UpperAttrMetaclass(type):
+class UpperAttrMetaclass2(type):
 
     def __new__(upperattr_metaclass, future_class_name,
                 future_class_parents, future_class_attr):
@@ -102,7 +102,7 @@ class UpperAttrMetaclass(type):
         return type.__new__(upperattr_metaclass, future_class_name,
                             future_class_parents, uppercase_attr)
 
-class UpperAttrMetaclass(type):
+class UpperAttrMetaclass3(type):
 
     def __new__(cls, name, bases, dct):
 

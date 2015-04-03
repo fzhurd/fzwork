@@ -89,6 +89,19 @@ class UpperAttrMetaclass(type):
 
         return type(future_class_name, future_class_parents, uppercase_attr)
 
+class UpperAttrMetaclass(type):
+
+    def __new__(upperattr_metaclass, future_class_name,
+                future_class_parents, future_class_attr):
+
+        attrs = ((name, value) for name, value in future_class_attr.items() if not name.startswith('__'))
+        uppercase_attr = dict((name.upper(), value) for name, value in attrs)
+
+        # reuse the type.__new__ method
+        # this is basic OOP, nothing magic in there
+        return type.__new__(upperattr_metaclass, future_class_name,
+                            future_class_parents, uppercase_attr)
+
 
 if __name__=='__main__':
     main()

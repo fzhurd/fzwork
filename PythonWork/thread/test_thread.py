@@ -13,12 +13,12 @@ class MyThread(threading.Thread):
         while not self.stopped.wait(0.5):
             print "my thread"
 
-class MyThread(Thread):
+class MyThread2(Thread):
     def __init__(self, event):
         Thread.__init__(self)
         self.stopped = event
 
-    def run(self):
+    def run2(self):
         while not self.stopped.wait(0.5):
             print "my thread"
             # call a function
@@ -29,6 +29,13 @@ def main():
     thread = MyThread(stopFlag)
     thread.start()
     stopFlag.set()
+
+
+    # stopFlag = Event()
+    # thread = MyThread(stopFlag)
+    # thread.start()
+    # # this will stop the timer
+    # stopFlag.set(
 
 
 if __name__=='__main__':

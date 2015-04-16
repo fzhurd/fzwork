@@ -26,8 +26,6 @@ t2.start()
 t3.start()
 
 
-import threading
-import time 
 
 semaphore = threading.Semaphore(2)
  
@@ -47,8 +45,7 @@ for i in range(4):
 
 
 import logging
-import threading
-import time
+
 
 logging.basicConfig(level=logging.DEBUG,
 format="(%(threadName)-10s : %(message)s",

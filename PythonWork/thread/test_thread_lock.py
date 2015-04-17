@@ -66,3 +66,16 @@ logging.debug("Waiting before calling Event.set()")
 time.sleep(7)
 e.set()
 logging.debug("Event is set")
+
+
+exitapp = False
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        exitapp = True
+        raise
+
+def threadCode(...):
+    while not exitapp:
+      pass

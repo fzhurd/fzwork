@@ -47,3 +47,19 @@ if __name__ == "__main__":
             #exit()
         t1.join()
         print 'Finished!'
+
+    # Start threads
+    threads = []
+    for i in range(0, num_threads):
+        thread = WorkerThread()
+        threads.append(thread)
+        thread.start()
+
+    # Wait for threads to finish
+    while True:
+        if not any([thread.isAlive() for thread in threads]):
+            # All threads have stopped
+            break
+        else:
+            # Some threads are still going
+            sleep(1)

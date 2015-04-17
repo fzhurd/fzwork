@@ -3,6 +3,7 @@
 
 import threading
 import time
+import logging
  
 num = 0
 lock = threading.Lock()
@@ -40,11 +41,6 @@ def func():
 for i in range(4):
   t1 = threading.Thread(target=func)
   t1.start()
-
-
-
-
-import logging
 
 
 logging.basicConfig(level=logging.DEBUG,

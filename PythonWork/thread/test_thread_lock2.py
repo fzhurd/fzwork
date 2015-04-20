@@ -21,13 +21,14 @@ def main():
 
 def keep_run():
   i=0
-  while i<10:
-    print i
-    i=i+1
-    time.sleep(1)
-    if lock.acquire():
-      final_results.append(i)
-      lock.release()
+  if lock.acquire():
+    while i<10:
+      print i
+      i=i+1
+      time.sleep(1)
+      
+        final_results.append(i)
+    lock.release()
 
 
 

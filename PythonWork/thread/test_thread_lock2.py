@@ -8,27 +8,37 @@ import logging
 final_results=[]
 
 lock = threading.Lock()
+con = threading.Condition()
 
 def main():
   keep_run_thread = threading.Thread(target=keep_run, name='alarm_thread') 
   keep_run_thread.setDaemon(False)
   keep_run_thread.start()
+  time.sleep(3)
+  # keep_run_thread.join(3)
+  print final_results
   # time.sleep(4)
-  if lock.acquire():
-    print final_results
-    lock.release()
+  # if lock.acquire():
+
+    # print final_results
+    # con.notify()
+    # con.wait()
+    # lock.release()
 
 
 def keep_run():
-  i=0
-  if lock.acquire():
+    i=0
+  # if lock.acquire():
+  # if con.acquire():
     while i<10:
       print i
       i=i+1
       time.sleep(1)
       
-        final_results.append(i)
-    lock.release()
+      final_results.append(i)
+      # con.notify()
+      # con.wait()
+    # lock.release()
 
 
 

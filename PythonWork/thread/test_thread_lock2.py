@@ -5,10 +5,31 @@ import threading
 import time
 import logging
 
-def main():
-  print 'hi'
+final_results=[]
 
-  
+lock = threading.Lock()
+
+def main():
+  keep_run_thread = threading.Thread(target=keep_run, name='alarm_thread') 
+  keep_run_thread.setDaemon(False)
+  keep_run_thread.start()
+  # time.sleep(4)
+  if lock.acquire():
+    print final_results
+    lock.release()
+
+
+def keep_run():
+  i=0
+  while i<10:
+    print i
+    i=i+1
+    time.sleep(1)
+    if lock.acquire():
+      final_results.append(i)
+      lock.release()
+
+
 
 if __name__=='__main__':
   main()

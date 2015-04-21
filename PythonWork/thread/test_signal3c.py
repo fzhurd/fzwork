@@ -9,6 +9,7 @@ import os
 i=0
 def signal_handler(num, stack):
     print time.ctime(), 'Alarm in', threading.currentThread()
+    os.kill(2461, signal.SIGTERM)
     raise MemoryError()
 
 def myHandler2(signum, frame):
@@ -27,6 +28,7 @@ def use_alarm():
       print 'now monitor i is: ', i
       if i>8:
         print 'kill it due to i is above threshold'
+
         signal.alarm(1)
     #   # signal.alarm(10)
     #   print time.ctime(), 'Sleeping in', threading.currentThread()

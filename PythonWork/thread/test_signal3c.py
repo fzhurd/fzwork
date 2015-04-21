@@ -9,13 +9,14 @@ import os
 i=0
 def signal_handler(num, stack):
     print time.ctime(), 'Alarm in', threading.currentThread()
+    raise MemoryError()
 
 def myHandler2(signum, frame):
     print("Now, it's the time")
     print os.getpid()
     exit()
 
-
+signal.signal(signal.SIGALRM, signal_handler)
 def use_alarm():
   # while i>=5:
   #   signal.alarm(1)
@@ -50,7 +51,7 @@ def main():
   # time.sleep(0.1)
   
   keep_run()
-  signal.signal(signal.SIGALRM, signal_handler)
+  # signal.signal(signal.SIGALRM, signal_handler)
   
 
 if __name__=='__main__':

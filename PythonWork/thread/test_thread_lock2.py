@@ -36,9 +36,17 @@ def keep_run():
       time.sleep(1)
       
       final_results.append(i)
+      print final_results, '*******************************'
+      print calculate_sum(final_results),'ssssssssssssssssssssssss'
+      print calculate_avg(final_results),'vvvvvvvvvvvvvvvvvvvvvvvvvv'
       # con.notify()
       # con.wait()
     # lock.release()
+def calculate_sum(input):
+  return sum(input)
+
+def calculate_avg(input):
+  return reduce(lambda x, y: x + y, input) / len(input)
 
 
 

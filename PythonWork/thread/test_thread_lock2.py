@@ -15,7 +15,7 @@ def main():
   keep_run_thread.setDaemon(False)
   keep_run_thread.start()
   time.sleep(3)
-  # keep_run_thread.join(3)
+  keep_run_thread.join(1)
   print final_results
   # time.sleep(4)
   # if lock.acquire():

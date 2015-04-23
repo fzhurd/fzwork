@@ -14,6 +14,22 @@ def main():
 	(5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), 
 	(5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB'), (5.53, 'GB')]}
 
+	mem_max(val2)
+
+	# x= [(a,new_b) for a,b in tuple_list]
+
+# 	dct = dict(tuple)
+# val = dct.get(key) 
+
+def mem_max(input_mem):
+
+	for (k,v) in input_mem.items():
+		# print k, v
+		# print k, dict(v), '*********************'
+		x= [n for n,u in v]
+		print x
+
+
 
 
 if __name__=='__main__':

@@ -1,14 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-#!/usr/bin/env python  
-# -*- coding: utf-8 -*-  
-  
-''''' 
-@author: homer 
-@see: ithomer.net 
-'''  
-  
 import os  
 import threading  
 import multiprocessing  

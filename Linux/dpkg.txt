@@ -1,0 +1,5 @@
+1. install
+dpkg -i flashpluginnonfree_2.8.2+squeeze1_i386.deb
+
+2. list
+dpkg -l

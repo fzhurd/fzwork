@@ -8,3 +8,15 @@ dpkg -l apache2
 
 3. remove
 dpkg -r flashpluginnonfree
+dpkg -p flashpluginnonfree
+
+
+4. show content of a package
+
+dpkg -c flashplugin-nonfree_3.2_i386.deb
+
+5. check one specific package is installed or not
+dpkg -s flashplugin-nonfree
+
+6.Check the location of Packages installed
+dpkg -L flashplugin-nonfree

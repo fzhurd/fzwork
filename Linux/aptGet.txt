@@ -1,0 +1,5 @@
+1. How Do I List All Available Packages?
+$ apt-cache pkgnames
+
+2.How Do I Find Out Package Name and Description of Software?
+apt-cache search vsftpd

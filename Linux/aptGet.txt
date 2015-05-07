@@ -10,3 +10,6 @@ apt-cache show netcat
 
 4. How Do I Check Dependencies for Specific Packages?
 apt-cache showpkg vsftpd
+
+5. How Do I Check statistics of Cache
+$ apt-cache stats

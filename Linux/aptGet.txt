@@ -3,3 +3,10 @@ $ apt-cache pkgnames
 
 2.How Do I Find Out Package Name and Description of Software?
 apt-cache search vsftpd
+apt-cache pkgnames vsftpd
+
+3. How Do I Check Package Information?
+apt-cache show netcat
+
+4. How Do I Check Dependencies for Specific Packages?
+apt-cache showpkg vsftpd

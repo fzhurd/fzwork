@@ -34,3 +34,10 @@ class C(A, B):
     def __init__(self):
         super(C, self).__init__()
         print "C init"
+
+def main():
+    
+    pass
+
+if __name__=='__main__':
+    main()

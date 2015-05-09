@@ -36,8 +36,8 @@ class C(A, B):
         print "C init"
 
 def main():
-    
-    pass
+
+    c_obj=C()
 
 if __name__=='__main__':
     main()

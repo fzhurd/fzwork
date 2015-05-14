@@ -43,3 +43,6 @@ def main():
   
     b = NotAbc()  
     print dir(b)  
+
+if __name__=='__main__':
+    main()

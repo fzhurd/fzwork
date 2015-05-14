@@ -116,7 +116,13 @@ class NotAbc(object):
 
 def main():
 
-    pass
+    a = AbcTest()  
+    a.mc(3)  
+    a.ma()  
+    print dir(a)  
+  
+    b = NotAbc()  
+    print dir(b)  
 
 if __name__=='__main__':
     main()

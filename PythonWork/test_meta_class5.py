@@ -8,7 +8,7 @@ def mb(cls):
     print 'method b'  
   
 method_dict = {  
-    'ma': ma,  
+    'ma': ma, 
     'mb': mb,  
 }  
   
@@ -38,6 +38,7 @@ def main():
 
     a = AbcTest()  
     a.mc(3)  
+    print 'aaaaaaaaaaaaaaaaaa'
     a.ma()  
     print dir(a)  
   

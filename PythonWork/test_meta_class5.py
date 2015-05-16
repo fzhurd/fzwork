@@ -40,7 +40,7 @@ def main():
     a.mc(3)  
     print 'aaaaaaaaaaaaaaaaaa'
     a.ma()  
-    print dir(a)  
+    print dir(a), 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
   
     b = NotAbc()  
     print dir(b)  

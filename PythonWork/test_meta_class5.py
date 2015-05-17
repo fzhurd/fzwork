@@ -75,5 +75,10 @@ def main():
     b = NotAbc()  
     print dir(b)  
 
+    print '***********************'
+
+    op = Operation()  
+    op.delete('test') 
+
 if __name__=='__main__':
     main()

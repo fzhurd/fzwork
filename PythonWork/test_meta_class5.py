@@ -113,5 +113,9 @@ def main():
     print dir(pa)  
     print dir(PatchA)  
 
+    print '22222222222222222222222222'
+    p = DistanceForm(100)
+    p(2000)
+
 if __name__=='__main__':
     main()

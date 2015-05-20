@@ -82,7 +82,12 @@ class PatchA(A):
     def patcha_method(self):  
         print 'this is a method patched for class A'  
   
- 
+class DistanceForm(object):
+    def __init__(self, origin):
+        self.origin = origin
+        print "origin :"+str(origin)
+    def __call__(self, x):
+        print "x :"+str(x)
 
 
 def main():

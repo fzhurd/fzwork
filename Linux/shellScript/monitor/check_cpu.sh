@@ -7,16 +7,16 @@ function GetCpu
 
  function CheckCpu
  {
- PID=$1
- cpu=`GetCpu $PID`
- if [ $cpu -gt 80 ]
- then
- {
- echo “The usage of cpu is larger than 80%”
- }
- else
- {
- echo “The usage of cpu is normal”
- }
- fi
+ 	PID=$1
+ 	cpu=`GetCpu $PID`
+ 	if [ $cpu -gt 80 ]
+ 	then
+ 	{
+ 		echo “The usage of cpu is larger than 80%”
+ 	}
+ 	else
+ 	{
+ 	echo “The usage of cpu is normal”
+ 	}
+ 	fi
  }

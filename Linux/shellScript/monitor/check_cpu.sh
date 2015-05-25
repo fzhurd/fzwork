@@ -25,9 +25,9 @@ function GetCpu
 
  function GetMem
  {
- MEMUsage=`ps -o vsz -p $1|grep -v VSZ`
- (( MEMUsage /= 1000))
- echo $MEMUsage
+   MEMUsage=`ps -o vsz -p $1|grep -v VSZ`
+   (( MEMUsage /= 1000))
+   echo $MEMUsage
  }
 
  mem=`GetMem $PID`

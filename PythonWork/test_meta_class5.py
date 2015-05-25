@@ -117,7 +117,7 @@ def main():
     p = DistanceForm(100)
     p(2000)
 
-    print '33333333333333333333333333333333'
+    print 'end'
 
 if __name__=='__main__':
     main()

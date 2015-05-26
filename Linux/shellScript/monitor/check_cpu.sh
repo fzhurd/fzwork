@@ -34,10 +34,24 @@ function GetCpu
  if [ $mem -gt 1600 ]
  then
  {
- echo “The usage of memory is larger than 1.6G”
+ 	echo “The usage of memory is larger than 1.6G”
  }
  else
  {
- echo “The usage of memory is normal”
+ 	echo “The usage of memory is normal”
+ }
+ fi
+
+
+mem=`GetMem 11426`
+echo "The usage of memory is $mem M"
+if [ $mem -gt 1600 ]
+ then
+ {
+ 	echo "The usage of memory is larger than 1.6G"
+ }
+ else
+ {
+ 	echo "The usage of memory is normal"
  }
  fi

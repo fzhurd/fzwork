@@ -55,3 +55,22 @@ if [ $mem -gt 1600 ]
  	echo "The usage of memory is normal"
  }
  fi
+
+
+function GetDes
+ {
+ 	DES=`ls /proc/$1/fd | wc -l`
+ 	echo $DES
+ }
+
+ des=` GetDes $PID`
+ if [ $des -gt 900 ]
+ then
+ {
+ echo “The number of des is larger than 900”
+ }
+ else
+ {
+ echo “The number of des is normal”
+ }
+ fi

@@ -74,3 +74,17 @@ function GetDes
  echo “The number of des is normal”
  }
  fi
+
+
+des=`GetDes 11426`
+echo "The number of des is $des"
+if [ $des -gt 900 ]
+then
+ {
+ echo "The number of des is larger than 900"
+ }
+else
+ {
+ echo "The number of des is normal"
+ }
+fi

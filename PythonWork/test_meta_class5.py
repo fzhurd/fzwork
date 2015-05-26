@@ -106,7 +106,7 @@ def main():
     op = Operation()  
     op.delete('test') 
 
-    print '&&&&&&&&&&&&&&&&&&&&&&&&&&777'
+    print '&&&&&&&&&&&&&&&&&&&&&&&&&&'
     pa = PatchA()  
     pa.patcha_method()  
     pa.a()  

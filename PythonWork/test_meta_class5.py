@@ -113,6 +113,7 @@ def main():
     print dir(pa)  
     print dir(PatchA)  
 
+    print '***********************'
     p = DistanceForm(100)
     p(2000)
 

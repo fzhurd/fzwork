@@ -12,3 +12,18 @@ function GetDiskSpc
 }
 
 
+Folder="/boot"
+DiskSpace=`GetDiskSpc $Folder`
+echo "The system $Folder disk space is $DiskSpace%"
+if [ $DiskSpace -gt 90 ]
+ then
+ {
+ 	echo "The usage of system disk($Folder) is larger than 90%"
+ }
+ else
+ {
+ 	echo "The usage of system disk($Folder) is normal"
+ }
+ fi
+
+

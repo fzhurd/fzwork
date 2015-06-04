@@ -5,6 +5,7 @@ import os
 from pymongo import MongoClient
 import unittest
 import pymongo
+import time
 
 class Test_Index_1(unittest.TestCase):
 
@@ -24,6 +25,7 @@ class Test_Index_1(unittest.TestCase):
 
         self.db.col1.drop()
         self.db.col1.insert(col1)
+        time.sleep(5)
         self.db.col1.ensure_index([('color', pymongo.ASCENDING)])
 
 
@@ -37,9 +39,12 @@ class Test_Index_1(unittest.TestCase):
         # db.command('text', 'collection', search='coffee', filter={'about': {'$regex': 'desserts'}}, limit=2, projection={'comments': 1, '_id': 0}) 
 
         pipe_line ={'$text': {'$search': "red"}}
-        run_res = self.db.col1.find(pipe_line).count()
-        print run_res, 'rrrrrrrrrrrrrrrrr'
-        
+        run_res = self.db.col1.find({ '$text': { '$search': "red" } })
+        for i in run_res:
+            print i
+        # res = [doc for doc in run_res]
+        # print res, 'rrrrrrrrrrrrrrrrr'
+         
 
         # res = []
         # self.assertEqual(sorted(results), sorted(res))

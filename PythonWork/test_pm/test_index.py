@@ -27,7 +27,7 @@ class Test_Index_1(unittest.TestCase):
         self.db.col1.insert(col1)
         # time.sleep(5)
         # self.db.col1.ensure_index([('color', pymongo.ASCENDING)])
-        self.db.col1.ensure_index([('color', 'text')])
+        self.db.col1.ensure_index([('color', 'text')], name='search_index')
         # self.db.col1.ensure_index([('color', pymongo.TEXT)])
 
 

@@ -37,7 +37,7 @@ def insert_into_mongo(input_csv_file):
 
             oid = ObjectId(obj_time_timestamp_ls[0])
             print oid, 'rrr'
-            db.col2mysql.insert({'_id':oid, 'a':int(element[1]),'b':str(element[2]),'c':int(element[3]),'d':element[4]})
+            db.col2mysql.insert({'_id':oid, 'a':int(element[1].strip('"')),'b':str(element[2].strip('"')),'c':int(element[3].strip('"')),'d':Boolean(element[4].strip('"'))})
 
             # print type(element), element[0]
 

@@ -22,19 +22,13 @@ def insert_into_mongo(input_csv_file):
 
          reader = csv.reader(f)
          for row in reader:
-            print row
+            # print row
             obj_sp=row[0].split('(')
             obj_time_timestamp_ls = obj_sp[1].split(')')
             oid = obj_time_timestamp_ls[0]
-            print oid, bool(row[4])
+            # print oid, bool(row[4])
             db.col2mysql.insert({'_id':oid, 'a':int(row[1]),'b':str(row[2]),'c':int(row[3]),'d':bool(int(row[4]))})
-        # for i in f:
-        #     print i
-        #     element = i.split(',')
-        #     print element
-        #     obj_sp=element[0].split('(')
-
-        #     obj_time_timestamp_ls = obj_sp[1].split(')')
+ 
         
 
         #     oid = ObjectId(obj_time_timestamp_ls[0])

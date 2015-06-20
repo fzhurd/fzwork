@@ -1,17 +1,12 @@
 # usr/bin/python
 # -*- coding: utf-8 -*-
 
-import datetime
+
 import unittest
 import dateutil.parser
 import os
 from nose.tools import *
-from bson.son import SON
-import sqlalchemy
-from sqlalchemy import create_engine
-import operator
 from time import time
-import nose
 from nose.plugins.base import Plugin
 
  

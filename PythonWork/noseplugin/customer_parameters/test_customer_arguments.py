@@ -16,21 +16,20 @@ class Customer_Parameters(Plugin):
     score = 1
     enabled = True
 
-
     def add_options(self, parser, env=os.environ):
        '''Add command-line options for plugin'''
         env_opt = 'NOSE_PASTE_SETUP_FIRST'
         
-        parser.add_option('--paste-setup-first',
+        parser.add_option('--parameters',
                           action='store_true',
                           default=env.get('env_opt'),
-                         dest='paste_setup',
-                         help='Run setup-app in Paste before running tests.  [%s]' % env_opt)
+                         dest='parameters',
+                         help='Run parameters before running tests.  [%s]' % env_opt)
         
     def configure(self, options, conf):
         """Configure the plugin"""
         Plugin.configure(self, options, conf)
-        if options.paste_setup:
+        if options.parameters:
             self.enabled = True
         
     def begin(self):

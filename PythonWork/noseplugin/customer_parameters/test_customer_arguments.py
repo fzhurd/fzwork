@@ -39,6 +39,8 @@ class Customer_Parameters(Plugin):
         # Select the .ini file to run setup-app on
         test_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'test.ini')
         SetupCommand('setup-app').run([test_file])
+    def finalize(self, result):
+        log.info('Plugin finalized!'
  
     # def _timeTaken(self):
     #     if hasattr(self, '_timer'):

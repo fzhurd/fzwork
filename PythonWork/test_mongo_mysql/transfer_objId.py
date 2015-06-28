@@ -38,7 +38,7 @@ def insert_into_mongo(input_csv_file):
 
 
 def main():
-    # print os.getcwd()
+
     insert_into_mongo('col2mysql.csv')
     
 

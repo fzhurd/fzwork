@@ -26,14 +26,16 @@ def insert_into_mongo(input_csv_file):
             obj_sp=row[0].split('(')
             obj_time_timestamp_ls = obj_sp[1].split(')')
             oid = obj_time_timestamp_ls[0]
-            # print oid, bool(row[4])
+            print oid, bool(row[4]), 'ooooooooooooooooooooo'
+            oid=ObjectId(oid)
+            print oid,'o222222222222222'
             db.col2mysql.insert({'_id':oid, 'a':int(row[1]),'b':str(row[2]),'c':int(row[3]),'d':bool(int(row[4]))})
  
         
 
-        #     oid = ObjectId(obj_time_timestamp_ls[0])
-        #     print oid, 'rrr'
-        #     db.col2mysql.insert({'_id':oid, 'a':int(element[1].strip('"')),'b':str(element[2].strip('"')),'c':int(element[3].strip('"')),'d':int(element[4].strip('"'))})
+            # oid = ObjectId(obj_time_timestamp_ls[0])
+            # print oid, 'rrr'
+            # db.col2mysql.insert({'_id':oid, 'a':int(element[1].strip('"')),'b':str(element[2].strip('"')),'c':int(element[3].strip('"')),'d':int(element[4].strip('"'))})
 
 
 

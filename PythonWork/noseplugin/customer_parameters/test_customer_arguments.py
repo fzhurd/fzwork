@@ -8,6 +8,7 @@ import os
 from nose.tools import *
 from time import time
 from nose.plugins.base import Plugin
+from paste.script.appinstall import SetupCommand
 
  
 class Customer_Parameters(Plugin):
@@ -34,13 +35,13 @@ class Customer_Parameters(Plugin):
         
     def begin(self):
         '''Called before any tests are collected or run.  Resets database.'''
-        from paste.script.appinstall import SetupCommand
+        # from paste.script.appinstall import SetupCommand
 
         # Select the .ini file to run setup-app on
         test_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'test.ini')
         SetupCommand('setup-app').run([test_file])
     def finalize(self, result):
-        log.info('Plugin finalized!'
+        log.info('Plugin finalized!')
  
     # def _timeTaken(self):
     #     if hasattr(self, '_timer'):

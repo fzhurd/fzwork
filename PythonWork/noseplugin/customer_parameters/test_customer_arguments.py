@@ -3,10 +3,10 @@
 
 
 import unittest
-import dateutil.parser
+# import dateutil.parser
 import os
 from nose.tools import *
-from time import time
+# from time import time
 from nose.plugins.base import Plugin
 from paste.script.appinstall import SetupCommand
 

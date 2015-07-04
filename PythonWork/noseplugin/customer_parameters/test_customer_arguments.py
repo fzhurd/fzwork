@@ -32,6 +32,7 @@ class Customer_Parameters(Plugin):
         Plugin.configure(self, options, conf)
         if options.parameters:
             self.enabled = True
+        print parameters
         
     def begin(self):
         '''Called before any tests are collected or run.  Resets database.'''

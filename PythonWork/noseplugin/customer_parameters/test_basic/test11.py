@@ -24,3 +24,6 @@ class MyCustomPlugin(Plugin):
 
     def begin(self):
         pass
+
+    def help(self):
+        pass

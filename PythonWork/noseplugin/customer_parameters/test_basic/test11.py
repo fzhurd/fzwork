@@ -27,3 +27,6 @@ class MyCustomPlugin(Plugin):
 
     def help(self):
         pass
+
+    def add_success(self):
+        pass

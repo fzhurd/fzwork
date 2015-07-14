@@ -24,7 +24,7 @@ def test1():
 def set_up_pymysql():
     conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='root', db='test')
     cur = conn.cursor()
-    cur.execute("SELECT Host,User FROM user")
+    cur.execute("SELECT * from col6")
 
     print(cur.description)
 

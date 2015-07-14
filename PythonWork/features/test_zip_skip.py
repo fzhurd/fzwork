@@ -2,10 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import itertools
+import pymysql
 
 def main():
-    print 'hello'
-    test1()
+
+    set_up_pymysql()
+    
+    # test1()
 
 def test1():
     
@@ -17,6 +20,21 @@ def test1():
         if x == 5:
             x = next(it_a)
         print x,y
+
+def set_up_pymysql():
+    conn = pymysql.connect(host='localhost', port=3306, user='root', passwd='root', db='test')
+    cur = conn.cursor()
+    cur.execute("SELECT Host,User FROM user")
+
+    print(cur.description)
+
+    print()
+
+    for row in cur:
+       print(row)
+
+    cur.close()
+    conn.close()
 
 
 

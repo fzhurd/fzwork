@@ -13,7 +13,7 @@ def generator():
 		# print next(x)
 
 def main():
-	print 'hello'
+	print 'hello, first example'
 	
 	result = generator()
 	print result

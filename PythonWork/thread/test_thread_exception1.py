@@ -28,7 +28,7 @@ class Regression_Tests(unittest.TestCase):
                     signal.alarm(1)
                     
                     exc_info=sys.exc_info()
-                    print exc_info, 'eeeeeeeeeeeee'
+                    # print exc_info, 'eeeeeeeeeeeee'
                     is_exception=True
                     self.fail(e)
                 

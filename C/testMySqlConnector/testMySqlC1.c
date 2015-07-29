@@ -9,16 +9,17 @@ main() {
    MYSQL_RES *res;
    MYSQL_RES *res2;
    MYSQL_ROW row;
-   char *server = "localhost";
+   char *server = "127.0.0.1";
    char *user = "test";
-   char *password = "test"; /* set me first */
+   char *password = "test"; 
    char *database = "test";
+   unsigned int port = 1;
    conn = mysql_init(NULL);
    /* Connect to database */
    if (!mysql_real_connect(conn, server,
-         user, password, database, 0, NULL, 0)) {
+         user, password, database, 3306, NULL, 0)) {
       fprintf(stderr, "%s\n", mysql_error(conn));
-      //exit(1);
+      exit(1);
    }
    /* send SQL query */
    if (mysql_query(conn, "show tables")) {

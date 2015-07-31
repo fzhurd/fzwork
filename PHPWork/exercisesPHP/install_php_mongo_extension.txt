@@ -1,0 +1,6 @@
+http://stackoverflow.com/questions/22459164/easiest-way-to-install-mongodb-php-extension-in-ubuntu-1
+
+sudo apt-get install php5-mongo
+sudo apt-get install php5-dev make php-pear
+sudo pecl install mongo
+sudo echo "extension=mongo.so" | sudo tee /etc/php5/mods-available/mongo.ini

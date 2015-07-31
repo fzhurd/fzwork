@@ -28,6 +28,13 @@ class RemoteConnectTest extends PHPUnit_Framework_TestCase
 public function testIsMyString(){
   $string = "Mostly Harmless";
   $this->assertGreaterThan(0,strlen($string));
-  $this->assertContains("42",$string);
+  //$this->assertContains("42",$string);
 }
+
+public function testBigNumber(){
+  $num = 20;
+  $this->assertGreaterThan($num, 21);
+}
+
+
 }

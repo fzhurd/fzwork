@@ -53,11 +53,15 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
 
   }
   
-  public function setUpMySqlConnector(){
+  public function setUpMySqlConnector($dbhost, $user, $passwd)
+   {
+      
+      $mysql_connector = mysql_connect($dbhost, $user, $passwd);
+      return $mysql_connector;
       
   }
   
-  
+  /*
   public function testIsMyString()
   {
         $string = "Mostly Harmless";
@@ -69,7 +73,7 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
         $num = 20;
         $this->assertGreaterThan($num, 21);
   }
-  
+  */
   public function testPDO()
   {
       try{
@@ -104,6 +108,18 @@ foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
     echo 'b:'.$row['b']."\n";
 }
      
+  }
+  
+  public function testMysqlConnector(){
+      $mysql_connector = $this->setUpMySqlConnector("127.0.0.1", "test", "test");
+      mysql_select_db("test3", $mysql_connector);
+$result_mysql = mysql_query("SELECT a, b from test_php_mysql");
+
+while ($row = mysql_fetch_array($result_mysql)) {
+   echo " a: ".$row{'a'}." b: ". $row{'b'}."\n";
+}
+//close the connection
+mysql_close($mysql_connector);
   }
 
 }

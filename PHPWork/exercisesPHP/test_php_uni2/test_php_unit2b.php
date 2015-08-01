@@ -39,18 +39,22 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
  
   }
   
-  public function setUpSonarSqlPDO($dbhost, $db, $user, $passwd)
+  public function setUpPDO($dbhost, $db, $user, $passwd)
   {
       $pdo = new PDO("mysql:host=$dbhost;dbname=$db", $user, $passwd);
       return $pdo;
   }
   
-  public function setUpSonarSqlMysqli($dbhost, $db, $user, $passwd)
+  public function setUpMysqli($dbhost, $db, $user, $passwd)
   {
        $mysqli = new mysqli($dbhost, $user, $passwd, $db);
        return $mysqli;
 
 
+  }
+  
+  public function setUpMySqlConnector(){
+      
   }
   
   
@@ -66,10 +70,10 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThan($num, 21);
   }
   
-  public function testSonarSqlPDO()
+  public function testPDO()
   {
       try{
-      $pdo=$this->setUpSonarSqlPDO('127.0.0.1','test3', 'test', 'test');
+      $pdo=$this->setUpPDO('127.0.0.1','test3', 'test', 'test');
       }
       catch (Exception $e)
       {
@@ -89,12 +93,12 @@ foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
        
   }
   
-  public function testSonarSqlMysqli(){
+  public function testMysqli(){
       
       $mysqli = new mysqli('127.0.0.1','test', 'test', 'test3');
       
       $result = $mysqli->query("SELECT a, b from test_php_mysql");
-while($row = $result->fetch_assoc()){
+    while($row = $result->fetch_assoc()){
     echo 'a:'.$row['a']."\n";
     echo 'b:'.$row['b']."\n";
 }

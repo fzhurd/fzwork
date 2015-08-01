@@ -77,6 +77,8 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
  
   public function testPDO()
   {
+      $expectedResults = array();
+
       try{
       $pdo=$this->setUpPDO('127.0.0.1','test3', 'test', 'test');
       }
@@ -90,11 +92,17 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       echo gettype($results_pdo)."\n";
 
       echo gettype($results_pdo->fetchAll(PDO::FETCH_ASSOC))."\n";
-      
- 
+
+      var_dump($results_pdo->fetchAll(PDO::FETCH_ASSOC));
+      print_r($results_pdo->fetchAll(PDO::FETCH_ASSOC));
+
+
+    
       foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
           echo 'b:'.$eachResult['b']."\n";
       }
+
+      echo 'above is PDO';
      
        
   }
@@ -105,9 +113,12 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       $mysqli = $this->setUpMysqli('127.0.0.1','test', 'test', 'test3');
       
       $result = $mysqli->query("SELECT a, b from test_php_mysql");
+      
     while($row = $result->fetch_assoc()){
     echo 'a:'.$row['a']."\n";
     echo 'b:'.$row['b']."\n";
+    echo " above is testMysqli";
+    
 }
      
   }
@@ -117,9 +128,11 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       mysql_select_db("test3", $mysql_connector);
 $result_mysql = mysql_query("SELECT a, b from test_php_mysql");
 
+
 while ($row = mysql_fetch_array($result_mysql)) {
    echo " a: ".$row{'a'}." b: ". $row{'b'}."\n";
 }
+ echo "avoce is testMysqlConnector";
 //close the connection
 mysql_close($mysql_connector);
   }

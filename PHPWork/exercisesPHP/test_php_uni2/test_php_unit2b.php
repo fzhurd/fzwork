@@ -8,7 +8,7 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
 {
   public function setUp()
   { 
-      $createdCollection = $this->setUpSonar('127.0.0.1',27017, 'test3','test_php1');
+      $createdCollection = $this->setUpMongo('127.0.0.1',27017, 'test3','test_php1');
       //$pdo=$this->setUpSonarSqlPDO('mysql:host=127.0.0.1;dbname=test', 'root', 'root');
       
   }
@@ -18,7 +18,7 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       
   }
 
-  public function setUpSonar($dbhost, $port, $dbname,$collection)
+  public function setUpMongo($dbhost, $port, $dbname,$collection)
   {
         
         $m = new Mongo("mongodb://$dbhost:$port");
@@ -45,7 +45,7 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       return $pdo;
   }
   
-  public function setUpMysqli($dbhost, $db, $user, $passwd)
+  public function setUpMysqli($dbhost,  $user, $passwd, $db)
   {
        $mysqli = new mysqli($dbhost, $user, $passwd, $db);
        return $mysqli;
@@ -95,7 +95,8 @@ foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
   
   public function testMysqli(){
       
-      $mysqli = new mysqli('127.0.0.1','test', 'test', 'test3');
+      //$mysqli = new mysqli('127.0.0.1','test', 'test', 'test3');
+      $mysqli = $this->setUpMysqli('127.0.0.1','test', 'test', 'test3');
       
       $result = $mysqli->query("SELECT a, b from test_php_mysql");
     while($row = $result->fetch_assoc()){

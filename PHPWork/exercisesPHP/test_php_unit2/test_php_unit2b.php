@@ -17,8 +17,10 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       
   }
 
-  function arrays_are_similar($a, $b) {
+  public function arrays_are_similar($a, $b) {
   // if the indexes don't match, return immediately
+    echo count(array_diff_assoc($a, $b));
+    echo '$$$$$$$$$$$$$$$$$';
   if (count(array_diff_assoc($a, $b))) {
     return false;
   }
@@ -77,32 +79,37 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
  
   public function testPDO()
   {
-      $expectedResults = array();
+      $expectedResults = array( );
 
-      try{
+      $expectedResults[0]=array('a' => 'orange', 'b' => 2);
+      $expectedResults[1]=array('a' => 'strawberry', 'b' => 5);
+      //$expectedResults[2]=array('a' => 'strawberry', 'b' => 5);
+      
       $pdo=$this->setUpPDO('127.0.0.1','test3', 'test', 'test');
-      }
-      catch (Exception $e)
-      {
-          echo $e;
-      }
+      
    
       $results_pdo = $pdo->query("SELECT a, b from test_php_mysql");
 
-      echo gettype($results_pdo)."\n";
+     // echo gettype($results_pdo)."\n";
 
-      echo gettype($results_pdo->fetchAll(PDO::FETCH_ASSOC))."\n";
+      //echo gettype($results_pdo->fetchAll(PDO::FETCH_ASSOC))."\n";
 
-      var_dump($results_pdo->fetchAll(PDO::FETCH_ASSOC));
+      //var_dump($results_pdo->fetchAll(PDO::FETCH_ASSOC));
       print_r($results_pdo->fetchAll(PDO::FETCH_ASSOC));
 
+      echo '*******************';
 
-    
+      print_r($expectedResults);
+
       foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
           echo 'b:'.$eachResult['b']."\n";
       }
 
       echo 'above is PDO';
+
+      $results=$results_pdo->fetchAll(PDO::FETCH_ASSOC);
+
+      $this->assertTrue($this->arrays_are_similar($results, $expectedResults));
      
        
   }

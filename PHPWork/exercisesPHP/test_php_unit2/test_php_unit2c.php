@@ -83,7 +83,6 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
 
       $expectedResults[0]=array('a' => 'orange', 'b' => 2);
       $expectedResults[1]=array('a' => 'strawberry','b' => 5);
-      // $expectedResults[2]=array('a' => 'strawberry', 'b' => 5);
       
       $pdo=$this->setUpPDO('127.0.0.1','test3', 'test', 'test');
       
@@ -91,50 +90,34 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       $results_pdo = $pdo->query("SELECT a, b from test_php_mysql");
 
      // echo gettype($results_pdo)."\n";
-
       //echo gettype($results_pdo->fetchAll(PDO::FETCH_ASSOC))."\n";
 
-      //var_dump($results_pdo->fetchAll(PDO::FETCH_ASSOC));
       $results = $results_pdo->fetchAll(PDO::FETCH_ASSOC);
-      print_r($results);
-
-      echo '*******************';
-
-      print_r($expectedResults);
-
-      echo var_dump($results==$expectedResults);
-      /*
-
-      foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
-          echo 'b:'.$eachResult['b']."\n";
-      }
-
-      echo 'above is PDO';
-
-      $results=$results_pdo->fetchAll(PDO::FETCH_ASSOC);
-      */
-
-      //$this->assertTrue($this->arrays_are_similar($results, $expectedResults));
+      //var_dump($results);
+      //print_r($results);
+    
       $this->assertTrue($results==$expectedResults);
-      //$c = count(array_intersect($results, $expectedResults));
-      //echo $c;
-     
        
   }
   
   public function testMysqli(){
+
+      $expectedResults = array( );
+
+      $expectedResults[0]=array('a' => 'orange', 'b' => 2);
+      $expectedResults[1]=array('a' => 'strawberry','b' => 5);
       
-      //$mysqli = new mysqli('127.0.0.1','test', 'test', 'test3');
-      $mysqli = $this->setUpMysqli('127.0.0.1','test', 'test', 'test3');
-      
-      $result = $mysqli->query("SELECT a, b from test_php_mysql");
-      
-    while($row = $result->fetch_assoc()){
-    echo 'a:'.$row['a']."\n";
-    echo 'b:'.$row['b']."\n";
-    echo " above is testMysqli";
     
-}
+      $mysqli = $this->setUpMysqli('127.0.0.1','test', 'test', 'test3');
+      $resultsMysqli = $mysqli->query("SELECT a, b from test_php_mysql");
+ 
+      
+      while($row = $resultsMysqli->fetch_assoc())
+      {
+        $results[]=$row; 
+      }
+
+      $this->assertTrue($results==$expectedResults);
      
   }
   

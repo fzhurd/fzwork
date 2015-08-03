@@ -82,7 +82,7 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       $expectedResults = array( );
 
       $expectedResults[0]=array('a' => 'orange', 'b' => 2);
-      $expectedResults[1]=array('a' => 'strawberry', 'b' => 5);
+      $expectedResults[1]=array('a' => 'strawberry','b' => 5);
       //$expectedResults[2]=array('a' => 'strawberry', 'b' => 5);
       
       $pdo=$this->setUpPDO('127.0.0.1','test3', 'test', 'test');
@@ -95,12 +95,15 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       //echo gettype($results_pdo->fetchAll(PDO::FETCH_ASSOC))."\n";
 
       //var_dump($results_pdo->fetchAll(PDO::FETCH_ASSOC));
-      print_r($results_pdo->fetchAll(PDO::FETCH_ASSOC));
+      $results = $results_pdo->fetchAll(PDO::FETCH_ASSOC);
+      print_r($results);
 
       echo '*******************';
 
       print_r($expectedResults);
 
+      echo var_dump($results==$expectedResults);
+/*
       foreach($results_pdo->fetchAll(PDO::FETCH_ASSOC) as $eachResult) {
           echo 'b:'.$eachResult['b']."\n";
       }
@@ -109,8 +112,11 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
 
       $results=$results_pdo->fetchAll(PDO::FETCH_ASSOC);
 
-      $this->assertTrue($this->arrays_are_similar($results, $expectedResults));
-     
+      //$this->assertTrue($this->arrays_are_similar($results, $expectedResults));
+      $this->assertTrue($results==$expectedResults);
+      //$c = count(array_intersect($results, $expectedResults));
+      //echo $c;
+     */
        
   }
   

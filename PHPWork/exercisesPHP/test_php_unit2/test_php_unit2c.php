@@ -134,12 +134,14 @@ class SonarSqlTest extends PHPUnit_Framework_TestCase
       mysql_select_db("test3", $mysql_connector);
       $result_mysql = mysql_query("SELECT a, b from test_php_mysql");
 
+  
+      while ($row = mysql_fetch_assoc($result_mysql)) {
 
-      while ($row = mysql_fetch_array($result_mysql)) {
-         //echo " a: ".$row{'a'}." b: ". $row{'b'}."\n";
         $results[]=$row;
       }
-       //echo "avoce is testMysqlConnector";
+
+      //var_dump($results);
+
       $this->assertTrue($results==$expectedResults);
 
       //close the connection

@@ -27,7 +27,7 @@ public class TestJunit {
    
    @Test
    public void testSonarSqlJDBC () throws ClassNotFoundException, SQLException{
-       Connection conn = null;
+   Connection conn = null;
    Statement stmt = null;
    
    Class.forName("com.mysql.jdbc.Driver");
@@ -35,18 +35,34 @@ public class TestJunit {
       conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
       System.out.println("Creating statement...");
       stmt = conn.createStatement();
-//      String query = "SELECT Data FROM Images LIMIT 1";
-//       PreparedStatement     pst = conn.prepareStatement(query);
+
             
       String sql;
       sql = "SELECT * from col3";
       ResultSet rs = stmt.executeQuery(sql);
+      System.out.println(rs.getClass().getName());
+      
       
       while(rs.next()){
          //Retrieve by column name
          int id  = rs.getInt("_id");
          int a = rs.getInt("a");
          String b = rs.getString("b");
+         
+         if (id==1){
+             assertEquals(a,1);
+             assertEquals(b, "red");
+         }
+         else if(id==2){
+             
+             assertEquals(a,2);
+             assertEquals(b, "");
+             
+         }
+         else if (id==3){
+             assertEquals(a,3);
+             assertEquals(b, true);
+         }
        
 
          //Display values
@@ -55,6 +71,7 @@ public class TestJunit {
          System.out.print(",b: " + b);
         
       }
+       
       //STEP 6: Clean-up environment
       rs.close();
       stmt.close();

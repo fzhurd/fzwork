@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.mongomariadb1.MongomariadbTest" time="0.052" tests="2" errors="0" skipped="0" failures="1">
+<testsuite name="com.mycompany.mongomariadb1.MongomariadbTest" time="2.076" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
@@ -58,12 +58,7 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testAppSaying" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.001"/>
-  <testcase name="testAppSaying2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.051">
-    <failure message="expected:&lt;[h]ello&gt; but was:&lt;[H]ello&gt;" type="org.junit.ComparisonFailure"><![CDATA[org.junit.ComparisonFailure: expected:<[h]ello> but was:<[H]ello>
-	at org.junit.Assert.assertEquals(Assert.java:125)
-	at org.junit.Assert.assertEquals(Assert.java:147)
-	at com.mycompany.mongomariadb1.MongomariadbTest.testAppSaying2(MongomariadbTest.java:85)
-]]></failure>
-  </testcase>
+  <testcase name="testAppSaying" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="1.173"/>
+  <testcase name="testAppSaying2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.107"/>
+  <testcase name="testSonarSqlJDBC" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.796"/>
 </testsuite>

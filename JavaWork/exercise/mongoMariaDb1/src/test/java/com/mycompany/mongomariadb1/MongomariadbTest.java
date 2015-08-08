@@ -47,7 +47,7 @@ import static org.junit.Assert.assertEquals;
 public class MongomariadbTest {
     
    private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
-   static final String DB_URL = "jdbc:mysql://localhost:3306/naaforjoin2";
+   static final String DB_URL = "jdbc:mysql://localhost:3306/test";
     
     //  Database credentials
    static final String USER = "test";
@@ -62,9 +62,26 @@ public class MongomariadbTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUpMongo() throws Exception {
+       MongoClient mongo = null;
+       mongo = new MongoClient("localhost", 27017); 
+       MongoDatabase testDatabase = mongo.getDatabase("test");
+       
+       MongoCollection mongoCol1 = testDatabase.getCollection("mongoCol1");
+       mongoCol1.drop();
+       testDatabase.createCollection("mongoCol1");
+       MongoCollection mycolNew = testDatabase.getCollection("mongoCol1");
+       System.out.println("Collection created successfully");
+       insert(mycolNew);
     }
-
+    
+    
+    /*
+    @Before
+    public void setUpMariaDb() throws Exception {
+       
+    }
+*/
     @After
     public void tearDown() throws Exception {
     }
@@ -82,7 +99,69 @@ public class MongomariadbTest {
     public void testAppSaying2(){
         //App app = new App();
         String message2 = "hello";
-        assertEquals(message2, "Hello");
+        assertEquals(message2, "hello");
+    }
+    
+    
+   @Test
+   public void testSonarSqlJDBC () throws ClassNotFoundException, SQLException{
+        Connection conn = null;
+        Statement stmt = null;
+   
+        Class.forName("com.mysql.jdbc.Driver");
+        System.out.println("Connecting to database...");
+        conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+        System.out.println("Creating statement...");
+        stmt = conn.createStatement();
+
+            
+        String sql;
+        sql = "SELECT * from col3";
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println(rs.getClass().getName());
+      
+      
+      while(rs.next()){
+         //Retrieve by column name
+         int id  = rs.getInt("_id");
+         int a2 = rs.getInt("a");
+         String b2 = rs.getString("b");
+         
+         if (id==1){
+             assertEquals(a2,1);
+             assertEquals(b2, "red");
+         }
+         else if(id==2){
+             
+             assertEquals(a2,2);
+             assertEquals(b2, "green");
+             
+         }
+         else if (id==3){
+             assertEquals(a2,3);
+             assertEquals(b2, "blue");
+         }
+       
+
+         //Display values
+         System.out.print("ID: " + id);
+         System.out.print(", a: " + a2);
+         System.out.print(",b: " + b2);
+        
+      }
+       
+      //STEP 6: Clean-up environment
+      rs.close();
+      stmt.close();
+   }
+    
+    public static void insert(MongoCollection<Document> collection){  
+        List<Document> documents = new ArrayList<Document>();  
+        for (int i = 1; i < 3; i++) {  
+            //documents.add(new Document("_id", i).append("age", (20+i)).append("name", new Date()));  
+            documents.add(new Document("_id", i).append("age", (20+i)).append("grade", Integer.toString(i) ));
+        }  
+        collection.insertMany(documents);  
     }
     
 }

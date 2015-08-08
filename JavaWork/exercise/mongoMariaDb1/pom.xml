@@ -54,7 +54,7 @@
             
               <include>**/MongomariadbTest.*</include>
           </includes>
-          <printSummary>true</printSummary>
+         <!-- <printSummary>true</printSummary>  -->
         </configuration>
 
       </plugin>

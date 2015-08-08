@@ -104,7 +104,67 @@ public class MongomariadbTest {
     
     
    @Test
-   public void testSonarSqlJDBC () throws ClassNotFoundException, SQLException{
+   public void testMysqlJDBC () throws ClassNotFoundException, SQLException{
+        Connection conn = null;
+        Statement stmt = null;
+        
+        String db="test";
+        String collection ="col3";
+        
+   
+        Class.forName("com.mysql.jdbc.Driver");
+        System.out.println("Connecting to database...");
+        conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+        System.out.println("Creating statement...");
+        stmt = conn.createStatement();
+
+            
+        String sql;
+        sql = "SELECT * from col3";
+        
+        String errorInfo="\n Database: "+db+"\n"+"Collection: "+collection+"\n"+"Query: "+sql+"\n";
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println(rs.getClass().getName());
+      
+      
+      while(rs.next()){
+         //Retrieve by column name
+         int id  = rs.getInt("_id");
+         int a2 = rs.getInt("a");
+         String b2 = rs.getString("b");
+         
+         if (id==1){
+             assertEquals(errorInfo,a2,1);
+             assertEquals(errorInfo,b2, "red");
+         }
+         else if(id==2){
+             
+             assertEquals(errorInfo,a2,2);
+             assertEquals(errorInfo,b2, "green");
+             
+         }
+         else if (id==3){
+             assertEquals(errorInfo,a2,3);
+             assertEquals(errorInfo,b2, "blue");
+         }
+       
+
+         //Display values
+         System.out.print("ID: " + id);
+         System.out.print(", a: " + a2);
+         System.out.print(",b: " + b2);
+        
+      }
+       
+      //STEP 6: Clean-up environment
+      rs.close();
+      stmt.close();
+   }
+   
+   
+   
+   @Test
+   public void testMariaDbDriver () throws ClassNotFoundException, SQLException{
         Connection conn = null;
         Statement stmt = null;
         
@@ -160,6 +220,7 @@ public class MongomariadbTest {
       rs.close();
       stmt.close();
    }
+    
     
     public static void insert(MongoCollection<Document> collection){  
         List<Document> documents = new ArrayList<Document>();  

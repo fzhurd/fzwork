@@ -1,13 +1,22 @@
 -------------------------------------------------------------------------------
 Test set: com.mycompany.mongomariadb1.MongomariadbTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.022 sec <<< FAILURE! - in com.mycompany.mongomariadb1.MongomariadbTest
-testSonarSqlJDBC(com.mycompany.mongomariadb1.MongomariadbTest)  Time elapsed: 0.722 sec  <<< FAILURE!
+Tests run: 4, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 2.279 sec <<< FAILURE! - in com.mycompany.mongomariadb1.MongomariadbTest
+testMysqlJDBC(com.mycompany.mongomariadb1.MongomariadbTest)  Time elapsed: 0.811 sec  <<< FAILURE!
 org.junit.ComparisonFailure: 
  Database: test
 Collection: col3
 Query: SELECT * from col3
  expected:<blue[]> but was:<blue[1]>
 	at org.junit.Assert.assertEquals(Assert.java:125)
-	at com.mycompany.mongomariadb1.MongomariadbTest.testSonarSqlJDBC(MongomariadbTest.java:148)
+	at com.mycompany.mongomariadb1.MongomariadbTest.testMysqlJDBC(MongomariadbTest.java:148)
+
+testMariaDbDriver(com.mycompany.mongomariadb1.MongomariadbTest)  Time elapsed: 0.138 sec  <<< FAILURE!
+org.junit.ComparisonFailure: 
+ Database: test
+Collection: col3
+Query: SELECT * from col3
+ expected:<blue[]> but was:<blue[1]>
+	at org.junit.Assert.assertEquals(Assert.java:125)
+	at com.mycompany.mongomariadb1.MongomariadbTest.testMariaDbDriver(MongomariadbTest.java:208)
 

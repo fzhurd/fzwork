@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.mycompany.mongomariadb1.MongomariadbTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.08 sec <<< FAILURE! - in com.mycompany.mongomariadb1.MongomariadbTest
+testAppSaying2(com.mycompany.mongomariadb1.MongomariadbTest)  Time elapsed: 0.051 sec  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<[h]ello> but was:<[H]ello>
+	at org.junit.Assert.assertEquals(Assert.java:125)
+	at org.junit.Assert.assertEquals(Assert.java:147)
+	at com.mycompany.mongomariadb1.MongomariadbTest.testAppSaying2(MongomariadbTest.java:85)
+

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com;
+package com.ourcompany;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,8 +17,8 @@ import org.junit.runners.Suite;
  * @author frank
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({com.ourcompany.MycompanySuite.class})
-public class ComSuite {
+@Suite.SuiteClasses({com.mycompany.mongomariadb1.MongomariadbTest.class})
+public class MycompanySuite {
 
     @BeforeClass
     public static void setUpClass() throws Exception {

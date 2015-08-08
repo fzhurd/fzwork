@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.mongomariadb1.MongomariadbTest" time="2.076" tests="3" errors="0" skipped="0" failures="0">
+<testsuite name="com.mycompany.mongomariadb1.MongomariadbTest" time="1.992" tests="3" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
@@ -58,7 +58,32 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testAppSaying" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="1.173"/>
-  <testcase name="testAppSaying2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.107"/>
-  <testcase name="testSonarSqlJDBC" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.796"/>
+  <testcase name="testAppSaying2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="1.169"/>
+  <testcase name="testSonarSqlJDBC" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.722">
+    <failure message="&#10; Database: test&#10;Collection: col3&#10;Query: SELECT * from col3&#10; expected:&lt;blue[]&gt; but was:&lt;blue[1]&gt;" type="org.junit.ComparisonFailure"><![CDATA[org.junit.ComparisonFailure: 
+ Database: test
+Collection: col3
+Query: SELECT * from col3
+ expected:<blue[]> but was:<blue[1]>
+	at org.junit.Assert.assertEquals(Assert.java:125)
+	at com.mycompany.mongomariadb1.MongomariadbTest.testSonarSqlJDBC(MongomariadbTest.java:148)
+]]></failure>
+    <system-out><![CDATA[Collection created successfully
+Connecting to database...
+Creating statement...
+com.mysql.jdbc.JDBC4ResultSet
+ID: 1, a: 1,b: redID: 2, a: 2,b: green]]></system-out>
+    <system-err><![CDATA[Aug 08, 2015 2:53:54 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Aug 08, 2015 2:53:54 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: No server chosen by PrimaryServerSelector from cluster description ClusterDescription{type=UNKNOWN, connectionMode=SINGLE, all=[ServerDescription{address=localhost:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
+Aug 08, 2015 2:53:54 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:3, serverValue:21}] to localhost:27017
+Aug 08, 2015 2:53:54 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 0, 5]}, minWireVersion=0, maxWireVersion=3, electionId=null, maxDocumentSize=16777216, roundTripTimeNanos=530597}
+Aug 08, 2015 2:53:54 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:4, serverValue:22}] to localhost:27017
+]]></system-err>
+  </testcase>
+  <testcase name="testAppSaying" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.101"/>
 </testsuite>

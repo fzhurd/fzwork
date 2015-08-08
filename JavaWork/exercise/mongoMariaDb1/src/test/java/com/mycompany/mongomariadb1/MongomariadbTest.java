@@ -107,6 +107,10 @@ public class MongomariadbTest {
    public void testSonarSqlJDBC () throws ClassNotFoundException, SQLException{
         Connection conn = null;
         Statement stmt = null;
+        
+        String db="test";
+        String collection ="col3";
+        
    
         Class.forName("com.mysql.jdbc.Driver");
         System.out.println("Connecting to database...");
@@ -117,6 +121,8 @@ public class MongomariadbTest {
             
         String sql;
         sql = "SELECT * from col3";
+        
+        String errorInfo="\n Database: "+db+"\n"+"Collection: "+collection+"\n"+"Query: "+sql+"\n";
         ResultSet rs = stmt.executeQuery(sql);
         System.out.println(rs.getClass().getName());
       
@@ -128,18 +134,18 @@ public class MongomariadbTest {
          String b2 = rs.getString("b");
          
          if (id==1){
-             assertEquals(a2,1);
-             assertEquals(b2, "red");
+             assertEquals(errorInfo,a2,1);
+             assertEquals(errorInfo,b2, "red");
          }
          else if(id==2){
              
-             assertEquals(a2,2);
-             assertEquals(b2, "green");
+             assertEquals(errorInfo,a2,2);
+             assertEquals(errorInfo,b2, "green");
              
          }
          else if (id==3){
-             assertEquals(a2,3);
-             assertEquals(b2, "blue");
+             assertEquals(errorInfo,a2,3);
+             assertEquals(errorInfo,b2, "blue1");
          }
        
 

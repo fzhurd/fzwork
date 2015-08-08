@@ -46,8 +46,11 @@ import static org.junit.Assert.assertEquals;
 //@Suite.SuiteClasses({})
 public class MongomariadbTest {
     
-   private static final String JDBC_DRIVER = "org.mariadb.jdbc.Driver";
+   //private static final String JDBC_DRIVER_MARIADB = "org.mariadb.jdbc.Driver";
+   
    static final String DB_URL = "jdbc:mysql://localhost:3306/test";
+   
+   //private static final String JDBC_DRIVER_MYSQL = "com.mysql.jdbc.Driver";
     
     //  Database credentials
    static final String USER = "test";
@@ -104,7 +107,7 @@ public class MongomariadbTest {
     
     
    @Test
-   public void testMysqlJDBC () throws ClassNotFoundException, SQLException{
+   public void testMysqlJDBC() throws ClassNotFoundException, SQLException{
         Connection conn = null;
         Statement stmt = null;
         
@@ -164,7 +167,7 @@ public class MongomariadbTest {
    
    
    @Test
-   public void testMariaDbDriver () throws ClassNotFoundException, SQLException{
+   public void testMariaDbDriver() throws ClassNotFoundException, SQLException{
         Connection conn = null;
         Statement stmt = null;
         
@@ -172,7 +175,8 @@ public class MongomariadbTest {
         String collection ="col3";
         
    
-        Class.forName("com.mysql.jdbc.Driver");
+        //Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("org.mariadb.jdbc.Driver");
         System.out.println("Connecting to database...");
         conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
         System.out.println("Creating statement...");
@@ -205,7 +209,7 @@ public class MongomariadbTest {
          }
          else if (id==3){
              assertEquals(errorInfo,a2,3);
-             assertEquals(errorInfo,b2, "blue1");
+             assertEquals(errorInfo,b2, "blue");
          }
        
 

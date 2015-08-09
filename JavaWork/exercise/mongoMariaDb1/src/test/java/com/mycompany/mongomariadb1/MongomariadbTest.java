@@ -45,23 +45,23 @@ import static org.junit.Assert.assertEquals;
 //@RunWith(Suite.class)
 //@Suite.SuiteClasses({})
 public class MongomariadbTest {
-    
-   //private static final String JDBC_DRIVER_MARIADB = "org.mariadb.jdbc.Driver";
+        
+   // Database credentials
+   private  final static String mongoDatabase="test";
+   private  final static String mongoUser = "test";
+   private  final static String mongoPass = "test";
+   private  final static String mongoCollection="mongoCol1";
    
-   static final String DB_URL = "jdbc:mysql://localhost:3306/test";
+   private  final static  String JDBC_DRIVER_MYSQL = "com.mysql.jdbc.Driver";
+   private  final static  String JDBC_DRIVER_MARIADB = "org.mariadb.jdbc.Driver";
+   private  final static  String DB_URL = "jdbc:mysql://localhost:3306/test";
    
-   //private static final String JDBC_DRIVER_MYSQL = "com.mysql.jdbc.Driver";
-    
-    //  Database credentials
-   static final String USER = "test";
-   static final String PASS = "test";
-   
-   
-   static String driver="";
-   static String Dbname="";
-   static String testCollection="";
-   static String query="";
-   static Statement stmt = null;
+   private  final static String Dbname="test";
+   private  final static String sqlDbUser = "test";
+   private  final static String sqlDbPass = "test";
+   private  final static String testCollection="col3";
+   private  final static String query="SELECT * FROM col3";
+   private  Statement stmt = null;
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -77,12 +77,12 @@ public class MongomariadbTest {
        MongoClient mongo = null;
        //mongo = new MongoClient("localhost", 27017); 
        mongo = new MongoClient("localhost", DB_PORT);
-       MongoDatabase testDatabase = mongo.getDatabase("test");
+       MongoDatabase testDatabase = mongo.getDatabase(mongoDatabase);
        
-       MongoCollection mongoCol1 = testDatabase.getCollection("mongoCol1");
+       MongoCollection mongoCol1 = testDatabase.getCollection(mongoCollection);
        mongoCol1.drop();
-       testDatabase.createCollection("mongoCol1");
-       MongoCollection mycolNew = testDatabase.getCollection("mongoCol1");
+       testDatabase.createCollection(mongoCollection);
+       MongoCollection mycolNew = testDatabase.getCollection(mongoCollection);
        System.out.println("Collection created successfully");
        insert(mycolNew);
     }
@@ -263,14 +263,14 @@ public class MongomariadbTest {
     
    @Test
    public void testMysqlDriver2() throws ClassNotFoundException, SQLException{
-       ResultSet rs3 = runQuery("com.mysql.jdbc.Driver", "test", "col3", "SELECT * from col3" );
-       checkResult("test", "col3", "SELECT * from col3", rs3, stmt);
+       ResultSet rs3 = runQuery(JDBC_DRIVER_MYSQL, Dbname, testCollection, query );
+       checkResult(Dbname, testCollection, query, rs3, stmt);
    }
     
    @Test
    public void testMariaDbDriver2() throws ClassNotFoundException, SQLException{
-       ResultSet rs4 = runQuery("org.mariadb.jdbc.Driver", "test", "col3", "SELECT * from col3" );
-       checkResult("test", "col3", "SELECT * from col3", rs4, stmt);
+       ResultSet rs4 = runQuery(JDBC_DRIVER_MARIADB, Dbname, testCollection, query );
+       checkResult(Dbname, testCollection, query, rs4, stmt);
    }
    
     public ResultSet runQuery(String driver, String Dbname, String testCollection, String query ) throws ClassNotFoundException, SQLException{
@@ -285,7 +285,7 @@ public class MongomariadbTest {
         //Class.forName("com.mysql.jdbc.Driver");
         Class.forName(driver);
         System.out.println("Connecting to database...");
-        conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
+        conn = (Connection) DriverManager.getConnection(DB_URL,sqlDbUser,sqlDbPass);
         System.out.println("Creating statement...");
         stmt = conn.createStatement();
 

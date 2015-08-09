@@ -61,6 +61,13 @@
               <include>**/MongomariadbTest.*</include>
           </includes>
          <!-- <printSummary>true</printSummary>  -->
+         
+         <systemProperties>
+            <property>
+                <name>DB_PORT</name>
+                <value>${DB_PORT}</value>
+            </property>
+        </systemProperties>
         </configuration>
 
       </plugin>

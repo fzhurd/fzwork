@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.mongomariadb1.MongomariadbTest" time="2.064" tests="6" errors="0" skipped="0" failures="2">
+<testsuite name="com.mycompany.mongomariadb1.MongomariadbTest" time="2.004" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
@@ -20,6 +20,7 @@
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="DB_PORT" value="27017"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
@@ -40,7 +41,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test -D DB_PORT=27017"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -58,62 +59,8 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testMysqlJDBC" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="1.523"/>
-  <testcase name="testMariaDbDriver" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.121"/>
-  <testcase name="testMysqlDriver2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.165">
-    <failure message="&#10; Database: test&#10;Collection: col3&#10;Query: SELECT * from col3&#10; expected:&lt;blu[]e&gt; but was:&lt;blu[u]e&gt;" type="org.junit.ComparisonFailure"><![CDATA[org.junit.ComparisonFailure: 
- Database: test
-Collection: col3
-Query: SELECT * from col3
- expected:<blu[]e> but was:<blu[u]e>
-	at org.junit.Assert.assertEquals(Assert.java:125)
-	at com.mycompany.mongomariadb1.MongomariadbTest.checkResult(MongomariadbTest.java:310)
-	at com.mycompany.mongomariadb1.MongomariadbTest.testMysqlDriver2(MongomariadbTest.java:251)
-]]></failure>
-    <system-out><![CDATA[Collection created successfully
-Connecting to database...
-Creating statement...
-org.mariadb.jdbc.MySQLResultSet
-ID: 1, a: 1,b: redID: 2, a: 2,b: green]]></system-out>
-    <system-err><![CDATA[Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: No server chosen by PrimaryServerSelector from cluster description ClusterDescription{type=UNKNOWN, connectionMode=SINGLE, all=[ServerDescription{address=localhost:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Opened connection [connectionId{localValue:5, serverValue:55}] to localhost:27017
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 0, 5]}, minWireVersion=0, maxWireVersion=3, electionId=null, maxDocumentSize=16777216, roundTripTimeNanos=791536}
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Opened connection [connectionId{localValue:6, serverValue:56}] to localhost:27017
-]]></system-err>
-  </testcase>
-  <testcase name="testMariaDbDriver2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.08">
-    <failure message="&#10; Database: test&#10;Collection: col3&#10;Query: SELECT * from col3&#10; expected:&lt;blu[]e&gt; but was:&lt;blu[u]e&gt;" type="org.junit.ComparisonFailure"><![CDATA[org.junit.ComparisonFailure: 
- Database: test
-Collection: col3
-Query: SELECT * from col3
- expected:<blu[]e> but was:<blu[u]e>
-	at org.junit.Assert.assertEquals(Assert.java:125)
-	at com.mycompany.mongomariadb1.MongomariadbTest.checkResult(MongomariadbTest.java:310)
-	at com.mycompany.mongomariadb1.MongomariadbTest.testMariaDbDriver2(MongomariadbTest.java:257)
-]]></failure>
-    <system-out><![CDATA[Collection created successfully
-Connecting to database...
-Creating statement...
-org.mariadb.jdbc.MySQLResultSet
-ID: 1, a: 1,b: redID: 2, a: 2,b: green]]></system-out>
-    <system-err><![CDATA[Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: No server chosen by PrimaryServerSelector from cluster description ClusterDescription{type=UNKNOWN, connectionMode=SINGLE, all=[ServerDescription{address=localhost:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Opened connection [connectionId{localValue:7, serverValue:57}] to localhost:27017
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 0, 5]}, minWireVersion=0, maxWireVersion=3, electionId=null, maxDocumentSize=16777216, roundTripTimeNanos=2506763}
-Aug 08, 2015 8:53:37 PM com.mongodb.diagnostics.logging.JULLogger log
-INFO: Opened connection [connectionId{localValue:8, serverValue:58}] to localhost:27017
-]]></system-err>
-  </testcase>
-  <testcase name="testAppSaying" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.083"/>
-  <testcase name="testAppSaying2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.092"/>
+  <testcase name="testMysqlDriver2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="1.709"/>
+  <testcase name="testMariaDbDriver2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.14"/>
+  <testcase name="testAppSaying" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.089"/>
+  <testcase name="testAppSaying2" classname="com.mycompany.mongomariadb1.MongomariadbTest" time="0.066"/>
 </testsuite>

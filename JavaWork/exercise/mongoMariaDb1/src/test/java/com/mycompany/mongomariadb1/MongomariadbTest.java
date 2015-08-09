@@ -70,7 +70,23 @@ public class MongomariadbTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-
+    
+    @Before
+    public void setUpMongo() throws Exception {
+       int DB_PORT=Integer.parseInt(System.getProperty("DB_PORT"));
+       MongoClient mongo = null;
+       //mongo = new MongoClient("localhost", 27017); 
+       mongo = new MongoClient("localhost", DB_PORT);
+       MongoDatabase testDatabase = mongo.getDatabase("test");
+       
+       MongoCollection mongoCol1 = testDatabase.getCollection("mongoCol1");
+       mongoCol1.drop();
+       testDatabase.createCollection("mongoCol1");
+       MongoCollection mycolNew = testDatabase.getCollection("mongoCol1");
+       System.out.println("Collection created successfully");
+       insert(mycolNew);
+    }
+    /*
     @Before
     public void setUpMongo() throws Exception {
        MongoClient mongo = null;
@@ -84,7 +100,7 @@ public class MongomariadbTest {
        System.out.println("Collection created successfully");
        insert(mycolNew);
     }
-    
+    */
     
     /*
     @Before
@@ -112,7 +128,7 @@ public class MongomariadbTest {
         assertEquals(message2, "hello");
     }
     
-    
+    /*
    @Test
    public void testMysqlJDBC() throws ClassNotFoundException, SQLException{
         Connection conn = null;
@@ -233,7 +249,7 @@ public class MongomariadbTest {
    }
    
    
- 
+ */
     
     
     public static void insert(MongoCollection<Document> collection){  

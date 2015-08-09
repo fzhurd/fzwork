@@ -1,24 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.mycompany.mongomariadb1.MongomariadbTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 2.102 sec <<< FAILURE! - in com.mycompany.mongomariadb1.MongomariadbTest
-testMysqlDriver2(com.mycompany.mongomariadb1.MongomariadbTest)  Time elapsed: 0.165 sec  <<< FAILURE!
-org.junit.ComparisonFailure: 
- Database: test
-Collection: col3
-Query: SELECT * from col3
- expected:<blu[]e> but was:<blu[u]e>
-	at org.junit.Assert.assertEquals(Assert.java:125)
-	at com.mycompany.mongomariadb1.MongomariadbTest.checkResult(MongomariadbTest.java:310)
-	at com.mycompany.mongomariadb1.MongomariadbTest.testMysqlDriver2(MongomariadbTest.java:251)
-
-testMariaDbDriver2(com.mycompany.mongomariadb1.MongomariadbTest)  Time elapsed: 0.08 sec  <<< FAILURE!
-org.junit.ComparisonFailure: 
- Database: test
-Collection: col3
-Query: SELECT * from col3
- expected:<blu[]e> but was:<blu[u]e>
-	at org.junit.Assert.assertEquals(Assert.java:125)
-	at com.mycompany.mongomariadb1.MongomariadbTest.checkResult(MongomariadbTest.java:310)
-	at com.mycompany.mongomariadb1.MongomariadbTest.testMariaDbDriver2(MongomariadbTest.java:257)
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.015 sec - in com.mycompany.mongomariadb1.MongomariadbTest

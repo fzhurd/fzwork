@@ -62,6 +62,13 @@ public class MongomariadbTest {
    private  final static String testCollection="col3";
    private  final static String query="SELECT * FROM col3";
    private  Statement stmt = null;
+   
+   public Statement getStatement(){
+       return this.stmt;
+   }
+   public void setStatement(Statement stmt){
+       this.stmt = stmt;
+   }
 
     @BeforeClass
     public static void setUpClass() throws Exception {

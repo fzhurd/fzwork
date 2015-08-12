@@ -1,0 +1,6 @@
+
+# check interface
+ifconfig -a
+
+# get all interface
+sudo tcpdump -D

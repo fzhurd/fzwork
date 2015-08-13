@@ -2,8 +2,9 @@ cp /home/frank/netbeans-8.0.2/ide/modules/ext/mysql-connector-java-5.1.23-bin.ja
 
 cp /home/frank/netbeans-8.0.2/platform/modules/ext/junit-4.10.jar ./
 
-
+---compile
 javac -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar MongoSqlJunit1Test.java
 
 
-java -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar org.junit.runner.JUnitCore  SonarSqlJunit1Test.class
+---run note: NOT MongoSqlJunit1Test.class, SHOULD BE MongoSqlJunit1Test
+java -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar org.junit.runner.JUnitCore  MongoSqlJunit1Test

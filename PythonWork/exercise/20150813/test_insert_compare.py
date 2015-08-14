@@ -100,26 +100,20 @@ class Compare_Tests(unittest.TestCase):
             field_value = ''.join([d,'_value'])
 
             if d=='dim1':
-                self.assertEqual(one_doc[field_id]%(self.dim1_mod), one_doc[field_value], msg=self.get_error_message())
-            elif d=='dim2':
-                self.assertEqual(one_doc[field_id]%(self.dim2_mod), one_doc[field_value], msg=self.get_error_message())
-            elif d=='dim3':
-                self.assertEqual(one_doc[field_id]%(self.dim3_mod), one_doc[field_value], msg=self.get_error_message())
+                self.assertEqual(one_doc['_id']%(self.dim1_mod), one_doc['value'], msg="not equal")
+            # elif d=='dim2':
+            #     self.assertEqual(one_doc[field_id]%(self.dim2_mod), one_doc[field_value], msg="not equal")
+            # elif d=='dim3':
+            #     self.assertEqual(one_doc[field_id]%(self.dim3_mod), one_doc[field_value], msg="not equal")
 
-    # def test_compare(self):
+    def test_compare(self):
 
-    #     fact_name = self.coll_name
+        result_set = self.db[self.dims[0]].find()
 
-    #     query_outname = self.run_query( self.coll_name, 'join_results')
-    #     pipe_line = query_outname[0]
-    #     error_info= self.output_error_information('star_snowflake_join_tests', 'fact', pipe_line)
-
-    #     result_set = self.db.join_results.find()
-
-    #     for result in result_set:
+        for result in result_set:
          
-    #         self.assertEqual(result['_id'],result['dim2_id'], msg=self.get_error_message())
-    #         self.compare_one_doc_result(result, self.get_error_message())
+            # self.assertEqual(result['_id'],result['dim2_id'], msg=self.get_error_message())
+            self.compare_one_doc_result(result)
 
 
 

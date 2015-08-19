@@ -7,4 +7,16 @@ javac -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar MongoSqlJunit
 
 
 ---run note: NOT MongoSqlJunit1Test.class, SHOULD BE MongoSqlJunit1Test
+
+
 java -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar org.junit.runner.JUnitCore  MongoSqlJunit1Test
+JUnit version 4.10
+.Connecting to database...
+Creating statement...
+com.mysql.jdbc.JDBC4ResultSet
+ID: 1, age: 10, color: red
+ID: 2, age: 20, color: green
+ID: 3, age: 30, color: blue
+
+Time: 2.499
+

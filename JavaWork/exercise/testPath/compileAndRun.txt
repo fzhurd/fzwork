@@ -7,6 +7,7 @@ javac -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar MongoSqlJunit
 
 
 ---run note: NOT MongoSqlJunit1Test.class, SHOULD BE MongoSqlJunit1Test
+--- no .class extension to run the script
 
 
 java -cp .:./mysql-connector-java-5.1.23-bin.jar:./junit-4.10.jar org.junit.runner.JUnitCore  MongoSqlJunit1Test

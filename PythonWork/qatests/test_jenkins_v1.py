@@ -13,3 +13,12 @@ class Test_jenkins_TC(unittest.TestCase):
         result= first_num + second_num
         
         self.assertEqual(result, 30)
+
+    def test_jenkins_TC_2(self):
+
+        first_num=100
+        second_num=20
+
+        result= first_num - second_num
+        
+        self.assertEqual(result, 80)

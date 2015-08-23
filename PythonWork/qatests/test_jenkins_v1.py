@@ -21,4 +21,4 @@ class Test_jenkins_TC(unittest.TestCase):
 
         result= first_num - second_num
         
-        self.assertEqual(result, 70)
+        self.assertEqual(result, 80)

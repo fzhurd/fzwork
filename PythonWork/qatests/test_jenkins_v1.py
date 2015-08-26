@@ -32,7 +32,7 @@ class Test_jenkins_TC(unittest.TestCase):
         
         self.assertEqual(result, 2000)
 
-    def test_jenkins_TC_3(self):
+    def test_jenkins_TC_4(self):
 
         first_num=100
         second_num=20

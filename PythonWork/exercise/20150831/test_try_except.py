@@ -6,6 +6,25 @@ import unittest
 import pymysql
 from functools import wraps
 
+# def handleError(function):
+#     def handleProblems():
+#         try:
+#             function()
+#         except Exception:
+#             print "Oh noes"
+#     return handleProblems
+
+def handleError(self, func):
+    @wraps(func)
+    def wrapper( *args, **kwargs):
+        try:  
+            func(*args, **kwargs)
+        except Exception as e:
+            self.fail(e)
+
+            # print "oh, noes"
+    return wrapper
+
 
 
 class Test_Simple_Query(unittest.TestCase):
@@ -24,6 +43,8 @@ class Test_Simple_Query(unittest.TestCase):
             conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db, cursorclass=cursorclass)
 
             return conn
+
+    @handleError
     def test_simple_TC_1(self):
 
             self.query = 'select a from t1;'
@@ -34,4 +55,10 @@ class Test_Simple_Query(unittest.TestCase):
 
             expected_results=[('red',), ('green',)]
             self.assertItemsEqual(results, expected_results)
+
+    @handleError
+    def test_simple_TC_2(self):
+            self.assertEqual(1, 2)
+            raise Exception("Boom!")
+
 

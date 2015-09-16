@@ -72,7 +72,12 @@ CREATE TABLE s1(
 `lmrm_bson_`          blob           
 );
 
-
+LOAD DATA LOCAL INFILE 's1.csv' 
+INTO TABLE  s1  
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
 
 Access Id          
 Analyzed Client IP 

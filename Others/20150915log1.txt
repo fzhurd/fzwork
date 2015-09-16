@@ -1,0 +1,94 @@
+
+
+mongoexport  --db test2 --collection s1 --csv --out s1.csv --fields "Access Id","Analyzed Client IP","Client Host Name","DB User Name","Database Name","Login Succeeded","OS User","Original Timezone","Server Host Name","Server IP","Server Type","Service Name","Session End","Session Id","Session Start","Source Program","Uid Chain","lmrm_bson_"
+
+
+
++--------------------+----------------+------+------+---------+-------+
+| Field              | Type           | Null | Key  | Default | Extra |
++--------------------+----------------+------+------+---------+-------+
+| Access Id          | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Analyzed Client IP | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Client Host Name   | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| DB User Name       | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Database Name      | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Login Succeeded    | bigint         | YES  | NULL | NULL    |  NULL |
+| OS User            | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Original Timezone  | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Server Host Name   | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Server IP          | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Server Type        | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Service Name       | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Session End        | datetime       | YES  | NULL | NULL    |  NULL |
+| Session Id         | int            | YES  | NULL | NULL    |  NULL |
+| Session Start      | datetime       | YES  | NULL | NULL    |  NULL |
+| Source Program     | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| Uid Chain          | varchar(65535) | YES  | NULL | NULL    |  NULL |
+| lmrm_bson_         | blob           | YES  | NULL | NULL    |  NULL |
++--------------------+----------------+------+------+---------+-------+
+18 rows in set (0.00 sec)
+
+
+CREATE TABLE s1( 
+`Access Id` varchar(65535),
+`Analyzed Client IP`  varchar(65535),
+`Client Host Name`    varchar(65535),
+`DB User Name`        varchar(65535), 
+`Database Name`       varchar(65535), 
+`Login Succeeded`     bigint,         
+`OS User`             varchar(65535), 
+`Original Timezone`   varchar(65535), 
+`Server Host Name`    varchar(65535),
+`Server IP`           varchar(65535), 
+`Server Type`         varchar(65535),
+`Service Name`        varchar(65535),
+`Session End`         datetime,      
+`Session Id`          int,            
+`Session Start`       datetime,       
+`Source Program`      varchar(65535), 
+`Uid Chain`           varchar(65535), 
+`lmrm_bson_`          blob           
+)
+
+
+CREATE TABLE s1( 
+`Access Id` varchar(1000),
+`Analyzed Client IP`  varchar(1000),
+`Client Host Name`    varchar(1000),
+`DB User Name`        varchar(1000), 
+`Database Name`       varchar(1000), 
+`Login Succeeded`     bigint,         
+`OS User`             varchar(1000), 
+`Original Timezone`   varchar(1000), 
+`Server Host Name`    varchar(1000),
+`Server IP`           varchar(1000), 
+`Server Type`         varchar(1000),
+`Service Name`        varchar(1000),
+`Session End`         datetime,      
+`Session Id`          int,            
+`Session Start`       datetime,       
+`Source Program`      varchar(1000), 
+`Uid Chain`           varchar(1000), 
+`lmrm_bson_`          blob           
+);
+
+
+
+Access Id          
+Analyzed Client IP 
+Client Host Name   
+DB User Name       
+Database Name      
+Login Succeeded   
+OS User            
+Original Timezone  
+Server Host Name   
+Server IP         
+Server Type       
+Service Name       
+Session End        
+Session Id         
+Session Start     
+Source Program     
+Uid Chain          
+lmrm_bson_        

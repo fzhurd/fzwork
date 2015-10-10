@@ -30,13 +30,9 @@ class Test_Proc_Log(unittest.TestCase):
 
         split_parts = proc_cmdline[2].split(":")
 
-        # for s in split_parts:
-        #     print s
-
         if split_parts[2].startswith('xxxx'):
             pwd_is_hidden=True
-        # else:
-        #     print 'fail'
+
         self.assertEquals(pwd_is_hidden, True)
 
     def tail(f, n, offset=None):

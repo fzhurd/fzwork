@@ -24,18 +24,20 @@ class Test_Proc_Log(unittest.TestCase):
 
 
     def test_proc(self):
+        pwd_is_hidden=False
         proc_cmdline = self.find_process('sonarsql')
         print proc_cmdline[2]
 
         split_parts = proc_cmdline[2].split(":")
 
-        for s in split_parts:
-            print s
+        # for s in split_parts:
+        #     print s
 
         if split_parts[2].startswith('xxxx'):
-            print 'pass'
-        else:
-            print 'fail'
+            pwd_is_hidden=True
+        # else:
+        #     print 'fail'
+        self.assertEquals(pwd_is_hidden, True)
 
     def tail(f, n, offset=None):
         """Reads a n lines from f with an offset of offset lines.  The return

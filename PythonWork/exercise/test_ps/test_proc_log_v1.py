@@ -4,6 +4,8 @@
 import pymysql
 import unittest
 import psutil
+import os
+import sys
 
 HOST='127.0.0.1'
 USER='test'
@@ -62,19 +64,29 @@ class Test_Proc_Log(unittest.TestCase):
             fsize = f.tell()        
             f.seek (max (fsize-1024, 0), 0) # Set pos @ last n chars
             lines = f.readlines()       # Read to end
+
         lines = lines[-line_num:]    # Get last 10 lines
 
+        find_str='sonarsql'
         # This returns True if any line is exactly find_str + "\n"
         print find_str + "\n" in lines
 
         # If you're searching for a substring
-        for line in lines:
-            if find_str in line:
-                print True
-                break
+        # for line in lines:
+        for index, line in enumerate(lines):
+            cleanedLine = line.strip()
+            print cleanedLine
+            if cleanedLine and 'SonarSQL' in line:
+                print ' find sonarsql ......'
+
 
 
     def test_log(self):
+        os.chdir('/var/log/sonarsql')
+        if not os.geteuid()==0:
+            sys.exit("\nOnly root user can run this test\n")
+
+        os.setuid(0)
         self.tail2('sonarsql.log', 4)
 
 

@@ -59,6 +59,7 @@ class Test_Proc_Log(unittest.TestCase):
             avg_line_length *= 1.3
 
     def tail2(self, fname, line_num):
+        pwd_is_hidden2=False
         with open(fname, "r") as f:
             f.seek (0, 2)           
             fsize = f.tell()        
@@ -69,15 +70,27 @@ class Test_Proc_Log(unittest.TestCase):
 
         find_str='sonarsql'
         # This returns True if any line is exactly find_str + "\n"
-        print find_str + "\n" in lines
+        # print find_str + "\n" in lines
 
         # If you're searching for a substring
         # for line in lines:
         for index, line in enumerate(lines):
             cleanedLine = line.strip()
-            print cleanedLine
+            # print cleanedLine
             if cleanedLine and 'SonarSQL' in line:
-                print ' find sonarsql ......'
+
+                sonarsql_conn_str = lines[index-1]
+                sonarsql_conn_split = sonarsql_conn_str.split()
+                # print sonarsql_conn_split
+
+                filtered =filter(lambda x: 'mongodb://' in x,sonarsql_conn_split )
+                # print filtered
+                if filtered:
+                    filtered_str= filtered[0].split(':')
+                if 'xxxx' in filtered_str[2]:
+                    pwd_is_hidden2 = True
+
+        return pwd_is_hidden2
 
 
 
@@ -87,7 +100,9 @@ class Test_Proc_Log(unittest.TestCase):
             sys.exit("\nOnly root user can run this test\n")
 
         os.setuid(0)
-        self.tail2('sonarsql.log', 4)
+        pwd_is_hidden2 =self.tail2('sonarsql.log', 2)
+
+        self.assertEquals(pwd_is_hidden2, True)
 
 
 

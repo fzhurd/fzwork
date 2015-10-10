@@ -19,7 +19,6 @@ class Test_Proc_Log(unittest.TestCase):
         for proc in psutil.process_iter():
             if proc.name()==process_name:
                 process_cmdline = proc.cmdline()
-                # print proc.cmdline()
                 return process_cmdline
 
 
@@ -35,7 +34,7 @@ class Test_Proc_Log(unittest.TestCase):
 
         self.assertEquals(pwd_is_hidden, True)
 
-    def tail(f, n, offset=None):
+    def tail(self, f, n, offset=None):
         """Reads a n lines from f with an offset of offset lines.  The return
         value is a tuple in the form ``(lines, has_more)`` where `has_more` is
         an indicator that is `True` if there are more lines in the file.
@@ -57,9 +56,26 @@ class Test_Proc_Log(unittest.TestCase):
                        len(lines) > to_read or pos > 0
             avg_line_length *= 1.3
 
+    def tail2(self, fname, line_num):
+        with open(fname, "r") as f:
+            f.seek (0, 2)           
+            fsize = f.tell()        
+            f.seek (max (fsize-1024, 0), 0) # Set pos @ last n chars
+            lines = f.readlines()       # Read to end
+        lines = lines[-line_num:]    # Get last 10 lines
+
+        # This returns True if any line is exactly find_str + "\n"
+        print find_str + "\n" in lines
+
+        # If you're searching for a substring
+        for line in lines:
+            if find_str in line:
+                print True
+                break
+
 
     def test_log(self):
-        pass
+        self.tail2('sonarsql.log', 4)
 
 
 

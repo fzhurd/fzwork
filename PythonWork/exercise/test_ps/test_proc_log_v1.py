@@ -36,27 +36,27 @@ class Test_Proc_Log(unittest.TestCase):
 
         self.assertEquals(pwd_is_hidden, True)
 
-    def tail(self, f, n, offset=None):
-        """Reads a n lines from f with an offset of offset lines.  The return
-        value is a tuple in the form ``(lines, has_more)`` where `has_more` is
-        an indicator that is `True` if there are more lines in the file.
-        """
-        avg_line_length = 74
-        to_read = n + (offset or 0)
+    # def tail(self, f, n, offset=None):
+    #     """Reads a n lines from f with an offset of offset lines.  The return
+    #     value is a tuple in the form ``(lines, has_more)`` where `has_more` is
+    #     an indicator that is `True` if there are more lines in the file.
+    #     """
+    #     avg_line_length = 74
+    #     to_read = n + (offset or 0)
 
-        while 1:
-            try:
-                f.seek(-(avg_line_length * to_read), 2)
-            except IOError:
-                # woops.  apparently file is smaller than what we want
-                # to step back, go to the beginning instead
-                f.seek(0)
-            pos = f.tell()
-            lines = f.read().splitlines()
-            if len(lines) >= to_read or pos == 0:
-                return lines[-to_read:offset and -offset or None], \
-                       len(lines) > to_read or pos > 0
-            avg_line_length *= 1.3
+    #     while 1:
+    #         try:
+    #             f.seek(-(avg_line_length * to_read), 2)
+    #         except IOError:
+    #             # woops.  apparently file is smaller than what we want
+    #             # to step back, go to the beginning instead
+    #             f.seek(0)
+    #         pos = f.tell()
+    #         lines = f.read().splitlines()
+    #         if len(lines) >= to_read or pos == 0:
+    #             return lines[-to_read:offset and -offset or None], \
+    #                    len(lines) > to_read or pos > 0
+    #         avg_line_length *= 1.3
 
     def tail2(self, fname, line_num):
         pwd_is_hidden2=False
@@ -92,8 +92,6 @@ class Test_Proc_Log(unittest.TestCase):
 
         return pwd_is_hidden2
 
-
-
     def test_log(self):
         os.chdir('/var/log/sonarsql')
         if not os.geteuid()==0:
@@ -101,7 +99,6 @@ class Test_Proc_Log(unittest.TestCase):
 
         os.setuid(0)
         pwd_is_hidden2 =self.tail2('sonarsql.log', 2)
-
         self.assertEquals(pwd_is_hidden2, True)
 
 

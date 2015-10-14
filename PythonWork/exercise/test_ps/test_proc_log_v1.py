@@ -51,7 +51,7 @@ class Test_Proc_Log(unittest.TestCase):
         # Get last 10 lines
         lines = lines[-line_num:]    
 
-        find_str='sonarsql'
+        # find_str='sonarsql'
         # This returns True if any line is exactly find_str + "\n"
         # print find_str + "\n" in lines
 

@@ -40,11 +40,16 @@ class Test_Proc_Log(unittest.TestCase):
         pwd_is_hidden2=False
         with open(fname, "r") as f:
             f.seek (0, 2)           
-            fsize = f.tell()        
-            f.seek (max (fsize-1024, 0), 0) # Set pos @ last n chars
-            lines = f.readlines()       # Read to end
+            fsize = f.tell()   
 
-        lines = lines[-line_num:]    # Get last 10 lines
+            # Set pos @ last n chars     
+            f.seek (max (fsize-1024, 0), 0) 
+
+            # Read to end
+            lines = f.readlines()       
+
+        # Get last 10 lines
+        lines = lines[-line_num:]    
 
         find_str='sonarsql'
         # This returns True if any line is exactly find_str + "\n"

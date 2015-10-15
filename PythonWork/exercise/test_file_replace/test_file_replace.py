@@ -29,9 +29,9 @@ class Test_Proc_Log(unittest.TestCase):
                 for line in old_file:
                     new_file.write(line.replace(pattern, subst))
         close(fh)
-        #Remove original file
+
         remove(file_path)
-        #Move new file
+
         move(abs_path, file_path)
 
     def test_password(self):

@@ -21,7 +21,7 @@ class Test_Proc_Log(unittest.TestCase):
     def setUp(self):
         pass
 
-    def replace(file_path, pattern, subst):
+    def replace(self,file_path, pattern, subst):
         #Create temp file
         fh, abs_path = mkstemp()
         with open(abs_path,'w') as new_file:
@@ -35,11 +35,12 @@ class Test_Proc_Log(unittest.TestCase):
         move(abs_path, file_path)
 
     def test_password(self):
-        os.chdir('/etc/default/')
-        if not os.geteuid()==0:
-            sys.exit("\nOnly root user can run this test\n")
+        # os.chdir('/etc/default/')
+        # if not os.geteuid()==0:
+        #     sys.exit("\nOnly root user can run this test\n")
 
-        os.setuid(0)
+        # os.setuid(0)
+        self.replace('./test.conf', 'ROOT_PWHASH=*', 'ROOT_PWHASH=')
 
     # def find_process(self, process_name):
     #     for proc in psutil.process_iter():

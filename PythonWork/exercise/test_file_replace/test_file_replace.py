@@ -48,7 +48,11 @@ class Test_Proc_Log(unittest.TestCase):
                     print line, 'lllllllllllll'
                     # new_file.write(line.replace(pattern, subst))
                     
-                    line = regex.sub( 'ROOT', line)
+                    # line = regex.sub( 'ROOT_PWHASH=', line)
+                    if line.startswith("ROOT_PWHASH="):
+                        print 'need to handle'
+                        length = len('ROOT_PWHASH=')
+                        line=line[0:length]+'\n'
                     new_file.write(line)
                     
         close(fh)

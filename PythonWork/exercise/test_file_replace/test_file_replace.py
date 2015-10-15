@@ -6,6 +6,7 @@ import unittest
 import psutil
 import os
 import sys
+import re
 
 from tempfile import mkstemp
 from shutil import move
@@ -21,13 +22,35 @@ class Test_Proc_Log(unittest.TestCase):
     def setUp(self):
         pass
 
-    def replace(self,file_path, pattern, subst):
+    # def replace(self,file_path, pattern, subst):
+    #     #Create temp file
+    #     fh, abs_path = mkstemp()
+    #     with open(abs_path,'w') as new_file:
+    #         with open(file_path) as old_file:
+    #             for line in old_file:
+    #                 print line, 'lllllllllllll'
+    #                 new_file.write(line.replace(pattern, subst))
+                    
+    #     close(fh)
+
+    #     remove(file_path)
+
+    #     move(abs_path, file_path)
+
+    # def replace(self,file_path, pattern, subst):
+    def replace(self,file_path):
+        regex = re.compile(r"^ROOT_PWHASH=", re.IGNORECASE)
         #Create temp file
         fh, abs_path = mkstemp()
         with open(abs_path,'w') as new_file:
             with open(file_path) as old_file:
                 for line in old_file:
-                    new_file.write(line.replace(pattern, subst))
+                    print line, 'lllllllllllll'
+                    # new_file.write(line.replace(pattern, subst))
+                    
+                    line = regex.sub( 'ROOT', line)
+                    new_file.write(line)
+                    
         close(fh)
 
         remove(file_path)
@@ -40,7 +63,8 @@ class Test_Proc_Log(unittest.TestCase):
         #     sys.exit("\nOnly root user can run this test\n")
 
         # os.setuid(0)
-        self.replace('./test.conf', 'ROOT_PWHASH=*', 'ROOT_PWHASH=')
+        # self.replace('./test.conf', 'ROOT_PWHASH=', 'DONE')
+        self.replace('./test.conf')
 
     # def find_process(self, process_name):
     #     for proc in psutil.process_iter():

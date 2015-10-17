@@ -50,13 +50,13 @@ class Test_Proc_Log(unittest.TestCase):
                     
                     # line = regex.sub( 'ROOT_PWHASH=', line)
                     if line.startswith("ROOT_PWHASH="):
-                        print 'need to handle'
+                        # print 'need to handle'
                         line_comment = '#'+line
                         new_file.write(line.replace(line, line_comment))
                         length = len('ROOT_PWHASH=')
                         line_new=line[0:length]+'\n'
                         new_file.write(line_new)
-                        break
+                        continue
                     new_file.write(line)
                     
         close(fh)

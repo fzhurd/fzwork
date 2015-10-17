@@ -45,7 +45,7 @@ class Test_Proc_Log(unittest.TestCase):
         with open(abs_path,'w') as new_file:
             with open(file_path) as old_file:
                 for line in old_file:
-                    print line, 'lllllllllllll'
+                    # print line, 'lllllllllllll'
                     # new_file.write(line.replace(pattern, subst))
                     
                     # line = regex.sub( 'ROOT_PWHASH=', line)
@@ -72,7 +72,7 @@ class Test_Proc_Log(unittest.TestCase):
         with open(abs_path,'w') as new_file:
             with open(file_path) as old_file:
                 for line in old_file:
-                    print line, 'lllllllllllll'
+                    # print line, 'lllllllllllll'
 
                     if line.startswith("#ROOT_PWHASH="):
                         print 'need to recover'

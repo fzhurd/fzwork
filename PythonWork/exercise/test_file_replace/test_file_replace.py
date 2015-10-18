@@ -40,6 +40,7 @@ class Test_Proc_Log(unittest.TestCase):
     # def replace(self,file_path, pattern, subst):
     def replace(self,file_path):
         regex = re.compile(r"^ROOT_PWHASH=", re.IGNORECASE)
+
         #Create temp file
         fh, abs_path = mkstemp()
         with open(abs_path,'w') as new_file:
@@ -78,9 +79,7 @@ class Test_Proc_Log(unittest.TestCase):
                         print 'need to recover'
                         line_remove_comment = line[1:]
                         new_file.write(line.replace(line, line_remove_comment))
-                        # length = len('ROOT_PWHASH=')
-                        # line_new=line[0:length]+'\n'
-                        # new_file.write(line_new)
+                        
                         continue
                     if line.startswith("ROOT_PWHASH="):
                         print 'need to remove'

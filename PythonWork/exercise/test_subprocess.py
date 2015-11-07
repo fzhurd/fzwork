@@ -11,5 +11,9 @@ def main():
     stdout, stderr = process.communicate()
     print process
 
+
+    out = subprocess.call("ls -l", shell=True)
+    print out, 'oooooooooooo'
+
 if __name__ == '__main__':
     main()

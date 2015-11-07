@@ -15,5 +15,11 @@ def main():
     out = subprocess.call("ls -l", shell=True)
     print out, 'oooooooooooo'
 
+    child1 = subprocess.Popen(["ls","-l"], stdout=subprocess.PIPE)
+    child2 = subprocess.Popen(["wc"], stdin=child1.stdout,stdout=subprocess.PIPE)
+    out = child2.communicate()
+    print(out)
+
+
 if __name__ == '__main__':
     main()

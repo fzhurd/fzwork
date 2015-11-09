@@ -21,5 +21,9 @@ def main():
     print(out, ' popen results') 
 
 
+    out2 = subprocess.call("wrongls -l", shell=True)
+    print out2, 'raise error'
+
+
 if __name__ == '__main__':
     main()

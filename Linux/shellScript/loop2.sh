@@ -1,6 +1,10 @@
 #!/bin/bash 
 
-echo {1..10}
+# echo {1..10}
+for i in {1..20}
+do
+	echo $i
+done
 
 
 # echo "enter a file name:"  

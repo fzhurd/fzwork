@@ -1,5 +1,8 @@
 #!/bin/bash 
- 
+
+echo {1..10}
+
+
 # echo "enter a file name:"  
 # read a  
 # if test  -e /root/$a   

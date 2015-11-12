@@ -7,3 +7,5 @@ do
 	echo $i
 done
 
+aNumList=$(seq 100);
+echo $aNumList

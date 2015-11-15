@@ -9,3 +9,6 @@ done
 
 aNumList=$(seq 100);
 echo $aNumList
+
+bNumList=$(seq 10)
+echo $bNumList

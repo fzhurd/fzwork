@@ -1,5 +1,5 @@
 #!/bin/bash 
-#!/bin/bash
+
 x=10
 y=20
 if [ $x -gt $y ]

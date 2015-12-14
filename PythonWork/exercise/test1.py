@@ -13,3 +13,10 @@ class Pair:
 
     def __str__(self):
         return 'Pair({0.x!s},{0.y!s})'.format(self)
+
+def main():
+    p=Pair(3, 8)
+    print p
+
+if __name__ == '__main__':
+    main()

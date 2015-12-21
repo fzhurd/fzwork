@@ -2,7 +2,6 @@
 import sys
 import os
 
-
 class Pair:
     def __init__(self, x, y):
         self.x=x
@@ -17,6 +16,9 @@ class Pair:
 def main():
     p=Pair(3, 8)
     print p
+
+    p2=Pair(4, 8)
+    print p2
 
 if __name__ == '__main__':
     main()

@@ -8,7 +8,8 @@ class Pair:
         self.y=y
 
     def __repr__(self):
-        return 'Pair({0.x!r},{0.y!r})'.format(self)
+        # return 'Pair({0.x!r},{0.y!r})'.format(self)
+        return 'Pair({0},{1})'.format(x,y)
 
     def __str__(self):
         return 'Pair({0.x!s},{0.y!s})'.format(self)

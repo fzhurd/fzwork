@@ -14,3 +14,7 @@ from numpy import genfromtxt, zeros
 data = genfromtxt('iris.csv',delimiter=',',usecols=(0,1,2,3)) 
 # read the fifth column
 target = genfromtxt('iris.csv',delimiter=',',usecols=(4),dtype=str)
+
+print data.shape
+
+print target.shape

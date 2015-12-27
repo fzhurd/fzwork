@@ -63,4 +63,6 @@ from sklearn.cross_validation import cross_val_score
 scores = cross_val_score(classifier, data, t, cv=6)
 print scores
 
+from numpy import mean
+print mean(scores)
 

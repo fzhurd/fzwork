@@ -45,3 +45,11 @@ subplot(414) # global histogram (4th, on the bottom)
 hist(data[:,0],color='y',alpha=.7)
 xlim(xmin,xmax)
 show()
+
+t = zeros(len(target))
+t[target == 'setosa'] = 1
+t[target == 'versicolor'] = 2
+t[target == 'virginica'] = 3
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
+classifier.fit(data,t) # training on the iris dataset

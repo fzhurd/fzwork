@@ -58,3 +58,9 @@ print classifier.predict(data[0])
 
 print t[0]
 
+from sklearn.cross_validation import cross_val_score
+# cross validation with 6 iterations 
+scores = cross_val_score(classifier, data, t, cv=6)
+print scores
+
+

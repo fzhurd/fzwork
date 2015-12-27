@@ -53,3 +53,8 @@ t[target == 'virginica'] = 3
 from sklearn.naive_bayes import GaussianNB
 classifier = GaussianNB()
 classifier.fit(data,t) # training on the iris dataset
+
+print classifier.predict(data[0])
+
+print t[0]
+

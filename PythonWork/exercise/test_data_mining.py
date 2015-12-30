@@ -76,6 +76,17 @@ print completeness_score(t,c)
 
 print homogeneity_score(t,c)
 
+figure()
+subplot(211) # top figure with the real classes
+plot(data[t==1,0],data[t==1,2],'bo')
+plot(data[t==2,0],data[t==2,2],'ro')
+plot(data[t==3,0],data[t==3,2],'go')
+subplot(212) # bottom figure with classes assigned automatically
+plot(data[c==1,0],data[tt==1,2],'bo',alpha=.7)
+plot(data[c==2,0],data[tt==2,2],'go',alpha=.7)
+plot(data[c==0,0],data[tt==0,2],'mo',alpha=.7)
+show()
+
 
 from numpy import corrcoef
 corr = corrcoef(data.T) # .T gives the transpose

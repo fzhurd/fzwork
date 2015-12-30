@@ -77,3 +77,7 @@ print completeness_score(t,c)
 print homogeneity_score(t,c)
 
 
+from numpy import corrcoef
+corr = corrcoef(data.T) # .T gives the transpose
+print corr
+

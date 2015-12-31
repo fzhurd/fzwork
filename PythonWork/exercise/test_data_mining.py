@@ -87,6 +87,10 @@ plot(data[c==2,0],data[tt==2,2],'go',alpha=.7)
 plot(data[c==0,0],data[tt==0,2],'mo',alpha=.7)
 show()
 
+from numpy.random import rand
+x = rand(40,1) # explanatory variable
+y = x*x*x+rand(40,1)/5 # depentend variable
+
 
 from numpy import corrcoef
 corr = corrcoef(data.T) # .T gives the transpose

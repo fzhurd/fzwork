@@ -67,8 +67,11 @@ from numpy import mean
 print mean(scores)
 
 from sklearn.cluster import KMeans 
-kmeans = KMeans(k=3, init='random') # initialization
-kmeans.fit(data) # actual execution
+# initialization
+kmeans = KMeans(k=3, init='random') 
+
+# actual execution
+kmeans.fit(data) 
 c = kmeans.predict(data)
 
 from sklearn.metrics import completeness_score, homogeneity_score

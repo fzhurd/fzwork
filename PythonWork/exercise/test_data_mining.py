@@ -99,3 +99,8 @@ from numpy import corrcoef
 corr = corrcoef(data.T) # .T gives the transpose
 print corr
 
+
+from numpy.random import rand
+x = rand(40,1) # explanatory variable
+y = x*x*x+rand(40,1)/5 # depentend variable
+

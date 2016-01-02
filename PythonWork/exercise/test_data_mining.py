@@ -104,3 +104,7 @@ from numpy.random import rand
 x = rand(40,1) # explanatory variable
 y = x*x*x+rand(40,1)/5 # depentend variable
 
+from sklearn.linear_model import LinearRegression
+linreg = LinearRegression()
+linreg.fit(x,y)
+

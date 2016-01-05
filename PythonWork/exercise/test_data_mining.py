@@ -108,3 +108,8 @@ from sklearn.linear_model import LinearRegression
 linreg = LinearRegression()
 linreg.fit(x,y)
 
+from numpy import linspace, matrix
+xx = linspace(0,1,40)
+plot(x,y,'o',xx,linreg.predict(matrix(xx).T),'--r')
+show()
+

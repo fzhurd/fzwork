@@ -113,3 +113,6 @@ xx = linspace(0,1,40)
 plot(x,y,'o',xx,linreg.predict(matrix(xx).T),'--r')
 show()
 
+from sklearn.metrics import mean_squared_error
+print mean_squared_error(linreg.predict(x),y)
+

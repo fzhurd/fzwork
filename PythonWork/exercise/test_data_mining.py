@@ -101,7 +101,8 @@ print corr
 
 
 from numpy.random import rand
-x = rand(40,1) # explanatory variable
+# explanatory variable
+x = rand(40,1) 
 y = x*x*x+rand(40,1)/5 # depentend variable
 
 from sklearn.linear_model import LinearRegression

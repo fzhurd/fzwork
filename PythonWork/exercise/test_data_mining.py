@@ -96,14 +96,16 @@ y = x*x*x+rand(40,1)/5 # depentend variable
 
 
 from numpy import corrcoef
-corr = corrcoef(data.T) # .T gives the transpose
+# .T gives the transpose
+corr = corrcoef(data.T) 
 print corr
 
 
 from numpy.random import rand
 # explanatory variable
 x = rand(40,1) 
-y = x*x*x+rand(40,1)/5 # depentend variable
+# depentend variable
+y = x*x*x+rand(40,1)/5 
 
 from sklearn.linear_model import LinearRegression
 linreg = LinearRegression()

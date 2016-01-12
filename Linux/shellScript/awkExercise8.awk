@@ -13,3 +13,9 @@ awk '{print $0 ","}' fields12 > fields16
 
 # add double quote
 awk '{print "\""$1"\"", $2 $3}' fields16 >ebsco_fields17
+
+#########################################################
+
+awk '$3 >0 { print $1, $2 * $3 }' emp.data
+
+awk ‘$3 == 0 { print $1 }’ emp.data

@@ -13,3 +13,11 @@ elif [[ $scores -gt 60 ]]; then
 else
  echo "no pass!";
 fi;
+
+
+##########################################################
+
+
+for i in $(seq 10); do
+ echo $i;
+done;

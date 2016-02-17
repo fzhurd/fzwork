@@ -15,3 +15,11 @@ func = decorator(func)
 def func():
     print 'in func'
 
+
+class Foo(object):
+    _name = 'the5fire'
+ 
+    @property
+    def name(self):
+        return self._name
+

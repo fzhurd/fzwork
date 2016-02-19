@@ -5,3 +5,14 @@ class Foo:
         pass
  
 print Foo.__doc__
+
+
+class C:
+    def __init__(self):
+        self.name = 'wupeiqi'
+
+import C
+ 
+obj = C()
+print obj.__module__  
+print obj.__class__    

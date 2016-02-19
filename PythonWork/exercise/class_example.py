@@ -11,7 +11,6 @@ class C:
     def __init__(self):
         self.name = 'wupeiqi'
 
-import C
  
 obj = C()
 print obj.__module__  

@@ -36,5 +36,12 @@ class DBManage(object):
 print '***************************************************'
 print '9 steps to practise decorator'
 
+print '\n'
+print 'step 1'
 def myfunc():
     print("myfunc() called.")
+
+myfunc()
+print '\n'
+print 'step 2'
+

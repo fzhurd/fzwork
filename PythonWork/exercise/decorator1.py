@@ -45,3 +45,11 @@ myfunc()
 print '\n'
 print 'step 2'
 
+def decorator_1(func):
+    print 'start'
+    print func.__name__
+    print 'end'
+    return func
+
+myfunc = decorator_1(myfunc)
+

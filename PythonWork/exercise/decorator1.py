@@ -31,6 +31,10 @@ class DBManage(object):
     @classmethod
     def select_all(cls):
         sql = "SELECT * FROM %s""" % cls.table_name()
-        # 执行这个语句的代码
         return result
 
+print '***************************************************'
+print '9 steps to practise decorator'
+
+def myfunc():
+    print("myfunc() called.")

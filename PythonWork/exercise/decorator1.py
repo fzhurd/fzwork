@@ -37,13 +37,14 @@ print '***************************************************'
 print '9 steps to practise decorator'
 
 print '\n'
-print 'step 1'
+print '********************step 1*************************'
+
 def myfunc():
     print("myfunc() called.")
 
 myfunc()
 print '\n'
-print 'step 2'
+print '**************************step 2******************'
 
 def decorator_1(func):
     print 'start'
@@ -54,5 +55,10 @@ def decorator_1(func):
 myfunc = decorator_1(myfunc)
 
 print '\n'
-print 'step 3'
+print '*************************step 3********************'
 
+@decorator_1
+def myfunc2():
+    print("myfunc2() called.")
+
+myfunc2()

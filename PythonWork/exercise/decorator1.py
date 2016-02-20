@@ -53,3 +53,6 @@ def decorator_1(func):
 
 myfunc = decorator_1(myfunc)
 
+print '\n'
+print 'step 3'
+

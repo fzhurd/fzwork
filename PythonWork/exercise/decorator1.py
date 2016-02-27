@@ -124,3 +124,27 @@ myfunc(1, 2)
 myfunc(3, 4)
 myfunc6(1, 2, 3)
 myfunc6(3, 4, 5)
+
+
+print '\n'
+print '*************************step 7********************'
+
+def decorator_8(arg):
+    def _deco(func):
+        def __deco():
+            print("before %s called [%s]." % (func.__name__, arg))
+            func()
+            print("  after %s called [%s]." % (func.__name__, arg))
+        return __deco
+    return _deco
+ 
+@decorator_8("mymodule")
+def myfunc8():
+    print(" myfunc() called.")
+ 
+@decorator_8("module2")
+def myfunc2():
+    print(" myfunc2() called.")
+ 
+myfunc()
+myfunc8()

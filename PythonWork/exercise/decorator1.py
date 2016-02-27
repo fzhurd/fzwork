@@ -62,3 +62,6 @@ def myfunc2():
     print("myfunc2() called.")
 
 myfunc2()
+
+print '\n'
+print '*************************step 4********************'

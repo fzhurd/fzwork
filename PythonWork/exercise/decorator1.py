@@ -65,3 +65,17 @@ myfunc2()
 
 print '\n'
 print '*************************step 4********************'
+def decorator_3(func):
+    def _deco():
+        print("before myfunc() called.")
+        func()
+        print("after myfunc() called.")
+    return _deco
+ 
+@decorator_3
+def myfunc3():
+    print(" myfunc3() called.")
+    return 'ok'
+ 
+myfunc3()
+myfunc3()

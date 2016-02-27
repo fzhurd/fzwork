@@ -82,3 +82,18 @@ myfunc3()
 
 print '\n'
 print '*************************step 5********************'
+def decorator_4(func):
+    def _deco(a, b):
+        print("before myfunc() called.")
+        ret = func(a, b)
+        print("  after myfunc() called. result: %s" % ret)
+        return ret
+    return _deco
+ 
+@decorator_4
+def myfunc4(a, b):
+    print(" myfunc(%s,%s) called." % (a, b))
+    return a + b
+ 
+myfunc4(1, 2)
+myfunc4(3, 4)

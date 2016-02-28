@@ -148,3 +148,6 @@ def myfunc2():
  
 myfunc()
 myfunc8()
+
+print '\n'
+print '*************************step 8********************'

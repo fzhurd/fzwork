@@ -187,7 +187,7 @@ def lockhelper(cls):
     return _deco
 
 
-from mylocker import *
+# from mylocker import *
  
 class example:
     @lockhelper(mylocker)

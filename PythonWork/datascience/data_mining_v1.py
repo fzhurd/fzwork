@@ -42,3 +42,16 @@ rfe = rfe.fit(X, y)
 print(rfe.support_)
 print(rfe.ranking_)
 
+print '**********************************************'
+
+from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X, y)
+print(model)
+# make predictions
+expected = y
+predicted = model.predict(X)
+# summarize the fit of the model
+print(metrics.classification_report(expected, predicted))
+print(metrics.confusion_matrix(expected, predicted))

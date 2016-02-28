@@ -31,3 +31,14 @@ model = ExtraTreesClassifier()
 model.fit(X, y)
 # display the relative importance of each attribute
 print(model.feature_importances_)
+
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+# create the RFE model and select 3 attributes
+rfe = RFE(model, 3)
+rfe = rfe.fit(X, y)
+# summarize the selection of the attributes
+print(rfe.support_)
+print(rfe.ranking_)
+

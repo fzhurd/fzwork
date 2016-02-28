@@ -146,7 +146,7 @@ def myfunc8():
 def myfunc2():
     print(" myfunc2() called.")
  
-myfunc()
+# myfunc()
 myfunc8()
 
 print '\n'
@@ -174,7 +174,7 @@ class lockerex(mylocker):
         print("  lockerex.unlock() called.")
 
 def lockhelper(cls):
-    '''cls 必须实现acquire和release静态方法'''
+
     def _deco(func):
         def __deco(*args, **kwargs):
             print("before %s called." % func.__name__)
@@ -185,3 +185,5 @@ def lockhelper(cls):
                 cls.unlock()
         return __deco
     return _deco
+
+

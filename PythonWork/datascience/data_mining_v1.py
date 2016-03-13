@@ -125,3 +125,19 @@ print(grid)
 # summarize the results of the grid search
 print(grid.best_score_)
 print(grid.best_estimator_.alpha)
+
+
+import numpy as np
+from scipy.stats import uniform as sp_rand
+from sklearn.linear_model import Ridge
+from sklearn.grid_search import RandomizedSearchCV
+# prepare a uniform distribution to sample for the alpha parameter
+param_grid = {'alpha': sp_rand()}
+# create and fit a ridge regression model, testing random alpha values
+model = Ridge()
+rsearch = RandomizedSearchCV(estimator=model, param_distributions=param_grid, n_iter=100)
+rsearch.fit(X, y)
+print(rsearch)
+# summarize the results of the random parameter search
+print(rsearch.best_score_)
+print(rsearch.best_estimator_.alpha)

@@ -5,4 +5,4 @@ def func2():
     print 'this is function 2'
 
 
-func2()
+# func2()

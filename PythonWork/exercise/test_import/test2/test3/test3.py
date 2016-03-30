@@ -1,16 +1,14 @@
 #!/usr/bin/python
-from test_import.test2 import func2
+from ..test2 import *
 import test3b
-from test2 import func2
+from test_import.test2.test2 import func2
 
 def func3():
     print 'this is function 3'
 
+func3()
+test3b.func3b()
+func2()
 
 
-
-
-if __name__=='__main__':
-    func3()
-    test3b.func3b()
-    test2.func2()
+# frank@frankhome:~/workAtHome/fzwork/PythonWork/exercise$ python -m test_import.test2.test3.test3

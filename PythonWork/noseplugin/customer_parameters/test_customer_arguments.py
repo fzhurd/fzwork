@@ -90,7 +90,7 @@ class Customer_Parameters(Plugin):
  
  
 if __name__ == '__main__':
-    nose.main(addplugins=[TestTimer()])
+    nose.main(addplugins=[Customer_Parameters()])
 
 
 # from nose.plugins import Plugin

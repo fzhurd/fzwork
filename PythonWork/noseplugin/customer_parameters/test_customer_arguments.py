@@ -1,4 +1,4 @@
-# usr/bin/python
+#! /usr/bin/python
 # -*- coding: utf-8 -*-
 
 
@@ -6,30 +6,34 @@ import unittest
 # import dateutil.parser
 import os
 from nose.tools import *
+import nose
 # from time import time
-from nose.plugins.base import Plugin
-from paste.script.appinstall import SetupCommand
+from nose.plugins import Plugin
+# from paste.script.appinstall import SetupCommand
 import logging
+import os
 
 log = logging.getLogger('nose.plugins.customer_parameters_plugin') 
 class Customer_Parameters(Plugin):
   
     name = 'customer_parameters_plugin'
-    score = 1
-    enabled = True
+    # score = 1
+    # enabled = True
 
-
-    def options(self, parser, env):
+    def options(self, parser, env=os.environ):
         """Sets additional command line options."""
         super(Customer_Parameters, self).options(parser, env)
  
     def configure(self, options, config):
         """Configures the test timer plugin."""
         super(Customer_Parameters, self).configure(options, config)
-        self.config = config
+        # self.config = config
         # self._timed_tests = {}
+        if not self.enabled:
+            return
 
     def finalize(self, result):
+        print 'hiii'
         log.info("Hello from customer_parameters_plugin") 
 
     # def add_options(self, parser, env=os.environ):
@@ -102,13 +106,18 @@ class Customer_Parameters(Plugin):
  
     # def addSuccess(self, test, capt=None):
     #     self._register_time(test)
- 
+
+def test1():
+    assertEqual(2,2)
  
 if __name__ == '__main__':
     nose.main(addplugins=[Customer_Parameters()])
 
 
 # from nose.plugins import Plugin
+# import logging
+# import os
+# import nose
 
 # log = logging.getLogger('nose.plugins.helloworld')
 
@@ -125,4 +134,7 @@ if __name__ == '__main__':
 
 #     def finalize(self, result):
 #         log.info('Hello pluginized world!')
+
+# if __name__ == '__main__':
+#     nose.main(addplugins=[HelloWorld()])
 

@@ -9,15 +9,16 @@ from nose.tools import *
 # from time import time
 from nose.plugins.base import Plugin
 from paste.script.appinstall import SetupCommand
+import logging
 
- 
+log = logging.getLogger('nose.plugins.customer_parameters_plugin') 
 class Customer_Parameters(Plugin):
   
     name = 'customer_parameters_plugin'
     score = 1
     enabled = True
 
-    
+
     def options(self, parser, env):
         """Sets additional command line options."""
         super(Customer_Parameters, self).options(parser, env)
@@ -26,7 +27,10 @@ class Customer_Parameters(Plugin):
         """Configures the test timer plugin."""
         super(Customer_Parameters, self).configure(options, config)
         self.config = config
-        self._timed_tests = {}
+        # self._timed_tests = {}
+
+    def finalize(self, result):
+        log.info("Hello from customer_parameters_plugin") 
 
     # def add_options(self, parser, env=os.environ):
     #    '''Add command-line options for plugin'''

@@ -17,32 +17,43 @@ class Customer_Parameters(Plugin):
     score = 1
     enabled = True
 
-    def add_options(self, parser, env=os.environ):
-       '''Add command-line options for plugin'''
-        env_opt = 'NOSE_PASTE_SETUP_FIRST'
-        
-        parser.add_option('--parameters',
-                          action='store_true',
-                          default=env.get('env_opt'),
-                         dest='parameters',
-                         help='Run parameters before running tests.  [%s]' % env_opt)
-        
-    def configure(self, options, conf):
-        """Configure the plugin"""
-        Plugin.configure(self, options, conf)
-        if options.parameters:
-            self.enabled = True
-        print parameters
-        
-    def begin(self):
-        '''Called before any tests are collected or run.  Resets database.'''
-        # from paste.script.appinstall import SetupCommand
+    
+    def options(self, parser, env):
+        """Sets additional command line options."""
+        super(Customer_Parameters, self).options(parser, env)
+ 
+    def configure(self, options, config):
+        """Configures the test timer plugin."""
+        super(Customer_Parameters, self).configure(options, config)
+        self.config = config
+        self._timed_tests = {}
 
-        # Select the .ini file to run setup-app on
-        test_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'test.ini')
-        SetupCommand('setup-app').run([test_file])
-    def finalize(self, result):
-        log.info('Plugin finalized!')
+    # def add_options(self, parser, env=os.environ):
+    #    '''Add command-line options for plugin'''
+    #     env_opt = 'NOSE_PASTE_SETUP_FIRST'
+        
+    #     parser.add_option('--parameters',
+    #                       action='store_true',
+    #                       default=env.get('env_opt'),
+    #                      dest='parameters',
+    #                      help='Run parameters before running tests.  [%s]' % env_opt)
+        
+    # def configure(self, options, conf):
+    #     """Configure the plugin"""
+    #     Plugin.configure(self, options, conf)
+    #     if options.parameters:
+    #         self.enabled = True
+    #     print parameters
+        
+    # def begin(self):
+    #     '''Called before any tests are collected or run.  Resets database.'''
+    #     # from paste.script.appinstall import SetupCommand
+
+    #     # Select the .ini file to run setup-app on
+    #     test_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'test.ini')
+    #     SetupCommand('setup-app').run([test_file])
+    # def finalize(self, result):
+    #     log.info('Plugin finalized!')
  
     # def _timeTaken(self):
     #     if hasattr(self, '_timer'):

@@ -110,8 +110,8 @@ class Customer_Parameters(Plugin):
 # def test1():
 #     assertEqual(2,2)
  
-# if __name__ == '__main__':
-#     nose.main(addplugins=[Customer_Parameters()])
+if __name__ == '__main__':
+    nose.main(addplugins=[Customer_Parameters()])
 
 
 # from nose.plugins import Plugin

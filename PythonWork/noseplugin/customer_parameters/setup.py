@@ -12,5 +12,5 @@ setup(
 name = "application",
 version = "0.0",
 py_modules=['test_customer_arguments'],
-entry_points = {'nose.plugins.0.10': ['customer_parameters=test_customer_arguments:Customer_Parameters']}
+entry_points = {'nose.plugins.0.10': ['customer_parameters_plugin=test_customer_arguments:Customer_Parameters']}
 ) 

@@ -18,7 +18,7 @@ class Customer_Parameters(Plugin):
   
     name = 'customer_parameters_plugin'
     # score = 1
-    # enabled = True
+    enabled = True
 
     def options(self, parser, env=os.environ):
         """Sets additional command line options."""
@@ -107,11 +107,11 @@ class Customer_Parameters(Plugin):
     # def addSuccess(self, test, capt=None):
     #     self._register_time(test)
 
-def test1():
-    assertEqual(2,2)
+# def test1():
+#     assertEqual(2,2)
  
-if __name__ == '__main__':
-    nose.main(addplugins=[Customer_Parameters()])
+# if __name__ == '__main__':
+#     nose.main(addplugins=[Customer_Parameters()])
 
 
 # from nose.plugins import Plugin

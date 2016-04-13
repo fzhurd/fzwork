@@ -23,6 +23,16 @@ class Customer_Parameters(Plugin):
     def options(self, parser, env=os.environ):
         """Sets additional command line options."""
         super(Customer_Parameters, self).options(parser, env)
+
+    def add_options(self, parser, env=os.environ):
+        '''Add command-line options for plugin'''
+        env_opt = 'NOSE_PASTE_SETUP_FIRST'
+        
+        parser.add_option('--parameters',
+                          action='store_true',
+                          default=env.get('env_opt'),
+                         dest='parameters',
+                         help='Run parameters before running tests.  [%s]' % env_opt)
  
     def configure(self, options, config):
         """Configures the test timer plugin."""

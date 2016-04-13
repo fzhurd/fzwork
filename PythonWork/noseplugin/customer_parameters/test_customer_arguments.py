@@ -41,6 +41,9 @@ class Customer_Parameters(Plugin):
         # self._timed_tests = {}
         if not self.enabled:
             return
+        if options.parameters:
+            self.enabled = True
+            print parameters
 
     def finalize(self, result):
         print 'hiii'

@@ -13,10 +13,10 @@ from nose.plugins import Plugin
 import logging
 import os
 
-log = logging.getLogger('nose.plugins.customer_parameters_plugin') 
+log = logging.getLogger('nose.plugins.customer_parameters') 
 class Customer_Parameters(Plugin):
   
-    name = 'customer_parameters_plugin'
+    name = 'customer_parameters'
     # score = 1
     enabled = True
 
@@ -43,11 +43,15 @@ class Customer_Parameters(Plugin):
             return
         if options.parameters:
             self.enabled = True
+            options.parameters={}
             print parameters
+    def begin(self):
+        '''Called before any tests are collected or run.  Resets database.'''
+        pass
 
     def finalize(self, result):
         print 'hiii'
-        log.info("Hello from customer_parameters_plugin") 
+        log.info("Hello from customer_parameters") 
 
     # def add_options(self, parser, env=os.environ):
     #    '''Add command-line options for plugin'''

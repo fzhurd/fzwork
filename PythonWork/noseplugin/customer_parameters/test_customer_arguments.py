@@ -36,7 +36,7 @@ class Customer_Parameters(Plugin):
                          help='Run parameters before running tests.  [%s]' % env_opt)
         options2, args = parser.parse_args()
         option_dict = vars(options2)
-        print option_dict
+        # print option_dict
  
     def configure(self, options, config):
         """Configures the test timer plugin."""
@@ -46,10 +46,10 @@ class Customer_Parameters(Plugin):
         if not self.enabled:
             return
 
-        # self.parameters = options.parameters
-        # if self.parameters:
-        #    parameters=self.parameters
-        #    print parameters, type(parameters)
+        self.parameters = options.parameters
+        if self.parameters:
+           parameters=self.parameters
+           print parameters, type(parameters)
            # PORT=parameters['port']
     def begin(self):
         '''Called before any tests are collected or run.  Resets database.'''

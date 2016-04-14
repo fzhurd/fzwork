@@ -19,18 +19,19 @@ class Customer_Parameters(Plugin):
     name = 'customer_parameters'
     # score = 1
     enabled = True
+    # parser=None
 
     def options(self, parser, env=os.environ):
         """Sets additional command line options."""
         super(Customer_Parameters, self).options(parser, env)
+
+        
 
     def add_options(self, parser, env=os.environ):
         '''Add command-line options for plugin'''
         env_opt = 'NOSE_PASTE_SETUP_FIRST'
         
         parser.add_option('--parameters',
-                          action='store_true',
-                          default=env.get('env_opt'),
                          dest='parameters',
                          help='Run parameters before running tests.  [%s]' % env_opt)
  
@@ -41,10 +42,11 @@ class Customer_Parameters(Plugin):
         # self._timed_tests = {}
         if not self.enabled:
             return
-        if options.parameters:
-            self.enabled = True
-            options.parameters={}
-            print parameters
+        self.parameters = options.parameters
+        if self.parameters:
+           parameters=self.parameters
+           print parameters, type(parameters)
+           # PORT=parameters['port']
     def begin(self):
         '''Called before any tests are collected or run.  Resets database.'''
         pass

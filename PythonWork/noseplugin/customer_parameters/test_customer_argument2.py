@@ -33,6 +33,7 @@ class Customer_Parameters(Plugin):
         
         parser.add_option('--param',
                          dest='param',
+                         action="append",
                          help='Input all required parameters before running tests' )
         # options2, args = parser.parse_args()
         # print options2
@@ -51,17 +52,20 @@ class Customer_Parameters(Plugin):
         #     return
         # print options
         self.param = options.param
-        print self.param, 'sssssss'
+        
         if self.param:
            param=self.param
            print param, type(param)
            # PORT=parameters['port']
     def begin(self):
         '''Called before any tests are collected or run.  Resets database.'''
-        pass
+        print self.param, 'sssssss'
+
+        for i in self.param:
+            print i
 
     def finalize(self, result):
-        print 'hiii'
+ 
         log.info("Hello from customer_parameters") 
 
     # def add_options(self, parser, env=os.environ):

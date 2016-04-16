@@ -15,11 +15,11 @@ import os
 import json
 
 
-# HOST=None
-# PORT=None
-# SQLUSER=None
-# PASSWD=None
-# DATABASE=None
+HOST=None
+PORT=None
+SQLUSER=None
+PASSWD=None
+DATABASE=None
 PARAMETERS=[]
 
 log = logging.getLogger('nose.plugins.customer_parameters') 
@@ -81,6 +81,11 @@ class Customer_Parameters(Plugin):
 
         # print type(a)
         # print PARAMETERS
+        global HOST
+        global PORT
+        global PASSWD
+        global SQLUSER
+        global DATABASE
         print self.param, type(self.param)
         params=self.param[0].split(',')
         print params
@@ -97,6 +102,19 @@ class Customer_Parameters(Plugin):
 
         for k, v in dbconfig.iteritems():
             print k, v
+            if k=='HOST':
+                HOST=dbconfig['HOST']
+            if k=='PORT':
+                PORT=dbconfig['PORT']
+            if k=='SQLUSER':
+                SQLUSER=dbconfig['SQLUSER']
+            if k=='PASSWD':
+                PASSWD=dbconfig['PASSWD']
+            if k=='DATABASE':
+                DATABASE=dbconfig['DATABASE']
+
+          
+
 
 
         # for i in self.param:

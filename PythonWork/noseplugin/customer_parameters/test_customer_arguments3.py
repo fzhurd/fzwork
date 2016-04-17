@@ -20,7 +20,7 @@ PORT=None
 SQLUSER=None
 PASSWD=None
 DATABASE=None
-PARAMETERS=[]
+PARAMETERS={}
 
 log = logging.getLogger('nose.plugins.customer_parameters') 
 class Customer_Parameters(Plugin):
@@ -101,9 +101,10 @@ class Customer_Parameters(Plugin):
         print dbconfig
 
         for k, v in dbconfig.iteritems():
-            print k, v
+            # print k, v
             if k=='HOST':
                 HOST=dbconfig['HOST']
+                print HOST, 'hhhhhhhhhhhh'
             if k=='PORT':
                 PORT=dbconfig['PORT']
             if k=='SQLUSER':
@@ -113,16 +114,27 @@ class Customer_Parameters(Plugin):
             if k=='DATABASE':
                 DATABASE=dbconfig['DATABASE']
 
-          
+        
+    def startTest(self, test):
+        """Initializes a timer before starting a test."""
 
+        # print self.PORT, 'rrrrrrrrrrrr', type(test)
+        # setattr(test, 'HOST', self.HOST)
 
+        # print type(test)
+        # test.HOST=self.HOST
+        pass
 
-        # for i in self.param:
-        #     print i
+        
 
 
     def finalize(self, result):
         log.info("Hello from customer_parameters") 
+        global HOST
+        global PORT
+        global PASSWD
+        global SQLUSER
+        global DATABASE
         # print PARAMETERS
         # print self.param
 

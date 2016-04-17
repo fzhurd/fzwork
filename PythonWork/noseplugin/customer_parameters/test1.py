@@ -1,17 +1,23 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+from test_customer_arguments3 import HOST, PORT, SQLUSER, PASSWD, DATABASE
+
 from unittest import TestCase
 import pymysql
+import sys
 
-HOST='127.0.0.1'
-PORT=3306
-SQLUSER='test'
-PASSWD='test'
-DATABASE='test'
+# HOST='127.0.0.1'
+# PORT=3306
+# SQLUSER='test'
+# PASSWD='test'
+# DATABASE='test'
+
 
 class Test_SQL(TestCase):
     def setUp(self):
+        # print getattr(self,'HOST')
+
         self.db_name = 'test'
         self.coll_name = 't1'
         self.query = "select a from t1;"
@@ -22,6 +28,8 @@ class Test_SQL(TestCase):
         return conn
 
     def test1(self):
+        # print getattr(self, 'HOST','not found')
+        print HOST, 'HHHHHHHHHHH'
 
         conn_mysql_pymysql= self.set_up_pymysql(host=HOST,port=PORT,user=SQLUSER,passwd=PASSWD,db=DATABASE, 
                                     cursorclass=pymysql.cursors.SSCursor)

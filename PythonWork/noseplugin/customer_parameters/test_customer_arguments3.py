@@ -15,12 +15,20 @@ import os
 import json
 
 
-HOST=None
-PORT=None
-SQLUSER=None
-PASSWD=None
-DATABASE=None
-PARAMETERS={}
+# HOST=None
+# PORT=None
+# SQLUSER=None
+# PASSWD=None
+# DATABASE=None
+
+PARAMETERS=None
+
+def set_parameters():
+    global PARAMETERS
+    c=Customer_Parameters()
+    PARAMETERS=c.get_parameters()
+    print PARAMETERS, 'nnnnnnnn'
+    return PARAMETERS
 
 log = logging.getLogger('nose.plugins.customer_parameters') 
 class Customer_Parameters(Plugin):
@@ -86,6 +94,8 @@ class Customer_Parameters(Plugin):
         global PASSWD
         global SQLUSER
         global DATABASE
+
+        global PARAMETERS
         print self.param, type(self.param)
         params=self.param[0].split(',')
         print params
@@ -98,13 +108,16 @@ class Customer_Parameters(Plugin):
             else:
                 dbconfig[k]=v
 
-        print dbconfig
+        print type(dbconfig), dbconfig, 'dddddddddd'
+        PARAMETERS=dbconfig
+
+        print PARAMETERS, 'PPPPPPPPPPPPPPP'
 
         for k, v in dbconfig.iteritems():
             # print k, v
             if k=='HOST':
                 HOST=dbconfig['HOST']
-                print HOST, 'hhhhhhhhhhhh'
+                # print HOST, 'hhhhhhhhhhhh'
             if k=='PORT':
                 PORT=dbconfig['PORT']
             if k=='SQLUSER':
@@ -113,8 +126,15 @@ class Customer_Parameters(Plugin):
                 PASSWD=dbconfig['PASSWD']
             if k=='DATABASE':
                 DATABASE=dbconfig['DATABASE']
+        a=set_parameters()
+        self.get_parameters()
+        # print a, 'aaaaaaaa'
+        # return a
 
-        
+    def get_parameters(self):
+        global PARAMETERS
+        # print PARAMETERS, 'KKKKKKKKK'
+        return PARAMETERS
     def startTest(self, test):
         """Initializes a timer before starting a test."""
 
@@ -123,7 +143,7 @@ class Customer_Parameters(Plugin):
 
         # print type(test)
         # test.HOST=self.HOST
-        pass
+        print HOST
 
         
 

@@ -42,6 +42,7 @@ PARAMETERS={}
 #     print HOST, 'TTTTTT'
 #     return HOST
 
+
 log = logging.getLogger('nose.plugins.customer_parameters') 
 class Customer_Parameters(Plugin):
     global PARAMETERS
@@ -51,30 +52,39 @@ class Customer_Parameters(Plugin):
     name = 'customer_parameters'
     score = 1
     enabled = True
-    @staticmethod
-    def set_parameters():
-        global PARAMETERS
-        c=Customer_Parameters()
-        return PARAMETERS
 
-    def options(self, parser, env):
+    # config=Customer_Parameters.set_parameters()
+    
+    # def set_parameters(self,data):
+    #     # global PARAMETERS
+    #     # c=Customer_Parameters()
+    #     print data, 'dddddd'
+    #     return data
+
+    def options(self, parser, env=os.environ):
         """Sets additional command line options."""
         super(Customer_Parameters, self).options(parser, env)
 
-        
-    def add_options(self, parser, env):
-        '''Add command-line options for plugin'''
-
         parser.add_option('--param',
                          dest='param',
-                         # type=json.loads,
                          action='append',
                          help='Input all required parameters before running tests' )
+ 
+
+        
+    # def add_options(self, parser, env):
+    #     '''Add command-line options for plugin'''
+    #     parser.add_option('--param',
+    #                      dest='param',
+    #                      # type=json.loads,
+    #                      action='append',
+    #                      help='Input all required parameters before running tests' )
  
     def configure(self, options, config):
         global PARAMETERS
 
-        """Configures the test timer plugin."""
+        PARAMETERS=options.param
+        print PARAMETERS
 
         super(Customer_Parameters, self).configure(options, config)
 
@@ -133,16 +143,18 @@ class Customer_Parameters(Plugin):
                 DATABASE=dbconfig['DATABASE']
         self.config=dbconfig
         print self.config, 'uuuuuuuuuuuu'
+        return self.config
 
         self.set_parameters(self.config)
 
-    def set_parameters(self,pa):
-        self.config=pa
+    def set_parameters(self):
+        self.config=PARAMETERS
         print self.config, 'mmmmmmmmmmmmm'
         return self.config
 
     def get_parameters(self):
         global PARAMETERS
+        print PARAMETERS, 'ggggggggggggg'
         return self.config
 
     def startTest(self, test):
@@ -153,14 +165,7 @@ class Customer_Parameters(Plugin):
         
     def prepareTest(self,test):
         global PARAMETERS
-        print PARAMETERS, 'from prepartests'
-        # test.HOST=PARAMETERS['HOST']
-        # print test.HOST,'xxxxxxxxxxxxxxxx'
-        # setattr(test,'HOST', test.HOST)
-        # print test, type(test)
-
-        
-
+        pass
 
     def finalize(self, result):
         log.info("Hello from customer_parameters") 
@@ -245,14 +250,11 @@ class Customer_Parameters(Plugin):
 # def test1():
 #     assertEqual(2,2)
 
-
+# c=Customer_Parameters()
+# c.get_parameters()
  
 if __name__ == '__main__':
 
-    # global PARAMETERS
-    # PARAMETERS=param
-
-    # print param, 'ppppppppppppp'
     nose.main(addplugins=[Customer_Parameters()])
 
 

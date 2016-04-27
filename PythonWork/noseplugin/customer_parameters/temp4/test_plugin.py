@@ -8,10 +8,7 @@ import nose
 import sys
 import unittest
 from unittest import TestCase
-# from tests import *
 
-# import pdb
-# pdb.set_trace()
 
 PARAMETERS=None
 
@@ -32,41 +29,47 @@ class Parameters_Example(Plugin):
     def configure(self, options, config):
 
         super(Parameters_Example, self).configure(options, config)
-        self.config={'x':1}
-        # self.load_config(options.widget_config)
-        # global PARAMETERS
-        # PARAMETERS=options.param
-        # print PARAMETERS
+        self.param = options.param
+        # params=self.param[0].split(',')
+
+        # dbconfig=dict()
+        # for p in params:
+        #     k, v=p.split(':')
+        #     if k=='PORT':
+        #         dbconfig[k]=int(v)
+        #     else:
+        #         dbconfig[k]=v
+
+        # for k, v in dbconfig.iteritems():
+
+        #     if k=='HOST':
+        #         HOST=dbconfig['HOST']
+        #     if k=='PORT':
+        #         PORT=dbconfig['PORT']
+        #     if k=='SQLUSER':
+        #         SQLUSER=dbconfig['SQLUSER']
+        #     if k=='PASSWD':
+        #         PASSWD=dbconfig['PASSWD']
+        #     if k=='DATABASE':
+        #         DATABASE=dbconfig['DATABASE']
+        # self.config=dbconfig
+
+        self.config=self.param
 
 
     def begin(self):
-        # ConfigData.config = {}
+
         ConfigData.config = self.config
         print ConfigData.config, 'tttt'
 
-        # global PARAMETERS
-        # print PARAMETERS, 'bbbbbbbbbb'
-        # ConfigurableWidget.cfg = {}
-        # ConfigurableWidget.cfg=PARAMETERS
-
-        # t=ConfigData()
-        # t.store_data(PARAMETERS)
-        # print t.get_data(), 'config'
-
-        # return t
-
-        # return PARAMETERS
-
-    # def load_config(self):
-   #     pass
 
 class Test_Example(TestCase):
     def setUp(self):
-        # print PARAMETERS, 'parsed' 
+
         self.widget = ConfigData()
         print self.widget.config, 'zzzzzzzzz'
     def testb(self):   
-        # print sys.argv[5], 'vvvvvvvvvvvvvvv'
+
         print self.widget.config, 'zzzzzzzzz'
         pass
 

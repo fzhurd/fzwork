@@ -3,11 +3,10 @@
 
 class ConfigData(object):
 
-    config={'a':1}
+    config={}
 
     def store_data(self, data):
         self.config=data
-        print self.config, 'sssssssss'
         return self.config
 
     def get_data(self):

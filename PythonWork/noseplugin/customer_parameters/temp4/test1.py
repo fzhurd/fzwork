@@ -10,6 +10,4 @@ class Test_Example(TestCase):
         self.widget = ConfigData()
         print self.widget.config, 'zzzzzzzzz'
     def testb(self):   
-
-        print self.widget.config, 'zzzzzzzzz'
         pass

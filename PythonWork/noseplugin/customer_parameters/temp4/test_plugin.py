@@ -6,10 +6,10 @@ from nose.plugins import Plugin
 from nose.plugins.plugintest import run_buffered as run
 import nose
 import sys
-import unittest
-from unittest import TestCase
+# import unittest
+# from unittest import TestCase
 from config import *
-from test1 import *
+# from test1 import *
 
 class Parameters_Example(Plugin):
     global PARAMETERS
@@ -29,6 +29,7 @@ class Parameters_Example(Plugin):
 
         super(Parameters_Example, self).configure(options, config)
         self.param = options.param
+
         # params=self.param[0].split(',')
 
         # dbconfig=dict()
@@ -64,7 +65,8 @@ def suite():
 
 if __name__ == '__main__':
     argv = sys.argv[:]
-    nose.main(argv=argv, addplugins=[Parameters_Example()], suite=suite())
+    # nose.main(argv=argv, addplugins=[Parameters_Example()], suite=suite())
+    nose.main(addplugins=[Parameters_Example()])
     # nose.run(suite=suite(),plugins=[Parameters_Example()])
     # run(argv=argv, addplugins=[Parameters_Example()], suite=suite())
     # argv = [__file__, '-sv', '--parameters_example', '--param', {HOST:'localhost',PORT:3306,SQLUSER:'test',PASSWD:'test',DATABASE:'test'}]

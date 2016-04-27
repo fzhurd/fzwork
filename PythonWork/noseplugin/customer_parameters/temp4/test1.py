@@ -11,3 +11,5 @@ class Test_Example(TestCase):
         print self.widget.config, 'zzzzzzzzz'
     def testb(self):   
         pass
+    def testc(self):   
+        pass

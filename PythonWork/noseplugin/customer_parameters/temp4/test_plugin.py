@@ -8,6 +8,8 @@ import nose
 import sys
 import unittest
 from unittest import TestCase
+from config import *
+from test1 import *
 
 
 PARAMETERS=None
@@ -63,28 +65,28 @@ class Parameters_Example(Plugin):
         print ConfigData.config, 'tttt'
 
 
-class Test_Example(TestCase):
-    def setUp(self):
+# class Test_Example(TestCase):
+#     def setUp(self):
 
-        self.widget = ConfigData()
-        print self.widget.config, 'zzzzzzzzz'
-    def testb(self):   
+#         self.widget = ConfigData()
+#         print self.widget.config, 'zzzzzzzzz'
+#     def testb(self):   
 
-        print self.widget.config, 'zzzzzzzzz'
-        pass
+#         print self.widget.config, 'zzzzzzzzz'
+#         pass
 
 
-class ConfigData(object):
+# class ConfigData(object):
 
-    config={'a':1}
+#     config={'a':1}
 
-    def store_data(self, data):
-        self.config=data
-        print self.config, 'sssssssss'
-        return self.config
+#     def store_data(self, data):
+#         self.config=data
+#         print self.config, 'sssssssss'
+#         return self.config
 
-    def get_data(self):
-        return self.config
+#     def get_data(self):
+#         return self.config
 
 # class ConfigurableWidget(object):
 #     cfg = None

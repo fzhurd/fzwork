@@ -30,15 +30,19 @@ class Parameters_Example(Plugin):
         super(Parameters_Example, self).configure(options, config)
         self.param = options.param
 
-        # params=self.param[0].split(',')
+        params=self.param[0].split(',')
 
-        # dbconfig=dict()
+        dbconfig=dict()
         # for p in params:
         #     k, v=p.split(':')
         #     if k=='PORT':
         #         dbconfig[k]=int(v)
         #     else:
         #         dbconfig[k]=v
+        for p in params:
+            k, v=p.split(':')
+            dbconfig[k]=v
+        self.config=dbconfig
 
         # for k, v in dbconfig.iteritems():
 
@@ -54,8 +58,7 @@ class Parameters_Example(Plugin):
         #         DATABASE=dbconfig['DATABASE']
         # self.config=dbconfig
 
-        self.config=self.param
-
+        # self.config=self.param
 
     def begin(self):
         ConfigData.config = self.config
@@ -70,7 +73,6 @@ if __name__ == '__main__':
     # nose.run(suite=suite(),plugins=[Parameters_Example()])
     # run(argv=argv, addplugins=[Parameters_Example()], suite=suite())
     # argv = [__file__, '-sv', '--parameters_example', '--param', {HOST:'localhost',PORT:3306,SQLUSER:'test',PASSWD:'test',DATABASE:'test'}]
-    # print argv, 'vvvvvvvvvvvvv'
     # run(argv=argv, suite=suite(), plugins=[Parameters_Example()]) 
 
 

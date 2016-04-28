@@ -9,7 +9,7 @@ class TestSql(TestCase):
     def setUp(self):
 
         self.db_config = ConfigData()
-        print self.db_config.config
+        # print self.db_config.config
 
         cfg=self.db_config.config
 

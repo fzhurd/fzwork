@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from nose.plugins import Plugin
-from nose.plugins.plugintest import run_buffered as run
+# from nose.plugins.plugintest import run_buffered as run
 import nose
 from config import ConfigData
 

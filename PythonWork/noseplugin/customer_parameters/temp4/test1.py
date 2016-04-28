@@ -1,15 +1,15 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
-from config import *
+from config import ConfigData
 from unittest import TestCase
 import pymysql
 
-class Test_Example(TestCase):
+class TestSql(TestCase):
     def setUp(self):
 
         self.db_config = ConfigData()
-        # print self.db_config.config, 'zzzzzzzzz'
+        print self.db_config.config
 
         cfg=self.db_config.config
 
@@ -19,7 +19,7 @@ class Test_Example(TestCase):
         self.PASSWD=cfg['PASSWD']
         self.DATABASE=cfg['DATABASE']
 
-        self.db_name = 'test'
+        self.db_name = self.DATABASE
         self.coll_name = 't1'
         self.query = "select a from t1;"
 

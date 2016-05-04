@@ -1,0 +1,9 @@
+setup.py
+test_plugin.py
+Command_Arguments.egg-info/PKG-INFO
+Command_Arguments.egg-info/SOURCES.txt
+Command_Arguments.egg-info/dependency_links.txt
+Command_Arguments.egg-info/entry_points.txt
+Command_Arguments.egg-info/requires.txt
+Command_Arguments.egg-info/top_level.txt
+Command_Arguments.egg-info/zip-safe

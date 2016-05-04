@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: Command-Arguments
+Version: 0.1
+Summary: nose plugin for command line parsed parameters
+Home-page: UNKNOWN
+Author: Frank Zhu
+Author-email: fzhurd@gmail.com
+License: GNU LGPL
+Description: UNKNOWN
+Platform: UNKNOWN

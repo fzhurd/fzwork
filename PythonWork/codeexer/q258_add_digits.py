@@ -23,16 +23,27 @@ class Solution(object):
         :type num: int
         :rtype: int
         """
-        num_str=str(num)
-        if len(num_str)==1:
-            return num
         
-        while len(num_str)>1:
-            sum=0
-            for i in num_str:
-                sum=sum+int(i)
-            num_str=str(sum)
-            if len(str(sum))==1:
-                return sum
-            else:
-                self.addDigits(sum)
+        # solution 1
+        # num_str=str(num)
+        # if len(num_str)==1:
+        #     return num
+        
+        # while len(num_str)>1:
+        #     sum=0
+        #     for i in num_str:
+        #         sum=sum+int(i)
+        #     num_str=str(sum)
+        #     if len(str(sum))==1:
+        #         return sum
+        #     else:
+        #         self.addDigits(sum)
+        
+        #solution 2
+        while num > 9:
+            c = 0
+            while num:
+                c += num % 10
+                num /= 10
+            num = c
+        return num

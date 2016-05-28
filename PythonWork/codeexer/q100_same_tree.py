@@ -25,10 +25,24 @@ class Solution(object):
         :type q: TreeNode
         :rtype: bool
         """
+        # solution 1
+        # if p == None and q == None:
+        #     return True
+        
+        # if p and q and p.val==q.val:
+        #     return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        # return False
+        
+        # solution 2
         if p == None and q == None:
             return True
+        if p == None or q == None:
+            return False
+        if p.val != q.val:
+            return False
+        res_left = self.isSameTree(p.left, q.left)
+        res_right =self.isSameTree(p.right, q.right)
+        final = res_left and res_right
+        return final
         
-        if p and q and p.val==q.val:
-            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-        return False
         

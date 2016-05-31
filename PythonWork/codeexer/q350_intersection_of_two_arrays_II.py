@@ -28,20 +28,31 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        if not nums1 or not nums2:
-            return []
-            
-        final=[]
         
-        for i in nums1:
-            count1=nums1.count(i)
-            count2=nums2.count(i)
-            if i in nums2 and i not in final:
+        #solution 1
+        # if not nums1 or not nums2:
+        #     return []
+            
+        # final=[]
+        
+        # for i in nums1:
+        #     count1=nums1.count(i)
+        #     count2=nums2.count(i)
+        #     if i in nums2 and i not in final:
                 
-                if count1<=count2:
-                    count=count1
-                else:
-                    count=count2
-                for j in xrange(count):
-                    final.append(i)
-        return final
+        #         if count1<=count2:
+        #             count=count1
+        #         else:
+        #             count=count2
+        #         for j in xrange(count):
+        #             final.append(i)
+        # return final
+        
+        #solution 2
+        c1 = collections.Counter(nums1)
+        c2 = collections.Counter(nums2)
+        result = []
+        for n in c1:
+            if n in c2:
+                result += [n] * min(c1[n], c2[n])
+        return result

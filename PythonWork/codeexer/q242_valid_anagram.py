@@ -44,9 +44,13 @@ class Solution(object):
         # return True
         
         #solution 1
-        if not s and not t:
-            return True
-        sort_s=sorted(s)
-        sort_t=sorted(t)
+        # if not s and not t:
+        #     return True
+        # sort_s=sorted(s)
+        # sort_t=sorted(t)
 
-        return sort_s==sort_t
+        # return sort_s==sort_t
+        
+        #solution 2
+        from collections import Counter
+        return Counter(s) == Counter(t)

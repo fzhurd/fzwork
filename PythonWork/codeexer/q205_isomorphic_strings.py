@@ -31,23 +31,40 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        lenth=len(s)
-        if s=="" and t=="":
-            return True
         
-        s_dict, s_list, t_list = dict(), list(s), list(t)
+        # solution 1
+        # lenth=len(s)
+        # if s=="" and t=="":
+        #     return True
+        
+        # s_dict, s_list, t_list = dict(), list(s), list(t)
 
-        if len(s_list) != len(t_list):
-            return False
+        # if len(s_list) != len(t_list):
+        #     return False
     
-        if len(set(s_list)) != len(set(t_list)):
-            return False
+        # if len(set(s_list)) != len(set(t_list)):
+        #     return False
     
-        for i in range(len(s_list)):
-            s_val, t_val = s_list[i], t_list[i]
-            if s_val in s_dict and s_dict[s_val] != t_val:
-                return False
+        # for i in range(len(s_list)):
+        #     s_val, t_val = s_list[i], t_list[i]
+        #     if s_val in s_dict and s_dict[s_val] != t_val:
+        #         return False
+        #     else:
+        #         s_dict[s_val] = t_val
+    
+        # return True
+        
+        # solution 2
+        st_map = {}
+        ts_map = {}
+
+        for i in range(len(s)):
+            if s[i] not in st_map and t[i] not in ts_map:
+                st_map[s[i]] = t[i]
+                ts_map[t[i]] = s[i]
+            elif st_map.get(s[i]) == t[i] and ts_map.get(t[i]) == s[i]:
+                continue
             else:
-                s_dict[s_val] = t_val
-    
+                return False
+
         return True

@@ -26,11 +26,23 @@ class Solution(object):
         :type val: int
         :rtype: ListNode
         """
+        # solution 1
+        # head, head.next = ListNode(0), head
+        # p = head
+        # while p.next:
+        #     if p.next.val == val:
+        #         p.next = p.next.next
+        #     else: p = p.next
+        # return head.next
         
-        head, head.next = ListNode(0), head
-        p = head
-        while p.next:
-            if p.next.val == val:
-                p.next = p.next.next
-            else: p = p.next
-        return head.next
+        handle = ListNode(-1)
+        handle.next = head
+        prev, curr = handle, handle.next
+        while curr:
+            if curr.val==val:
+                prev.next = curr.next
+                curr = curr.next
+                continue
+            prev, curr = prev.next, curr.next
+        return handle.next
+        

@@ -22,12 +22,17 @@ class Solution(object):
         """
         
         # solution 1
-        n=len(nums)
-        if k>0 and n>0:
-            nums[:]=nums[n-k:]+nums[:n-k]
-   
         # n=len(nums)
         # if k>0 and n>0:
-        #     temp=[]
-        #     temp=nums[n-k:].extend(nums[:n-k])
-        #     nums[:]=temp
+        #     nums[:]=nums[n-k:]+nums[:n-k]
+        
+        # solution 2
+        # if nums is None or len(nums) == 0 or k == len(nums):
+        #     return
+        # n = len(nums)
+        # nums[0:k], nums[k::] = nums[n - k::], nums[0:n - k]
+        
+        # solution 3
+        k %= len(nums)
+        for i in range(k):
+            nums.insert(0, nums.pop(-1))

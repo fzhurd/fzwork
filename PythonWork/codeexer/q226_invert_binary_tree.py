@@ -41,11 +41,18 @@ class Solution(object):
         :type root: TreeNode
         :rtype: TreeNode
         """
-        if root is None:
-            return None
-        if root.left:
-            self.invertTree(root.left)
-        if root.right:
-            self.invertTree(root.right)
-        root.left, root.right = root.right, root.left
+        # solution 1
+        
+        # if root is None:
+        #     return None
+        # if root.left:
+        #     self.invertTree(root.left)
+        # if root.right:
+        #     self.invertTree(root.right)
+        # root.left, root.right = root.right, root.left
+        # return root
+        
+        # solution 2
+        if root!=None:
+            root.left, root.right = self.invertTree(root.right), self.invertTree(root.left)
         return root

@@ -3,6 +3,11 @@
 
 from scrapy import Spider
 from scrapy.selector import Selector
+
+from stackwork.items import StackworkItem
+
+
+# scrapy crawl stack_spider
  
  
 class StackSpider(Spider):
@@ -18,10 +23,10 @@ class StackSpider(Spider):
 
         for question in questions:
 
-            item = StackItem()
+            item = StackworkItem()
 
             item['title'] = question.xpath('a[@class="question-hyperlink"]/text()').extract()[0]
 
             item['url'] = question.xpath('a[@class="question-hyperlink"]/@href').extract()[0]
-            
+
             yield item

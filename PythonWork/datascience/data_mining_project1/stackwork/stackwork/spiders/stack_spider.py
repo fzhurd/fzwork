@@ -8,6 +8,7 @@ from stackwork.items import StackworkItem
 
 
 # scrapy crawl stack_spider
+# scrapy crawl stack_spider -o items.json -t json
  
  
 class StackSpider(Spider):

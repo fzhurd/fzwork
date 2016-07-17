@@ -90,9 +90,16 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 
-ITEM_PIPELINES = [&#039;stack.pipelines.MongoDBPipeline&#039;, ]
+# ITEM_PIPELINES = [&#039;stack.pipelines.MongoDBPipeline&#039;, ]
  
-MONGODB_SERVER = &quot;localhost&quot;
+# MONGODB_SERVER = &quot;localhost&quot;
+# MONGODB_PORT = 27017
+# MONGODB_DB = &quot;stackoverflow&quot;
+# MONGODB_COLLECTION = &quot;questions&quot;
+
+ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
+ 
+MONGODB_SERVER = 'localhost';
 MONGODB_PORT = 27017
-MONGODB_DB = &quot;stackoverflow&quot;
-MONGODB_COLLECTION = &quot;questions&quot;
+MONGODB_DB = 'stackoverflow';
+MONGODB_COLLECTION = 'questions';

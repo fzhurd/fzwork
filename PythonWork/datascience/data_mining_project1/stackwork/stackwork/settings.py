@@ -97,7 +97,7 @@ ROBOTSTXT_OBEY = True
 # MONGODB_DB = &quot;stackoverflow&quot;
 # MONGODB_COLLECTION = &quot;questions&quot;
 
-ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
+ITEM_PIPELINES = ['stackwork.pipelines.MongoDBPipeline', ]
  
 MONGODB_SERVER = 'localhost';
 MONGODB_PORT = 27017

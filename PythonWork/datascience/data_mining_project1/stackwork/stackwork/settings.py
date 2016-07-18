@@ -97,7 +97,15 @@ ROBOTSTXT_OBEY = True
 # MONGODB_DB = &quot;stackoverflow&quot;
 # MONGODB_COLLECTION = &quot;questions&quot;
 
-ITEM_PIPELINES = ['stackwork.pipelines.MongoDBPipeline', ]
+# ITEM_PIPELINES = ['stackwork.pipelines.MongoDBPipeline', ]
+
+
+# http://stackoverflow.com/questions/37442907/scrapy-attributeerror-list-object-has-no-attribute-iteritems
+
+ITEM_PIPELINES = {
+    'stackwork.pipelines.MongoDBPipeline': 300,
+    'stackwork.pipelines.JsonWriterPipeline': 800,
+}
  
 MONGODB_SERVER = 'localhost';
 MONGODB_PORT = 27017

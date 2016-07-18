@@ -14,3 +14,6 @@ class StackworkItem(scrapy.Item):
     # name = scrapy.Field()
     title = scrapy.Field()
     url = scrapy.Field()
+
+
+

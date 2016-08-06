@@ -9,21 +9,6 @@ def import_data(data_file, mode):
 
     db = set_up_mongodb_conn(database='zika', collection='zika_virus')
 
-    # with open(data_file, mode) as f:
-    #     for row in csv.reader(f, delimiter=' ', skipinitialspace=True):
-    #         print '|'.join(row)
-
-    # with open(data_file, mode) as f:
-    #     data = f.read()
-
-    # new_data = data.replace('"', '')
-
-    # for row in csv.reader(data.splitlines(), delimiter=' ', skipinitialspace=True):
-    #     print row
-    # print ('|'.join(row))
-    #     lines = csv.reader(csvfile)
-    #     print type(lines)
-
     with open(data_file, mode) as f:
 
         lines=f.readlines()
@@ -31,17 +16,12 @@ def import_data(data_file, mode):
         n=0
         for l in lines:
             doc=dict()
-            # n=n+1
-            if n>0 and n<10:
-                # print l
-                # report_date, location, location_type, data_field, data_field_code, time_period, 
-                # time_period_type, value, unit = l.strip().split(',')
+            if n>0:
+ 
                 l=l.replace('"','').strip()
                 l=l.rstrip('\n')
                 record = l.strip().split(',')
                 print record
-
-                # print report_date
 
                 doc['report_date'] = record[0]
                 doc['location'] = record[1]

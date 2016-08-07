@@ -9,14 +9,16 @@ def import_data(data_file, mode):
 
     db = set_up_mongodb_conn(database='zika', collection='zika_virus')
 
+    clean_data=[]
+
     with open(data_file, mode) as f:
 
         lines=f.readlines()
-       
+
         n=0
         for l in lines:
             doc=dict()
-            if n>0:
+            if n>0 :
  
                 l=l.replace('"','').strip()
                 l=l.rstrip('\n')
@@ -40,7 +42,11 @@ def import_data(data_file, mode):
                 doc['unit'] = record[8]
 
                 db.insert(doc)
+
+                clean_data.append(doc)
             n=n+1
+
+        return clean_data
 
 
 def set_up_mongodb_conn(host='127.0.0.1', port=27017, database='test', 
@@ -48,6 +54,7 @@ def set_up_mongodb_conn(host='127.0.0.1', port=27017, database='test',
 
     dbconnection = pymongo.MongoClient(host, port)
     db = dbconnection[database][collection]
+    db.drop()
     return db
 
 def main():

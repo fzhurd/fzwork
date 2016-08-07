@@ -30,7 +30,14 @@ def import_data(data_file, mode):
                 doc['data_field_code'] = record[4]
                 doc['time_period'] = record[5]
                 doc['time_period_type'] = record[6]
-                doc['value'] = int(record[7])
+
+                try:
+                    doc['value'] = int(record[7])
+                except Exception as e:
+                    doc['value'] ="NA"
+
+                # if record[7] != "NA":
+                #     doc['value'] = int(record[7])
                 doc['unit'] = record[8]
 
                 db.insert(doc)

@@ -3,7 +3,7 @@
 
 import csv
 import pymongo
-import pymysql
+import matplotlib
 
 def import_data(data_file, mode):
 

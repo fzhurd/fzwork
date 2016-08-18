@@ -57,6 +57,9 @@ def set_up_mongodb_conn(host='127.0.0.1', port=27017, database='test',
     db.drop()
     return db
 
+def check_number():
+    pass
+
 def main():
     import_data('cdc_zika.csv', 'r')
 

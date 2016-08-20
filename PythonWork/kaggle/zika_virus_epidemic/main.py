@@ -12,9 +12,10 @@ def import_data(data_file, mode, database, collection):
      # database='zika', collection='zika_virus'
 
     db = dbconnection[database][collection]
-    # db.drop()
-
-    existed = collection_exists(db['zika'], 'zika_virus', 107619)
+    print db
+    
+    existed = collection_exists(dbconnection, 'zika', 'zika_virus', 107619)
+    print existed
 
     if not existed:
 
@@ -59,13 +60,15 @@ def import_data(data_file, mode, database, collection):
 
             return clean_data
 
-def collection_exists(db, collection, number):
+def collection_exists(connection, db, collection, number=0):
 
-    dbconnection = pymongo.MongoClient(host='127.0.0.1', port=27017)
+    collections = connection[db].collection_names()
 
-    collections = dbconnection[db].collection_names()
-    count=db.collection.count()
-    if collection in collections and count==number:
+    print collections
+
+    # count=db.collection.count()
+
+    if collection in collections:
         return True
     else:
         return False
@@ -74,9 +77,6 @@ def collection_exists(db, collection, number):
 def set_up_mongodb_conn(host='127.0.0.1', port=27017):
 
     dbconnection = pymongo.MongoClient(host, port)
-    # db = dbconnection[database][collection]
-    # db.drop()
-    # return db
     return dbconnection
 
 def check_number():

@@ -9,8 +9,6 @@ def import_data(data_file, mode, database, collection):
 
     dbconnection = set_up_mongodb_conn(host='127.0.0.1', port=27017)
 
-     # database='zika', collection='zika_virus'
-
     db = dbconnection[database][collection]
     print db
     

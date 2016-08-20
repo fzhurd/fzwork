@@ -48,6 +48,9 @@ def import_data(data_file, mode):
 
         return clean_data
 
+def is_data_imported():
+    pass
+
 
 def set_up_mongodb_conn(host='127.0.0.1', port=27017, database='test', 
                             collection='test',user=None, password=None):

@@ -9,47 +9,56 @@ def import_data(data_file, mode):
 
     db = set_up_mongodb_conn(database='zika', collection='zika_virus')
 
-    clean_data=[]
+    existed = collection_exists(db, zika_virus, 107619)
 
-    with open(data_file, mode) as f:
+    if not existed:
 
-        lines=f.readlines()
+        clean_data=[]
 
-        n=0
-        for l in lines:
-            doc=dict()
-            if n>0 :
- 
-                l=l.replace('"','').strip()
-                l=l.rstrip('\n')
-                record = l.strip().split(',')
-                print record
+        with open(data_file, mode) as f:
 
-                doc['report_date'] = record[0]
-                doc['location'] = record[1]
-                doc['location_type'] = record[2]
-                doc['data_field'] = record[3]
-                doc['data_field_code'] = record[4]
-                doc['time_period'] = record[5]
-                doc['time_period_type'] = record[6]
+            lines=f.readlines()
 
-                try:
-                    doc['value'] = int(record[7])
-                except Exception as e:
-                    doc['value'] ="NA"
+            n=0
+            for l in lines:
+                doc=dict()
+                if n>0 :
+     
+                    l=l.replace('"','').strip()
+                    l=l.rstrip('\n')
+                    record = l.strip().split(',')
+                    print record
 
-          
-                doc['unit'] = record[8]
+                    doc['report_date'] = record[0]
+                    doc['location'] = record[1]
+                    doc['location_type'] = record[2]
+                    doc['data_field'] = record[3]
+                    doc['data_field_code'] = record[4]
+                    doc['time_period'] = record[5]
+                    doc['time_period_type'] = record[6]
 
-                db.insert(doc)
+                    try:
+                        doc['value'] = int(record[7])
+                    except Exception as e:
+                        doc['value'] ="NA"
 
-                clean_data.append(doc)
-            n=n+1
+              
+                    doc['unit'] = record[8]
 
-        return clean_data
+                    db.insert(doc)
 
-def is_data_imported():
-    pass
+                    clean_data.append(doc)
+                n=n+1
+
+            return clean_data
+
+def collection_exists(db, collection, number):
+    collections = db.collection_names()
+    count=db.collection.count()
+    if collection in collections and count==number:
+        return True
+    else:
+        return False
 
 
 def set_up_mongodb_conn(host='127.0.0.1', port=27017, database='test', 

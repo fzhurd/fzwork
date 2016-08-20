@@ -9,7 +9,7 @@ def import_data(data_file, mode):
 
     db = set_up_mongodb_conn(database='zika', collection='zika_virus')
 
-    existed = collection_exists(db, zika_virus, 107619)
+    existed = collection_exists(db['zika'], 'zika_virus', 107619)
 
     if not existed:
 
@@ -53,7 +53,10 @@ def import_data(data_file, mode):
             return clean_data
 
 def collection_exists(db, collection, number):
-    collections = db.collection_names()
+
+    dbconnection = pymongo.MongoClient(host='127.0.0.1', port=27017)
+
+    collections = dbconnection[db].collection_names()
     count=db.collection.count()
     if collection in collections and count==number:
         return True

@@ -5,13 +5,20 @@ import csv
 import pymongo
 import matplotlib
 
-def import_data(data_file, mode):
+def import_data(data_file, mode, database, collection):
 
-    db = set_up_mongodb_conn(database='zika', collection='zika_virus')
+    dbconnection = set_up_mongodb_conn(host='127.0.0.1', port=27017)
+
+     # database='zika', collection='zika_virus'
+
+    db = dbconnection[database][collection]
+    # db.drop()
 
     existed = collection_exists(db['zika'], 'zika_virus', 107619)
 
     if not existed:
+
+        db.drop()
 
         clean_data=[]
 
@@ -64,19 +71,19 @@ def collection_exists(db, collection, number):
         return False
 
 
-def set_up_mongodb_conn(host='127.0.0.1', port=27017, database='test', 
-                            collection='test',user=None, password=None):
+def set_up_mongodb_conn(host='127.0.0.1', port=27017):
 
     dbconnection = pymongo.MongoClient(host, port)
-    db = dbconnection[database][collection]
-    db.drop()
-    return db
+    # db = dbconnection[database][collection]
+    # db.drop()
+    # return db
+    return dbconnection
 
 def check_number():
     pass
 
 def main():
-    import_data('cdc_zika.csv', 'r')
+    import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')
 
 
 

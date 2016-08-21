@@ -4,6 +4,8 @@
 import csv
 import pymongo
 import matplotlib
+import numpy as np 
+import pandas as pd
 
 def import_data(data_file, mode, database, collection):
 

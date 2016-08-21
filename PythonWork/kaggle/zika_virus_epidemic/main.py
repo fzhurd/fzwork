@@ -82,8 +82,13 @@ def set_up_mongodb_conn(host='127.0.0.1', port=27017):
 def check_number():
     pass
 
+def read_csv(file):
+    zikas_dataframe = pd.read_csv(os.path.join('..', 'input', file),
+                      low_memory=False)
+
 def main():
-    import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')
+    # import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')
+    read_csv('cdc_zika.csv')
 
 
 

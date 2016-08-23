@@ -7,6 +7,7 @@ import matplotlib
 import numpy as np 
 import pandas as pd
 import os
+import pylab as P
 
 def import_data(data_file, mode, database, collection):
 
@@ -88,6 +89,10 @@ def read_csv(file):
     #                   low_memory=False)
  zikas_dataframe = pd.read_csv(file, low_memory=False)
  print zikas_dataframe['value'][0:100]
+
+ value_mean = zikas_dataframe['value'].mean()
+ zikas_dataframe['value'].hist()
+ P.show()
 
 def main():
     # import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')

@@ -87,6 +87,7 @@ def read_csv(file):
     # zikas_dataframe = pd.read_csv(os.path.join('..', 'input', file),
     #                   low_memory=False)
  zikas_dataframe = pd.read_csv(file, low_memory=False)
+ print zikas_dataframe['value'][0:100]
 
 def main():
     # import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')

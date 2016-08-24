@@ -3,7 +3,7 @@
 
 import csv
 import pymongo
-import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np 
 import pandas as pd
 import os
@@ -92,7 +92,14 @@ def read_csv(file):
                            pd.notnull(zikas_dataframe['value'])) 
 
     print zikas_modified_rows.describe()
-    # zika_dfs = zikas_dataframe[zikas_modified_rows]
+    modified_rows= zikas_dataframe[zikas_modified_rows]
+    print modified_rows
+
+    modified_rows['value']=modified_rows['value'].mean()
+
+    fig=plt.figure()
+    ax=fig.add_subplot(1,1,1)
+    ax.hist(modified_rows['value'], bins=10)
 
     # zika_dfs.hist()
     # P.show()

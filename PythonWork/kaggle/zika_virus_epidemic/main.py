@@ -91,15 +91,20 @@ def read_csv(file):
     zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
                            pd.notnull(zikas_dataframe['value'])) 
 
-    print zikas_modified_rows.describe()
+   
     modified_rows= zikas_dataframe[zikas_modified_rows]
-    print modified_rows
+    modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
+    mean=modified_rows_num.mean()
+    print mean
 
-    modified_rows['value']=modified_rows['value'].mean()
+    modified_rows_num=modified_rows_num.fillna(mean)
+
+
 
     fig=plt.figure()
     ax=fig.add_subplot(1,1,1)
-    ax.hist(modified_rows['value'], bins=10)
+    ax.hist(modified_rows_num, bins=10)
+    plt.show()
 
     # zika_dfs.hist()
     # P.show()

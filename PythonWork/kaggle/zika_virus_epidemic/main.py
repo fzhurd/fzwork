@@ -101,9 +101,9 @@ def read_csv(file):
 
 
 
-    fig=plt.figure()
+    fig=plt.figure(figsize=(8,4))
     ax=fig.add_subplot(1,1,1)
-    ax.hist(modified_rows_num, bins=10)
+    ax.hist(modified_rows_num, bins=100)
     plt.show()
 
     # zika_dfs.hist()

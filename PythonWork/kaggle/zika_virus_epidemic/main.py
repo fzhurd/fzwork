@@ -88,6 +88,11 @@ def read_csv(file):
 
     zikas_dataframe = pd.read_csv(file, low_memory=False)
     print zikas_dataframe.shape
+    print zikas_dataframe.head(10)
+    # print zikas_dataframe.tail(10)
+    print zikas_dataframe.dtypes
+    print zikas_dataframe.select_dtypes(include=['float64'])
+
     
     zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
                            pd.notnull(zikas_dataframe['value'])) 
@@ -102,10 +107,12 @@ def read_csv(file):
 
     modified_rows_num=modified_rows_num.fillna(mean)
 
-    fig=plt.figure(figsize=(8,4))
-    ax=fig.add_subplot(1,1,1)
-    ax.hist(modified_rows_num, bins=100)
-    plt.show()
+    zikas_dataframe.dropna(axis=1, how='all')
+
+    # fig=plt.figure(figsize=(8,4))
+    # ax=fig.add_subplot(1,1,1)
+    # ax.hist(modified_rows_num, bins=100)
+    # plt.show()
 
 
 

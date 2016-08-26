@@ -87,27 +87,27 @@ def check_number():
 def read_csv(file):
 
     zikas_dataframe = pd.read_csv(file, low_memory=False)
-    # value_mean = zikas_dataframe['value'].mean()
+    print zikas_dataframe.shape
+    
     zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
                            pd.notnull(zikas_dataframe['value'])) 
 
    
     modified_rows= zikas_dataframe[zikas_modified_rows]
+
     modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
+    print modified_rows_num.count()
     mean=modified_rows_num.mean()
     print mean
 
     modified_rows_num=modified_rows_num.fillna(mean)
-
-
 
     fig=plt.figure(figsize=(8,4))
     ax=fig.add_subplot(1,1,1)
     ax.hist(modified_rows_num, bins=100)
     plt.show()
 
-    # zika_dfs.hist()
-    # P.show()
+
 
 def main():
     # import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')

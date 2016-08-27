@@ -96,7 +96,15 @@ def read_csv(file):
     print zikas_dataframe.groupby('location').count()
 
     res =zikas_dataframe.groupby('location').count()
-    print res[0], res['value']
+    # print res[0], res['value']
+    res.describe()
+    print res.head(3), '*******************8'
+    print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+    print res['value']
+
+    # db2=res.DataFrame(res['location'], res['value'])
+   
+    # pd.value_counts(res).plot(kind='hist')
 
     # print '########################################################'
     # print zikas_dataframe.sort_values(['value'], ascending=True)

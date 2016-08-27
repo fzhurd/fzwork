@@ -100,7 +100,22 @@ def read_csv(file):
     res.describe()
     print res.head(3), '*******************8'
     print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
-    print res['value']
+    # print res['value'], res['location'], type(res['value'])
+
+    zikas_dataframe2=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
+
+    print zikas_dataframe2.head(3)
+
+    fig=plt.figure(figsize=(8,4))
+    ax =zikas_dataframe2['count'].plot(kind='bar')
+    plt.show()
+
+    # zikas_dataframe2.plot(x='location', y='count', style='o')
+
+
+    # res['value'].hist()
+    # pd.value_counts(res['value']).plot(kind='hist', bins=10)
+    # plt.figure()
 
     # db2=res.DataFrame(res['location'], res['value'])
    

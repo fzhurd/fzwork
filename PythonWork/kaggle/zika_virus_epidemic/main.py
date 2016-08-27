@@ -91,8 +91,10 @@ def read_csv(file):
     print zikas_dataframe.head(10)
     # print zikas_dataframe.tail(10)
     print zikas_dataframe.dtypes
+    print zikas_dataframe.index
     print zikas_dataframe.select_dtypes(include=['float64'])
     print zikas_dataframe.groupby('location').count()
+
 
     
     zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),

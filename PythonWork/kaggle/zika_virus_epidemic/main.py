@@ -95,22 +95,28 @@ def read_csv(file):
     print zikas_dataframe.select_dtypes(include=['float64'])
     print zikas_dataframe.groupby('location').count()
 
+    res =zikas_dataframe.groupby('location').count()
+    print res[0], res['value']
+
+    # print '########################################################'
+    # print zikas_dataframe.sort_values(['value'], ascending=True)
+
 
     
-    zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
-                           pd.notnull(zikas_dataframe['value'])) 
+    # zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
+    #                        pd.notnull(zikas_dataframe['value'])) 
 
    
-    modified_rows= zikas_dataframe[zikas_modified_rows]
+    # modified_rows= zikas_dataframe[zikas_modified_rows]
 
-    modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
-    print modified_rows_num.count()
-    mean=modified_rows_num.mean()
-    print mean
+    # modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
+    # print modified_rows_num.count()
+    # mean=modified_rows_num.mean()
+    # print mean
 
-    modified_rows_num=modified_rows_num.fillna(mean)
+    # modified_rows_num=modified_rows_num.fillna(mean)
 
-    zikas_dataframe.dropna(axis=1, how='all')
+    # zikas_dataframe.dropna(axis=1, how='all')
 
     # fig=plt.figure(figsize=(8,4))
     # ax=fig.add_subplot(1,1,1)

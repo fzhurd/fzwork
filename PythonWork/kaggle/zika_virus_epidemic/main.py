@@ -96,13 +96,10 @@ def read_csv(file):
     print zikas_dataframe.groupby('location').count()
 
     res =zikas_dataframe.groupby('location').count()
-    # print res[0], res['value']
-    res.describe()
-    print res.head(3), '*******************8'
-    print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
-    # print res['value'], res['location'], type(res['value'])
 
-    zikas_dataframe2=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
+    res.describe()
+
+    zikas_dataframe2=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
 
     print zikas_dataframe2.head(3)
 

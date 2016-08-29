@@ -95,6 +95,16 @@ def read_csv(file):
     select_types = zikas_dataframe.select_dtypes(include=['float64'])
     print zikas_dataframe.groupby('location').count()
 
+    # zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
+    #                        pd.notnull(zikas_dataframe['value'])) 
+
+   
+    # modified_rows= zikas_dataframe[zikas_modified_rows]
+
+    # modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
+    # print modified_rows_num.count()
+    # mean=modified_rows_num.mean()
+
     res =zikas_dataframe.groupby('location').count()
 
     res.describe()
@@ -108,7 +118,6 @@ def read_csv(file):
     plt.show()
 
     # zikas_dataframe2.plot(x='location', y='count', style='o')
-
 
     # res['value'].hist()
     # pd.value_counts(res['value']).plot(kind='hist', bins=10)

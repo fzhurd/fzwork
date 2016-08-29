@@ -87,24 +87,24 @@ def check_number():
 def read_csv(file):
 
     zikas_dataframe = pd.read_csv(file, low_memory=False)
-    print zikas_dataframe.shape
-    print zikas_dataframe.head(10)
-    # print zikas_dataframe.tail(10)
-    print zikas_dataframe.dtypes
-    print zikas_dataframe.index
-    print zikas_dataframe.select_dtypes(include=['float64'])
+    shapes = zikas_dataframe.shape
+    doc_examples=zikas_dataframe.head(10)
+
+    data_types = zikas_dataframe.dtypes
+    data_index = zikas_dataframe.index
+    select_types = zikas_dataframe.select_dtypes(include=['float64'])
     print zikas_dataframe.groupby('location').count()
 
     res =zikas_dataframe.groupby('location').count()
 
     res.describe()
 
-    zikas_dataframe2=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
+    zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
 
-    print zikas_dataframe2.head(3)
+    print zikas_dataframe_examples.head(3)
 
     fig=plt.figure(figsize=(8,4))
-    ax =zikas_dataframe2['count'].plot(kind='bar')
+    ax =zikas_dataframe_examples['count'].plot(kind='bar')
     plt.show()
 
     # zikas_dataframe2.plot(x='location', y='count', style='o')

@@ -14,15 +14,11 @@ def import_data(data_file, mode, database, collection):
     dbconnection = set_up_mongodb_conn(host='127.0.0.1', port=27017)
 
     db = dbconnection[database][collection]
-    print db
-    
     existed = collection_exists(dbconnection, 'zika', 'zika_virus', 107619)
-    print existed
 
     if not existed:
 
         db.drop()
-
         clean_data=[]
 
         with open(data_file, mode) as f:
@@ -65,11 +61,6 @@ def import_data(data_file, mode, database, collection):
 def collection_exists(connection, db, collection, number=0):
 
     collections = connection[db].collection_names()
-
-    print collections
-
-    # count=db.collection.count()
-
     if collection in collections:
         return True
     else:
@@ -94,16 +85,6 @@ def read_csv(file):
     data_index = zikas_dataframe.index
     select_types = zikas_dataframe.select_dtypes(include=['float64'])
     print zikas_dataframe.groupby('location').count()
-
-    # zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
-    #                        pd.notnull(zikas_dataframe['value'])) 
-
-   
-    # modified_rows= zikas_dataframe[zikas_modified_rows]
-
-    # modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
-    # print modified_rows_num.count()
-    # mean=modified_rows_num.mean()
 
     res =zikas_dataframe.groupby('location').count()
 

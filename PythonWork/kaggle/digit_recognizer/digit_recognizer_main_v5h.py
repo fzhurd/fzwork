@@ -13,6 +13,10 @@ from sklearn import svm
 import time
 from functools import wraps
 
+from sklearn.grid_search import GridSearchCV
+from sklearn.datasets import make_classification
+from sklearn.ensemble import RandomForestClassifier
+
 def monitor_time(func):
 
     @wraps(func)
@@ -105,11 +109,61 @@ def random_forest_regressor(train_data,train_label,test_data):
 @monitor_time
 def random_forest_classify(train_data,train_label,test_data):
     # rf = RandomForestClassifier(n_estimators=100)
-    rf = RandomForestClassifier(n_estimators=200, max_depth=None, bootstrap=True)
+    # rf = RandomForestClassifier(n_estimators=200, max_depth=None, bootstrap=True)
+    rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
     rf.fit(train_data, ravel(train_label))
     test_label=rf.predict(test_data)
     
     save_result(test_label,'sklearn_random_forest_classify_Result.csv')  
+    return test_label 
+
+@monitor_time
+def optimized_random_forest_classify(train_data,train_label,test_data):
+
+    x,y=train_data, ravel(train_label)
+
+    # X, y = make_classification(n_samples=1000,
+    #                        n_features=10,
+    #                        n_informative=3,
+    #                        n_redundant=0,
+    #                        n_repeated=0,
+    #                        n_classes=2,
+    #                        random_state=0,
+    #                        shuffle=False)
+
+
+    # rfc = RandomForestClassifier(n_jobs=-1,max_features= 'sqrt' ,n_estimators=50, oob_score = True) 
+
+    # param_grid = { 
+    #     'n_estimators': [200, 700],
+    #     'max_features': ['auto', 'sqrt', 'log2']
+    # }
+
+    # CV_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv= 5)
+    # CV_rfc.fit(X, y)
+    # print CV_rfc.best_params_
+
+    x,y = make_classification(n_samples=5000,
+                                                           n_features=10,
+                                                           n_informative=3,
+                                                           n_redundant=0,
+                                                           n_repeated=0,
+                                                           n_classes=2,
+                                                           random_state=0,
+                                                           shuffle=False)
+    orfc=RandomForestClassifier(n_jobs=-1,max_features= 'sqrt' ,n_estimators=100, oob_score = True) 
+    
+    param_grid = { 
+        'n_estimators': [50, 200],
+        'max_features': ['auto', 'sqrt', 'log2']
+    }
+
+    CV_rfc = GridSearchCV(estimator=orfc, param_grid=param_grid, cv= 5)
+    CV_rfc.fit(train_data, ravel(train_label))
+
+    test_label=CV_rfc.predict(test_data)
+    
+    save_result(test_label,'sklearn_optimized_random_forest_classify_Result.csv')  
     return test_label 
 
 @monitor_time
@@ -158,6 +212,9 @@ def recognize_digit(model='rfc'):
         result=decision_tree_classify(train_data,train_label,test_data)
     elif model=='svm':
         result=support_vector_machine(train_data,train_label,test_data)
+    elif model=='orfc':
+        result=optimized_random_forest_classify(train_data,train_label,test_data)
+
 
 
     result_given=load_test_result()  
@@ -175,5 +232,6 @@ def recognize_digit(model='rfc'):
 
 if __name__ == '__main__':
 
-    recognize_digit()
+    # recognize_digit()
     # recognize_digit('svm')
+    recognize_digit('orfc')

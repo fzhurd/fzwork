@@ -17,6 +17,8 @@ from sklearn.grid_search import GridSearchCV
 from sklearn.datasets import make_classification
 from sklearn.ensemble import RandomForestClassifier
 
+from sklearn.decomposition import PCA
+
 def monitor_time(func):
 
     @wraps(func)
@@ -188,12 +190,23 @@ def decision_tree_classify(train_data,train_label,test_data):
 
 @monitor_time
 def support_vector_machine(train_data,train_label,test_data):
-    svm_dr=svm.SVC()
-    svm_dr.fit(train_data, ravel(train_label))
-    test_label=svm_dr.predict(test_data)
+    # svm_dr=svm.SVC()
+    # svm_dr.fit(train_data, ravel(train_label))
+    # test_label=svm_dr.predict(test_data)
 
+    # save_result(test_label,'sklearn_support_vector_machine_Result.csv')  
+    # return test_label 
+    pca = PCA(n_components=0.8, whiten=True) 
+    train_x = pca.fit_transform(train_data) 
+    test_x = pca.transform(test_data) 
+    svm_dr = svm.SVC(kernel='rbf', C=10) 
+    svm_dr.fit(train_x, ravel(train_label)) 
+    test_label=svm_dr.predict(test_x)
     save_result(test_label,'sklearn_support_vector_machine_Result.csv')  
     return test_label 
+
+
+
 
 
 def recognize_digit(model='rfc'):  
@@ -233,5 +246,5 @@ def recognize_digit(model='rfc'):
 if __name__ == '__main__':
 
     # recognize_digit()
-    # recognize_digit('svm')
-    recognize_digit('orfc')
+    recognize_digit('svm')
+    # recognize_digit('orfc')

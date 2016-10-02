@@ -41,17 +41,22 @@ class Titanic_Data(object):
     pd.options.display.max_columns = 100
     pd.options.display.max_rows = 100
 
-    combined=[]
-    data=None
+    # combined=[]
+    # data=None
 
-    def __init__(self, train_file, test_file):
+    def __init__(self, train_file, test_file, combined=None):
 
-        this.train_file = train_file
-        this.test_file=test_file
+        self.train_file = train_file
+        self.test_file=test_file
+
+        if combined is None:
+            combined=[]
+        self.combined=combined
+
 
         self.preprocess(train_file)
 
-    def preprocess(self, file)
+    def preprocess(self, file):
 
         data = pd.read_csv(file)
 
@@ -72,7 +77,7 @@ class Titanic_Data(object):
         df.plot(kind='bar',stacked=True, figsize=(15,8))
 
 
-    def status(self, train_file,test_file, feature):
+    def status(self, feature):
 
         print ('Processing',feature,': ok')
 
@@ -343,50 +348,61 @@ class Titanic_Data(object):
         xval = cross_val_score(clf, X, y, cv = 5,scoring=scoring)
         return np.mean(xval)
 
-    def recover_train_test_target(self, train_file):
-        # global combined
+    # def recover_train_test_target(self, train_file):
+
+    #     train0 = pd.read_csv(train_file)
         
-        train0 = pd.read_csv(train_file)
+    #     targets = train0.Survived
+    #     train = combined.ix[0:890]
+    #     test = combined.ix[891:]
         
-        targets = train0.Survived
-        train = combined.ix[0:890]
-        test = combined.ix[891:]
-        
-        return train,test,targets
+    #     return train,test,targets
 
     def get_normalized_data(self):
 
-        self.combined = self.get_combined_data(self.train_data, self.test_data)
+        self.combined = self.get_combined_data(self.train_file, self.test_file)
+
         print (self.combined.shape)
         print (self.combined.head(3))
 
-        print(self.get_titles())
+        print(self.get_titles(self.combined))
         self.combined.head()
 
-        grouped = combined.groupby(['Sex','Pclass','Title'])
+        grouped = self.combined.groupby(['Sex','Pclass','Title'])
         grouped.median()
 
-        self.process_age()
-        combined.info()
+        combined=self.process_age(self.combined)
+        # self.combined.info(self.combined)
 
-        self.process_names()
-        self.process_fares()
-        self.self.process_embarked()
-        self.self.process_cabin()
-        self.process_sex()
-        self.process_pclass()
-        self.process_ticket()
-        self.process_family()
-        self.scale_all_features()
+        combined = self.process_names(combined)
+        combined = self.process_fares(combined)
+        combined = self.process_embarked(combined)
+        combined = self.process_cabin(combined)
+        combined = self.process_sex(combined)
+        combined = self.process_pclass(combined)
+        combined = self.process_ticket(combined)
+        combined = self.process_family(combined)
+        combined = self.scale_all_features(combined)
 
         return combined
+
+def recover_train_test_target(train_file, combined):
+
+    train0 = pd.read_csv(train_file)
+    
+    targets = train0.Survived
+    train = combined.ix[0:890]
+    test = combined.ix[891:]
+    
+    return train,test,targets
 
 def extra_trees_classifier():
 
     tianic=Titanic_Data('../input/train.csv','../input/test.csv')
-    combined_normalized_data=titanic.get_normalized_data()
 
-    train,test,targets = tianic.recover_train_test_target()
+    combined_normalized_data=tianic.get_normalized_data()
+
+    train,test,targets = recover_train_test_target('../input/train.csv', combined_normalized_data)
 
     
     clf = ExtraTreesClassifier(n_estimators=200)

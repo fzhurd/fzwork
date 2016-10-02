@@ -44,9 +44,17 @@ class Titanic_Data(object):
     combined=[]
     data=None
 
-    def __init__(self, file):
+    def __init__(self, train_file, test_file):
+
+        this.train_file = train_file
+        this.test_file=test_file
+
+        self.preprocess(train_file)
+
+    def preprocess(self, file)
 
         data = pd.read_csv(file)
+
         print (data.head(5))
 
         data['Age'].fillna(data['Age'].median(), inplace=True)
@@ -65,9 +73,11 @@ class Titanic_Data(object):
 
 
     def status(self, train_file,test_file, feature):
+
         print ('Processing',feature,': ok')
 
-        def self.get_combined_data():
+
+    def get_combined_data(self, train_file, test_file):
 
         # global combined
         train = pd.read_csv(train_file)
@@ -81,13 +91,13 @@ class Titanic_Data(object):
         
 
         # merging train data and test data for future feature engineering
-        combined = train.append(test)
-        combined.reset_index(inplace=True)
-        combined.drop('index',inplace=True,axis=1)
+        self.combined = train.append(test)
+        self.combined.reset_index(inplace=True)
+        self.combined.drop('index',inplace=True,axis=1)
         
-        return combined
+        return self.combined
 
-    def get_titles(self):
+    def get_titles(self, combined):
 
         # global combined
         
@@ -119,8 +129,9 @@ class Titanic_Data(object):
         
         # we map each title
         combined['Title'] = combined.Title.map(Title_Dictionary)
+        return combined
 
-    def process_age(self):
+    def process_age(self, combined):
         
         # global combined
         
@@ -177,7 +188,9 @@ class Titanic_Data(object):
         
         self.status('age')
 
-    def process_names(self):
+        return combined
+
+    def process_names(self, combined):
         
         # global combined
         # we clean the Name variable
@@ -192,17 +205,20 @@ class Titanic_Data(object):
         
         self.status('names')
 
-    def process_fares(self):
+        return combined
+
+    def process_fares(self, combined):
         
         # global combined
         # there's one missing fare value - replacing it with the mean.
         combined.Fare.fillna(combined.Fare.mean(),inplace=True)
         
         self.status('fare')
+        return combined
 
 
 
-    def process_embarked(self):
+    def process_embarked(self, combined):
         
         # global combined
         # two missing embarked values - filling them with the most frequent one (S)
@@ -215,9 +231,11 @@ class Titanic_Data(object):
         
         self.status('embarked')
 
+        return combined
 
 
-    def process_cabin(self):
+
+    def process_cabin(self, combined):
         
         # global combined
         
@@ -236,7 +254,9 @@ class Titanic_Data(object):
         
         self.status('cabin')
 
-    def process_sex(self):
+        return combined
+
+    def process_sex(self, combined):
         
         # global combined
         # mapping string values to numerical one 
@@ -244,7 +264,9 @@ class Titanic_Data(object):
         
         self.status('sex')
 
-    def process_pclass(self):
+        return combined
+
+    def process_pclass(self, combined):
         
         # global combined
         # encoding into 3 categories:
@@ -259,7 +281,9 @@ class Titanic_Data(object):
         
         self.status('pclass')
 
-    def process_ticket(self):
+        return combined
+
+    def process_ticket(self, combined):
         
         # global combined
         
@@ -285,8 +309,10 @@ class Titanic_Data(object):
 
         self.status('ticket')
 
+        return combined
 
-    def process_family(self):
+
+    def process_family(self, combined):
         
         # global combined
         # introducing a new feature : the size of families (including the passenger)
@@ -299,7 +325,9 @@ class Titanic_Data(object):
         
         self.status('family')
 
-    def scale_all_features(self):
+        return combined
+
+    def scale_all_features(self, combined):
         
         # global combined
         
@@ -308,6 +336,8 @@ class Titanic_Data(object):
         combined[features] = combined[features].apply(lambda x: x/x.max(), axis=0)
         
         print ('Features scaled successfully !')
+
+        return combined
 
     def compute_score(self, clf, X, y,scoring='accuracy'):
         xval = cross_val_score(clf, X, y, cv = 5,scoring=scoring)
@@ -326,12 +356,12 @@ class Titanic_Data(object):
 
     def get_normalized_data(self):
 
-        combined = self.get_combined_data()
-        print (combined.shape)
-        print (combined.head(3))
+        self.combined = self.get_combined_data(self.train_data, self.test_data)
+        print (self.combined.shape)
+        print (self.combined.head(3))
 
-        print(get_titles())
-        combined.head()
+        print(self.get_titles())
+        self.combined.head()
 
         grouped = combined.groupby(['Sex','Pclass','Title'])
         grouped.median()
@@ -349,8 +379,14 @@ class Titanic_Data(object):
         self.process_family()
         self.scale_all_features()
 
+        return combined
+
 def extra_trees_classifier():
-    train,test,targets = self.recover_train_test_target()
+
+    tianic=Titanic_Data('../input/train.csv','../input/test.csv')
+    combined_normalized_data=titanic.get_normalized_data()
+
+    train,test,targets = tianic.recover_train_test_target()
 
     
     clf = ExtraTreesClassifier(n_estimators=200)

@@ -23,17 +23,25 @@ def monitor_time(func):
 
     return calculate_time
 
-def load_train_data(file):
+def load_data(file):
 
-    train=pd.read_csv(file)
-    return train
+    df=pd.read_csv(file)
+    return df
     
 
 def main():
-    train=load_train_data('../input/train.csv')
+    train=load_data('../input/train.csv')
     print train.head(3)
+    print train.shape
+    print train.describe()
+    print pd.isnull(train).any()
 
-    test=load_train_data('../input/test.csv')
+    test=load_data('../input/test.csv')
+
+    print test.head(3)
+    print test.shape
+    print test.describe()
+    print pd.isnull(test).any()
 
 if __name__ == '__main__':
     main()

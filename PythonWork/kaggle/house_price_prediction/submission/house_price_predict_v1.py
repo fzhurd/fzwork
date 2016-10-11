@@ -36,12 +36,16 @@ def main():
     print train.describe()
     print pd.isnull(train).any()
 
+    print train.corr(method='pearson')
+
     test=load_data('../input/test.csv')
 
     print test.head(3)
     print test.shape
     print test.describe()
     print pd.isnull(test).any()
+
+    print test.corr(method='pearson')
 
 if __name__ == '__main__':
     main()

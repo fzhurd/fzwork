@@ -36,6 +36,9 @@ def main():
     print train.describe()
     print pd.isnull(train).any()
 
+    train.drop("SalePrice", axis=1, inplace=True)
+    y=train["SalePrice"]
+
     print train.corr(method='pearson')
 
     test=load_data('../input/test.csv')

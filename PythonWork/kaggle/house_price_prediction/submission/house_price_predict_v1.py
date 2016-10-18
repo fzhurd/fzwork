@@ -36,8 +36,8 @@ def main():
     print train.describe()
     print pd.isnull(train).any()
 
-    train.drop("SalePrice", axis=1, inplace=True)
     y=train["SalePrice"]
+    train.drop("SalePrice", axis=1, inplace=True)
 
     print train.corr(method='pearson')
 

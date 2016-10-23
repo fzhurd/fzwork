@@ -37,10 +37,19 @@ def main():
     print pd.isnull(train).any()
     print train.mean()
 
+    train.fillna(train.mean())
+
     y=train["SalePrice"]
     train.drop("SalePrice", axis=1, inplace=True)
 
     print train.corr(method='pearson')
+
+    pearson=train.corr(method='pearson')
+    corr_with_target=pearson.ix[-1][:-1]
+    corr_with_target_dict=corr_with_target.to_dict()
+
+    for attr in sorted(corr_with_target_dict.items(), key = lambda x: -abs(x[1])):
+        print("{0}: \t{1}".format(*attr))
 
     test=load_data('../input/test.csv')
 

@@ -35,6 +35,7 @@ def main():
     print train.shape
     print train.describe()
     print pd.isnull(train).any()
+    print train.mean()
 
     y=train["SalePrice"]
     train.drop("SalePrice", axis=1, inplace=True)
@@ -49,6 +50,7 @@ def main():
     print pd.isnull(test).any()
 
     print test.corr(method='pearson')
+    print test.mean()
 
 if __name__ == '__main__':
     main()

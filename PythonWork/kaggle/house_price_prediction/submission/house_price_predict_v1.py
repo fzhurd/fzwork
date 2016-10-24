@@ -51,24 +51,24 @@ def main():
     for attr in sorted(corr_with_target_dict.items(), key = lambda x: -abs(x[1])):
         print("{0}: \t{1}".format(*attr))
 
-    corr_with_target[abs(corr_with_target).argsort()[::1]]
+    # corr_with_target[abs(corr_with_target).argsort()[::1]]
 
-    # attrs = pearson.iloc[:-1,:-1] # all except target
-    # # only important correlations and not auto-correlations
-    # threshold = 0.5
-    # # {(YearBuilt, YearRemodAdd): 0.592855, (1stFlrSF, GrLivArea): 0.566024, ...
-    # important_corrs = (attrs[abs(attrs) > threshold][attrs != 1.0]) \
-    #     .unstack().dropna().to_dict()
-    # #     attribute pair                   correlation
-    # # 0     (OverallQual, TotalBsmtSF)     0.537808
-    # # 1     (GarageArea, GarageCars)       0.882475
-    # # ...
-    # unique_important_corrs = pd.DataFrame(
-    #     list(set([(tuple(sorted(key)), important_corrs[key]) \
-    #     for key in important_corrs])), columns=['Attribute Pair', 'Correlation'])
-    # # sorted by absolute value
-    # unique_important_corrs = unique_important_corrs.ix[
-    #     abs(unique_important_corrs['Correlation']).argsort()[::-1]]
+    attrs = pearson.iloc[:-1,:-1] # all except target
+    # only important correlations and not auto-correlations
+    threshold = 0.5
+    # {(YearBuilt, YearRemodAdd): 0.592855, (1stFlrSF, GrLivArea): 0.566024, ...
+    important_corrs = (attrs[abs(attrs) > threshold][attrs != 1.0]) \
+        .unstack().dropna().to_dict()
+    #     attribute pair                   correlation
+    # 0     (OverallQual, TotalBsmtSF)     0.537808
+    # 1     (GarageArea, GarageCars)       0.882475
+    # ...
+    unique_important_corrs = pd.DataFrame(
+        list(set([(tuple(sorted(key)), important_corrs[key]) \
+        for key in important_corrs])), columns=['Attribute Pair', 'Correlation'])
+    # sorted by absolute value
+    unique_important_corrs = unique_important_corrs.ix[
+        abs(unique_important_corrs['Correlation']).argsort()[::-1]]
 
     test=load_data('../input/test.csv')
 

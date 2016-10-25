@@ -91,7 +91,7 @@ ROBOTSTXT_OBEY = True
 
 ITEM_PIPELINES = {
     'relator.pipelines.MongoDBPipeline': 300,
-    'relator.pipelines.JsonWriterPipeline': 800,
+    'relator.pipelines.RelatorPipeline': 800,
 }
  
 MONGODB_SERVER = 'localhost';

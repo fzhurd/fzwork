@@ -88,3 +88,13 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+ITEM_PIPELINES = {
+    'relator.pipelines.MongoDBPipeline': 300,
+    'relator.pipelines.JsonWriterPipeline': 800,
+}
+ 
+MONGODB_SERVER = 'localhost';
+MONGODB_PORT = 27017
+MONGODB_DB = 'relator';
+MONGODB_COLLECTION = 'properties';

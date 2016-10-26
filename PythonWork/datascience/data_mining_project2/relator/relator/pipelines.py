@@ -10,7 +10,7 @@ import pymongo
 from scrapy.conf import settings
 
 from scrapy.exceptions import DropItem
-from scrapy import log
+# from scrapy import log
 
 class RelatorPipeline(object):
     

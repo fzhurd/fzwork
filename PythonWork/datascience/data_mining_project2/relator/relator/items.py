@@ -10,7 +10,8 @@ import scrapy
 
 class RelatorItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
+    # title = scrapy.Field()
+    # url=scrapy.Field()
     address= scrapy.Field()
     price = scrapy.Field()
     mls_number = scrapy.Field()

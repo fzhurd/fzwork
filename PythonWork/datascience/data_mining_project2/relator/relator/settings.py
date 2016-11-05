@@ -57,6 +57,12 @@ COOKIES_ENABLED = False
 #    'relator.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
+# DOWNLOADER_MIDDLEWARES = {
+#    'relator.middlewares.MyCustomDownloaderMiddleware': 543,
+# }
+
+DOWNLOADER_MIDDLEWARES = {'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,}
+
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 #EXTENSIONS = {

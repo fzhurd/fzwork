@@ -9,14 +9,82 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
+PROXIES = [
+    {'ip_port': '60.191.239.236:80', 'user_pass': ''},
+    {'ip_port': '112.81.74.207:8888', 'user_pass': ''},
+    {'ip_port': '124.88.67.20', 'user_pass': ''},
+    {'ip_port': '122.96.59.99:80', 'user_pass': ''},
+    {'ip_port': '47.89.41.164:80', 'user_pass': ''},
+    {'ip_port': '36.110.204.91:8088', 'user_pass': ''},
+]
+
 BOT_NAME = 'relator'
 
 SPIDER_MODULES = ['relator.spiders']
 NEWSPIDER_MODULE = 'relator.spiders'
 
+# import random
+# import base64
+# from settings import PROXIES
+
+# RETRY_TIMES = 3
+
+# Retry on most error codes since proxies fail for different reasons
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404,  408]
+
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.retry.RetryMiddleware': 80,
+#     'relator.middlewares.ProxyMiddleware': 90,
+#     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 100,
+# }
+
+
+# import random
+
+
+# class ProxyMiddleware(object):
+#     """Custom ProxyMiddleware."""
+#     def __init__(self, settings):
+#         self.proxy_list = settings.get('PROXY_LIST')
+#         with open(self.proxy_list) as f:
+#             self.proxies = [ip.strip() for ip in f]
+
+#     def parse_request(self, request, spider):
+#         request.meta['proxy'] = 'http://{}'.format(random.choice(self.proxies))
+
+
+
+
+# class RandomUserAgent(object):
+#     """Randomly rotate user agents based on a list of predefined ones"""
+
+#     def __init__(self, agents):
+#         self.agents = agents
+
+#     @classmethod
+#     def from_crawler(cls, crawler):
+#         return cls(crawler.settings.getlist('USER_AGENTS'))
+
+#     def process_request(self, request, spider):
+#         #print "**************************" + random.choice(self.agents)
+#         request.headers.setdefault('User-Agent', random.choice(self.agents))
+
+
+# class ProxyMiddleware(object):
+#     def process_request(self, request, spider):
+#         proxy = random.choice(PROXIES)
+#         if proxy['user_pass'] is not None:
+#             request.meta['proxy'] = "http://%s" % proxy['ip_port']
+#             encoded_user_pass = base64.encodestring(proxy['user_pass'])
+#             request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
+#             print "**************ProxyMiddleware have pass************" + proxy['ip_port']
+#         else:
+#             print "**************ProxyMiddleware no pass************" + proxy['ip_port']
+#             request.meta['proxy'] = "http://%s" % proxy['ip_port']
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'relator (+http://www.yourdomain.com)'
+# USER_AGENT = 'relator (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -27,7 +95,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -58,10 +126,20 @@ COOKIES_ENABLED = False
 #}
 
 # DOWNLOADER_MIDDLEWARES = {
-#    'relator.middlewares.MyCustomDownloaderMiddleware': 543,
+#    # 'relator.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
 # }
 
-DOWNLOADER_MIDDLEWARES = {'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,}
+DOWNLOADER_MIDDLEWARES = {
+#    'cnblogs.middlewares.MyCustomDownloaderMiddleware': 543,
+    'relator.middlewares.RandomUserAgent': 1,
+    # 'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+    'scrapy.downloadermiddleware.httpproxy.HttpProxyMiddleware':None,
+    #'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+    'relator.middlewares.ProxyMiddleware': 543,
+}
+
+# DOWNLOADER_MIDDLEWARES = {'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

@@ -13,6 +13,7 @@ class RelatorSpider(Spider):
 
     allowed_domains = ["www.relator.ca"]
 
+
     start_urls = [
     # 'http://quotes.toscrape.com/page/1/',
         # "https://www.realtor.ca/Residential/Map.aspx#CultureId=1&ApplicationId=1&RecordsPerPage=9&MaximumResults=9&PropertySearchTypeId=1&TransactionTypeId=2&StoreyRange=0-0&BedRange=0-0&BathRange=0-0&LongitudeMin=-123.29681396484376&LongitudeMax=-122.96550750732423&LatitudeMin=49.140954912790704&LatitudeMax=49.18024465477734&SortOrder=A&SortBy=1&viewState=m&Longitude=-123.131160736084&Latitude=49.1606036799933&ZoomLevel=12&CurrentPage=1&PropertyTypeGroupID=1"

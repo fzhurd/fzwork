@@ -30,7 +30,7 @@ class RelatorSpider(Spider):
 
     def parse(self, response):
 
-        houses = Selector(response).xpath('//div[@class="m_map_map_cnt_lst_cnt_plchldr"]/')
+        houses = Selector(response).xpath('/body/div[@class="m_map"]')
         # houses = Selector(response).xpath('//div')
         print houses
 

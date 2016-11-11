@@ -83,18 +83,26 @@ def read_csv(file):
     zikas_dataframe = pd.read_csv(file, low_memory=False)
 
     shapes = zikas_dataframe.shape
+    print shapes
     doc_examples=zikas_dataframe.head(10)
+
+    # there are nan in the datasets
+    print zikas_dataframe.describe()
+
     data_types = zikas_dataframe.dtypes
     data_index = zikas_dataframe.index
-    select_types = zikas_dataframe.select_dtypes(include=['float64'])
 
-    location_count =zikas_dataframe.groupby('location').count()
-    location_count.describe()
+    print data_types
+    print data_index
+    # select_types = zikas_dataframe.select_dtypes(include=['float64'])
 
-    # sampling 1000 docs
-    zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
+    # location_count =zikas_dataframe.groupby('location').count()
+    # location_count.describe()
 
-    print zikas_dataframe_examples.head(5)
+    # # sampling 1000 docs
+    # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
+
+    # print zikas_dataframe_examples.head(5)
 
     # fig=plt.figure(figsize=(8,4))
     # ax =zikas_dataframe_examples['count'].plot(kind='bar')

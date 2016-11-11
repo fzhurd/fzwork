@@ -96,17 +96,19 @@ def read_csv(file):
     print data_index
     # select_types = zikas_dataframe.select_dtypes(include=['float64'])
 
-    location_count =zikas_dataframe.groupby('location').size()
+    location_count =zikas_dataframe.groupby('location').count()
     print location_count, 'sss'
+    print '*********************************************'
+    print zikas_dataframe.groupby('location').size()
 
-    location_count.describe()
+    print location_count.describe()
     
+    print '##########################################################'
 
+    # sampling 1000 docs
+    zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
 
-    # # sampling 1000 docs
-    # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
-
-    # print zikas_dataframe_examples.head(5)
+    print zikas_dataframe_examples.head(5)
 
     # fig=plt.figure(figsize=(8,4))
     # ax =zikas_dataframe_examples['count'].plot(kind='bar')

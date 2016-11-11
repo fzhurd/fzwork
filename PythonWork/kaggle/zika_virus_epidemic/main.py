@@ -77,63 +77,36 @@ def check_number():
 
 def read_csv(file):
 
+    # df = pd.read_csv(file,parse_dates=['report_date'], infer_datetime_format=True, index_col=0, low_memory=False)
+    # df.head(3)
+
     zikas_dataframe = pd.read_csv(file, low_memory=False)
+
     shapes = zikas_dataframe.shape
     doc_examples=zikas_dataframe.head(10)
-
     data_types = zikas_dataframe.dtypes
     data_index = zikas_dataframe.index
     select_types = zikas_dataframe.select_dtypes(include=['float64'])
-    print zikas_dataframe.groupby('location').count()
 
-    res =zikas_dataframe.groupby('location').count()
+    location_count =zikas_dataframe.groupby('location').count()
+    location_count.describe()
 
-    res.describe()
-
+    # sampling 1000 docs
     zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
 
-    print zikas_dataframe_examples.head(3)
-
-    fig=plt.figure(figsize=(8,4))
-    ax =zikas_dataframe_examples['count'].plot(kind='bar')
-    plt.show()
-
-    # zikas_dataframe2.plot(x='location', y='count', style='o')
-
-    # res['value'].hist()
-    # pd.value_counts(res['value']).plot(kind='hist', bins=10)
-    # plt.figure()
-
-    # db2=res.DataFrame(res['location'], res['value'])
-   
-    # pd.value_counts(res).plot(kind='hist')
-
-    # print '########################################################'
-    # print zikas_dataframe.sort_values(['value'], ascending=True)
-
-
-    
-    # zikas_modified_rows = np.logical_and(pd.notnull(zikas_dataframe['report_date']),
-    #                        pd.notnull(zikas_dataframe['value'])) 
-
-   
-    # modified_rows= zikas_dataframe[zikas_modified_rows]
-
-    # modified_rows_num=pd.to_numeric(modified_rows['value'], 'coerce')
-    # print modified_rows_num.count()
-    # mean=modified_rows_num.mean()
-    # print mean
-
-    # modified_rows_num=modified_rows_num.fillna(mean)
-
-    # zikas_dataframe.dropna(axis=1, how='all')
+    print zikas_dataframe_examples.head(5)
 
     # fig=plt.figure(figsize=(8,4))
-    # ax=fig.add_subplot(1,1,1)
-    # ax.hist(modified_rows_num, bins=100)
+    # ax =zikas_dataframe_examples['count'].plot(kind='bar')
     # plt.show()
 
+    print '##########################################################'
 
+    # zikas_dataframe = zikas_dataframe[np.isfinite(zikas_dataframe['report_date'])]
+    # zikas_dataframe['report_date'] = pd.to_datetime([d.replace('_', '-') 
+    #     for d in zikas_dataframe['report_date']],format='%Y-%m-%d')
+
+    # print zikas_dataframe['report_date']
 
 def main():
     # import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')

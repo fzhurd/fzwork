@@ -96,8 +96,12 @@ def read_csv(file):
     print data_index
     # select_types = zikas_dataframe.select_dtypes(include=['float64'])
 
-    # location_count =zikas_dataframe.groupby('location').count()
-    # location_count.describe()
+    location_count =zikas_dataframe.groupby('location').size()
+    print location_count, 'sss'
+
+    location_count.describe()
+    
+
 
     # # sampling 1000 docs
     # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()

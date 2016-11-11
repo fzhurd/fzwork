@@ -105,8 +105,7 @@ def read_csv(file):
     
     print '##########################################################'
 
-    # sampling 1000 docs
-    zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.head(1000).groupby('location').size()}).reset_index()
+    zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
 
     print zikas_dataframe_examples.head(5)
 

@@ -89,6 +89,7 @@ def read_csv(file):
     # there are nan in the datasets
     print zikas_dataframe.describe()
 
+
     data_types = zikas_dataframe.dtypes
     data_index = zikas_dataframe.index
 
@@ -97,7 +98,7 @@ def read_csv(file):
     # select_types = zikas_dataframe.select_dtypes(include=['float64'])
 
     location_count =zikas_dataframe.groupby('location').count()
-    print location_count, 'sss'
+
     print '*********************************************'
     print zikas_dataframe.groupby('location').size()
 
@@ -105,21 +106,26 @@ def read_csv(file):
     
     print '##########################################################'
 
-    zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
+    print pd.isnull(zikas_dataframe).any()
 
-    print zikas_dataframe_examples.head(5)
+    # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
+
+    # print zikas_dataframe_examples.head(5)
 
     # fig=plt.figure(figsize=(8,4))
     # ax =zikas_dataframe_examples['count'].plot(kind='bar')
     # plt.show()
 
-    print '##########################################################'
+    # print '##########################################################'
 
     # zikas_dataframe = zikas_dataframe[np.isfinite(zikas_dataframe['report_date'])]
     # zikas_dataframe['report_date'] = pd.to_datetime([d.replace('_', '-') 
     #     for d in zikas_dataframe['report_date']],format='%Y-%m-%d')
 
     # print zikas_dataframe['report_date']
+
+
+
 
 def main():
     # import_data('cdc_zika.csv', 'r', database='zika', collection='zika_virus')

@@ -107,6 +107,21 @@ def read_csv(file):
     print '##########################################################'
 
     print pd.isnull(zikas_dataframe).any()
+    print pd.isnull(zikas_dataframe).sum()>0
+
+    zikas_dataframe['country']=zikas_dataframe['location'].astype('str')
+    print type(zikas_dataframe['country'])
+
+    print set(zikas_dataframe['country'])
+
+    zikas_dataframe['country']=zikas_dataframe['country'].apply(lambda x: pd.Series(x.split('-')) )
+
+
+    print zikas_dataframe['country'].head(5)
+    print zikas_dataframe['country'].unique()
+
+    unique_countries=zikas_dataframe['country'].unique()
+
 
     # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
 

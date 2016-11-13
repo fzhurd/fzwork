@@ -78,7 +78,6 @@ def check_number():
 def read_csv(file):
 
     # df = pd.read_csv(file,parse_dates=['report_date'], infer_datetime_format=True, index_col=0, low_memory=False)
-    # df.head(3)
 
     zikas_dataframe = pd.read_csv(file, low_memory=False)
 
@@ -110,17 +109,21 @@ def read_csv(file):
     print pd.isnull(zikas_dataframe).sum()>0
 
     zikas_dataframe['country']=zikas_dataframe['location'].astype('str')
-    print type(zikas_dataframe['country'])
-
-    print set(zikas_dataframe['country'])
+    print zikas_dataframe['country'].head(2)
 
     zikas_dataframe['country']=zikas_dataframe['country'].apply(lambda x: pd.Series(x.split('-')) )
+
+    print zikas_dataframe['country'].describe()
 
 
     print zikas_dataframe['country'].head(5)
     print zikas_dataframe['country'].unique()
 
     unique_countries=zikas_dataframe['country'].unique()
+
+    unique_countries_count=zikas_dataframe['country'].value_counts()
+
+    print unique_countries_count
 
 
     # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()

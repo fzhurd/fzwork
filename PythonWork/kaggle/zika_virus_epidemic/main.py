@@ -122,10 +122,13 @@ def read_csv(file):
     unique_countries=zikas_dataframe['country'].unique()
 
     unique_countries_count=zikas_dataframe['country'].value_counts()
-
     print unique_countries_count
 
+    print "##################################################"
 
+    is_usa=zikas_dataframe['country']=='United_States'
+
+    print zikas_dataframe[is_usa]
     # zikas_dataframe_examples=pd.DataFrame({'count':zikas_dataframe.groupby('location').size()}).reset_index()
 
     # print zikas_dataframe_examples.head(5)

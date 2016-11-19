@@ -21,6 +21,9 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.decomposition import PCA
 
+import seaborn as sns
+import matplotlib
+
 def monitor_time(func):
 
     @wraps(func)
@@ -37,10 +40,30 @@ def monitor_time(func):
 
 def main():
     df_train=pd.read_csv('../input/train.csv')
-
+    print df_train.describe()
+    print df_train.shape
     print df_train.head(3)
+
+    print df_train.isnull().values.any()
+
+
     df_test=pd.read_csv('../input/test.csv')
+    print df_test.describe()
+    print df_test.shape
     print df_test.head(3)
+
+    print df_test.isnull().values.any()
+
+    print '###########################################'
+
+    sns.set()
+    sns.pairplot(df_train, hue='type', size=10)
+    # features=['bone_length',  'rotting_flesh',  'hair_length',  'has_soul']
+    # sns.pairplot(df_train, vars=['bone_length',  'rotting_flesh',  'hair_length',  'has_soul'], hue='type')
+    # sns.plt.show()
+    # sns.set()
+    # sns.pairplot(df_train[["bone_length", "rotting_flesh", "hair_length", "has_soul", "type"]], hue="type")
+    sns.plt.show()
 
 
 

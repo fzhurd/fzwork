@@ -37,8 +37,43 @@ def monitor_time(func):
 
     return calculate_time
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+sns.set_style('whitegrid')
+from sklearn.preprocessing import LabelEncoder
+# from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.calibration import CalibratedClassifierCV
+# import xgboost as xgb
+# from sklearn.model_selection import GridSearchCV
+# from sklearn.model_selection import StratifiedKFold
+from sklearn.feature_selection import SelectFromModel
+from sklearn.linear_model import LogisticRegression
+from sklearn import svm
+
 
 def main():
+
+    # train = pd.read_csv('../input/train.csv')
+    # test = pd.read_csv('../input/test.csv')
+
+    # # sns.factorplot("type", col="color", col_wrap=4, data=train, kind="count", size=2.4, aspect=.8)
+    # # sns.plt.show()
+
+    # # fig, ax = plt.subplots(2, 2, figsize = (16, 12))
+    # # sns.pointplot(x="color", y="rotting_flesh", hue="type", data=train, ax = ax[0, 0])
+    # # sns.pointplot(x="color", y="bone_length", hue="type", data=train, ax = ax[0, 1])
+    # # sns.pointplot(x="color", y="hair_length", hue="type", data=train, ax = ax[1, 0])
+    # # sns.pointplot(x="color", y="has_soul", hue="type", data=train, ax = ax[1, 1])
+    # # sns.plt.show()
+
+
+    # sns.pairplot(train, hue='type')
+    # sns.plt.show()
+   
     df_train=pd.read_csv('../input/train.csv')
     print df_train.describe()
     print df_train.shape
@@ -57,12 +92,7 @@ def main():
     print '###########################################'
 
     sns.set()
-    sns.pairplot(df_train, hue='type', size=10)
-    # features=['bone_length',  'rotting_flesh',  'hair_length',  'has_soul']
-    # sns.pairplot(df_train, vars=['bone_length',  'rotting_flesh',  'hair_length',  'has_soul'], hue='type')
-    # sns.plt.show()
-    # sns.set()
-    # sns.pairplot(df_train[["bone_length", "rotting_flesh", "hair_length", "has_soul", "type"]], hue="type")
+    sns.pairplot(df_train[["bone_length", "rotting_flesh", "hair_length", "has_soul", "type"]], hue="type")
     sns.plt.show()
 
 

@@ -93,7 +93,21 @@ def main():
 
     sns.set()
     sns.pairplot(df_train[["bone_length", "rotting_flesh", "hair_length", "has_soul", "type"]], hue="type")
-    sns.plt.show()
+    # sns.plt.show()
+
+    df_train['hair_soul'] = df_train['hair_length'] * df_train['has_soul']
+    df_train['hair_bone'] = df_train['hair_length'] * df_train['bone_length']
+    df_train['hair_soul_bone'] = df_train['hair_length'] * df_train['has_soul'] *df_train['bone_length']
+
+
+    df_test['hair_soul'] = df_test['hair_length'] * df_test['has_soul']
+    df_test['hair_bone'] = df_test['hair_length'] * df_test['bone_length']
+    df_test['hair_soul_bone'] = df_test['hair_length'] * df_test['has_soul'] * df_test['bone_length']
+
+    test_id = df_test['id']
+    df_train.drop(['id'], axis=1, inplace=True)
+    df_test.drop(['id'], axis=1, inplace=True)
+
 
 
 

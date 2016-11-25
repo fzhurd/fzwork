@@ -25,19 +25,6 @@ from sklearn.decomposition import PCA
 import seaborn as sns
 import matplotlib
 
-def monitor_time(func):
-
-    @wraps(func)
-    def calculate_time(*args, **kwargs ):
-        start_time = time.time()
-        result=func(*args, **kwargs)
-        end_time=time.time()
-        cost_time=end_time-start_time
-        print(cost_time)
-        return result
-
-    return calculate_time
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -55,6 +42,19 @@ from sklearn.feature_selection import SelectFromModel
 from sklearn.linear_model import LogisticRegression
 from sklearn import svm
 
+def monitor_time(func):
+
+    @wraps(func)
+    def calculate_time(*args, **kwargs ):
+        start_time = time.time()
+        result=func(*args, **kwargs)
+        end_time=time.time()
+        cost_time=end_time-start_time
+        print(cost_time)
+        return result
+
+    return calculate_time
+
 
 def save_result(results,file):  
     this_file=open(file,'w')
@@ -68,39 +68,9 @@ def save_result(results,file):
 
 def main():
 
-    # train = pd.read_csv('../input/train.csv')
-    # test = pd.read_csv('../input/test.csv')
-
-    # # sns.factorplot("type", col="color", col_wrap=4, data=train, kind="count", size=2.4, aspect=.8)
-    # # sns.plt.show()
-
-    # # fig, ax = plt.subplots(2, 2, figsize = (16, 12))
-    # # sns.pointplot(x="color", y="rotting_flesh", hue="type", data=train, ax = ax[0, 0])
-    # # sns.pointplot(x="color", y="bone_length", hue="type", data=train, ax = ax[0, 1])
-    # # sns.pointplot(x="color", y="hair_length", hue="type", data=train, ax = ax[1, 0])
-    # # sns.pointplot(x="color", y="has_soul", hue="type", data=train, ax = ax[1, 1])
-    # # sns.plt.show()
-
-
-    # sns.pairplot(train, hue='type')
-    # sns.plt.show()
-   
     df_train=pd.read_csv('../input/train.csv')
-    print df_train.describe()
-    print df_train.shape
-    print df_train.head(3)
-
-    print df_train.isnull().values.any()
-
-
     df_test=pd.read_csv('../input/test.csv')
-    print df_test.describe()
-    print df_test.shape
-    print df_test.head(3)
 
-    print df_test.isnull().values.any()
-
-    print '###########################################'
 
     sns.set()
     sns.pairplot(df_train[["bone_length", "rotting_flesh", "hair_length", "has_soul", "type"]], hue="type")
@@ -155,7 +125,7 @@ def main():
     print y_pred, len(y_pred)
 
     # print(classification_report(y_pred,y_test))
-    
+
     this_file=open('results.csv','w')
     this_file.write("id,type\n")
     for i, v in zip(test_id, y_pred):

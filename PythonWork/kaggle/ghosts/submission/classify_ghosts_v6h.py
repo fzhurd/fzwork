@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 
 sns.set_style('whitegrid')
 from sklearn.preprocessing import LabelEncoder
-# from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.calibration import CalibratedClassifierCV
 # import xgboost as xgb
@@ -171,8 +171,53 @@ def main():
     df_train_data = df_train.drop('type', axis=1)
     df_train_results=df_train['type']
 
+
+    # print df_train_data.head(10)
+    # print '^^^^^^^^^^^^^^^^'
+    # print df_train['type'].head(10)
+    # print pd.get_dummies(df_train['type']).head(10)
+
+    # print pd.concat([df_train_data.head(10), pd.get_dummies(df_train['type']).head(10)], axis=1)
+
     df_train_data = pd.get_dummies(df_train_data)
     df_test_data = pd.get_dummies(df_test)
+
+
+    # print df_train_data.head(6)
+    # print df_train_results
+
+    Xtrain, Xtest, ytrain, ytest = train_test_split(df_train_data, df_train_results, test_size=0.20, random_state=36)
+    print Xtrain.shape
+    print ytrain.shape
+
+
+
+    forest = RandomForestClassifier(n_estimators = 20,
+                                criterion = 'entropy',
+                                max_features = 'auto')
+    parameter_grid = {
+                      'max_depth' : [None, 5, 20, 100],
+                      'min_samples_split' : [2, 5, 7],
+                      'min_weight_fraction_leaf' : [0.0, 0.1],
+                      'max_leaf_nodes' : [20, 30],
+                     }
+
+    grid_search_rf = GridSearchCV(forest, param_grid=parameter_grid)
+    grid_search_rf.fit(Xtrain, ytrain)
+
+    print('Best score: {}'.format(grid_search_rf.best_score_))
+    print('Best parameters: {}'.format(grid_search_rf.best_params_))
+
+    y_test_pred = grid_search_rf.predict(Xtest)
+
+    from sklearn.metrics import accuracy_score
+    print ('ACURACY_SCORE_RF: ',  accuracy_score(ytest, y_test_pred))
+
+
+
+
+
+
 
     # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'rf')
     # save_result(test_id, test_results,'results_logistic_regression.csv')
@@ -186,8 +231,8 @@ def main():
     # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'df')
     # save_result(test_id, test_results,'results_df.csv')
 
-    test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
-    save_result(test_id, test_results,'results_knnc.csv')
+    # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
+    # save_result(test_id, test_results,'results_knnc.csv')
 
 if __name__=='__main__':
     main()

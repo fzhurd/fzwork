@@ -217,24 +217,44 @@ def main():
 
 
 
-    logreg = LogisticRegression()
+    # logreg = LogisticRegression()
 
-    parameter_grid = {'solver' : ['newton-cg', 'lbfgs'],
-                      'multi_class' : ['multinomial'],
-                      'C' : [0.005, 0.01, 1, 10],
-                      'tol': [0.0001, 0.001, 0.005, 0.01]
-                     }
+    # parameter_grid = {'solver' : ['newton-cg', 'lbfgs'],
+    #                   'multi_class' : ['multinomial'],
+    #                   'C' : [0.005, 0.01, 1, 10],
+    #                   'tol': [0.0001, 0.001, 0.005, 0.01]
+    #                  }
 
-    grid_search_logit = GridSearchCV(logreg, param_grid=parameter_grid)
-    grid_search_logit.fit(Xtrain, ytrain)
+    # grid_search_logit = GridSearchCV(logreg, param_grid=parameter_grid)
+    # grid_search_logit.fit(Xtrain, ytrain)
 
-    print('Best score: {}'.format(grid_search_logit.best_score_))
-    print('Best parameters: {}'.format(grid_search_logit.best_params_))
+    # print('Best score: {}'.format(grid_search_logit.best_score_))
+    # print('Best parameters: {}'.format(grid_search_logit.best_params_))
 
-    y_test_pred = grid_search_logit.predict(Xtest)
+    # y_test_pred = grid_search_logit.predict(Xtest)
+
+    # from sklearn.metrics import accuracy_score
+    # print ('ACURACY_SCORE_RF: ',  accuracy_score(ytest, y_test_pred))
+
+
+
+
+    svr = svm.SVC()
+
+    parameter_grid = {'kernel':('linear', 'rbf', 'poly'), 'C':[0.005, 0.01, 1, 10, 100, 1000], 'degree':[2, 3]}
+
+    grid_search_svc = GridSearchCV(svr, param_grid=parameter_grid)
+    grid_search_svc.fit(Xtrain, ytrain)
+
+    print('Best score: {}'.format(grid_search_svc.best_score_))
+    print('Best parameters: {}'.format(grid_search_svc.best_params_))
+
+    y_test_pred = grid_search_svc.predict(Xtest)
+
 
     from sklearn.metrics import accuracy_score
     print ('ACURACY_SCORE_RF: ',  accuracy_score(ytest, y_test_pred))
+
 
 
 

@@ -109,18 +109,18 @@ def decision_tree_classify(train_data,train_results,test_data):
 def keras_neural_network_classify(train_data,train_results,test_data):
 
     model = Sequential() 
-    model.add(Dense(16, input_shape=(4,))) 
+    model.add(Dense(16, input_shape=(7,))) 
     model.add(Activation('sigmoid'))
     model.add(Dense(3))
     model.add(Activation('softmax'))
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=["accuracy"])
     model.fit(train_data, train_results, nb_epoch=100, batch_size=1, verbose=0);
     test_results=model.predict(test_data)
-    return test_results
+
     # loss, accuracy = model.evaluate(test_data, test_y_ohe, verbose=0)
     # print("Accuracy = {:.2f}".format(accuracy))
 
-Accuracy = 0.99
+
     return test_results
 
 

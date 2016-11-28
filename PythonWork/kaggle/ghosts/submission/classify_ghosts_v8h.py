@@ -3,48 +3,48 @@
 
 from pandas import Series,DataFrame
 from numpy import *  
-import csv  
-from sklearn.neighbors import KNeighborsClassifier 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import VotingClassifier
-# from sklearn.neural_network import MLPClassifier
-from sklearn.neural_network import BernoulliRBM
-from sklearn import tree
-from sklearn import svm
-import time
-from functools import wraps
-from sklearn.metrics import classification_report
+import csv 
 
-from sklearn.grid_search import GridSearchCV
-from sklearn.datasets import make_classification
-from sklearn.ensemble import RandomForestClassifier
-
-from sklearn.decomposition import PCA
-
-import seaborn as sns
 import matplotlib
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-sns.set_style('whitegrid')
+
+from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.neural_network import BernoulliRBM
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.calibration import CalibratedClassifierCV
-# import xgboost as xgb
-# from sklearn.model_selection import GridSearchCV
-# from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import classification_report
+from sklearn.datasets import make_classification
+
+from sklearn.model_selection import StratifiedKFold
 from sklearn.feature_selection import SelectFromModel
 from sklearn.linear_model import LogisticRegression
 
 from keras.models import Sequential 
 from keras.layers.core import Dense, Activation
 from keras.utils import np_utils
-from sklearn.model_selection import StratifiedKFold
-from sklearn.naive_bayes import GaussianNB
+from sklearn import tree
+from sklearn import svm
+
+import time
+from functools import wraps
+
+from sklearn.decomposition import PCA
+import seaborn as sns
+
+
+sns.set_style('whitegrid')
+
 
 def monitor_time(func):
 
@@ -315,7 +315,7 @@ def main():
 
 
 
-    eclf2 = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('gb', clf4)],voting='soft')
+    eclf2 = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('dt', clf3)],voting='soft')
 
     # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
     # save_result(test_id, test_results,'results_knnc.csv')

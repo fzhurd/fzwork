@@ -30,6 +30,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.feature_selection import SelectFromModel
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+from keras.layers import Dense, Dropout
 
 from keras.models import Sequential 
 from keras.layers.core import Dense, Activation
@@ -170,14 +171,24 @@ def decision_tree_classify(train_data,train_results,test_data):
 
 @monitor_time
 def keras_neural_network_classify(train_data,train_results,test_data):
+    print train_data.head(4)
 
     model = Sequential() 
-    model.add(Dense(16, input_shape=(7,))) 
-    model.add(Activation('sigmoid'))
-    model.add(Dense(3))
-    model.add(Activation('softmax'))
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=["accuracy"])
-    model.fit(train_data, train_results, nb_epoch=100, batch_size=1, verbose=0);
+    model.add(Dense(8, input_dim=10, init='uniform',  activation='relu'))
+    model.add(Dropout(0.2))
+    model.add(Dense(3, init='uniform', activation='softmax'))
+    
+    model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+
+    # model = nn_model(10)
+
+    # model = Sequential() 
+    # model.add(Dense(16, input_shape=(7,))) 
+    # model.add(Activation('sigmoid'))
+    # model.add(Dense(3))
+    # model.add(Activation('softmax'))
+    # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=["accuracy"])
+    model.fit(train_data, train_results, nb_epoch=100, batch_size=3, verbose=0);
     test_results=model.predict(test_data)
 
     # loss, accuracy = model.evaluate(test_data, test_y_ohe, verbose=0)
@@ -241,11 +252,11 @@ def main():
  
 
 
-    optimize_random_forest(Xtrain,Xtest, ytrain, ytest)
+    # optimize_random_forest(Xtrain,Xtest, ytrain, ytest)
 
-    optimize_support_vector_machine(Xtrain,Xtest, ytrain, ytest)
+    # optimize_support_vector_machine(Xtrain,Xtest, ytrain, ytest)
 
-    optimize_logistic_regression(Xtrain,Xtest, ytrain, ytest)
+    # optimize_logistic_regression(Xtrain,Xtest, ytrain, ytest)
     
 
     # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'lf')
@@ -264,31 +275,29 @@ def main():
     # save_result(test_id, test_results,'results_knnc.csv')
 
 
-    clf1=LogisticRegression(multi_class='multinomial',C=1, tol=0.0001, solver='newton-cg')
-    clf2=RandomForestClassifier(n_estimators=100,min_samples_split=5)
-    clf3=tree.DecisionTreeClassifier()
+    # clf1=LogisticRegression(multi_class='multinomial',C=1, tol=0.0001, solver='newton-cg')
+    # clf2=RandomForestClassifier(n_estimators=100,min_samples_split=5)
+    # clf3=tree.DecisionTreeClassifier()
 
-    pca = PCA(n_components=0.8, whiten=True) 
+    # pca = PCA(n_components=0.8, whiten=True) 
 
-    train_x = pca.fit_transform(df_train_data) 
-    test_x = pca.transform(df_test_data) 
+    # train_x = pca.fit_transform(df_train_data) 
+    # test_x = pca.transform(df_test_data) 
 
-    # svm_dr = svm.SVC(kernel='rbf', C=10)
-    # svm_dr = svm.SVC(kernel='rbf', C=1, degree=2)
+    # # svm_dr = svm.SVC(kernel='rbf', C=10)
+    # # svm_dr = svm.SVC(kernel='rbf', C=1, degree=2)
 
-    # clf4= svm.SVC(kernel='linear', C=10, degree=2)
-    clf4 = GaussianNB()
+    # # clf4= svm.SVC(kernel='linear', C=10, degree=2)
+    # clf4 = GaussianNB()
 
+    # eclf2 = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('dt', clf3)],voting='soft')
 
+    # eclf2 = eclf2.fit(df_train_data,df_train_results)
+    # test_results=eclf2.predict(df_test_data)
+    # save_result(test_id, test_results,'results_eclf2.csv')
 
-    eclf2 = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('dt', clf3)],voting='soft')
-
-    # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
-    # save_result(test_id, test_results,'results_knnc.csv')
-
-    eclf2 = eclf2.fit(df_train_data,df_train_results)
-    test_results=eclf2.predict(df_test_data)
-    save_result(test_id, test_results,'results_eclf2.csv')
+    test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
+    save_result(test_id, test_results,'results_knnc.csv')
 
 
 

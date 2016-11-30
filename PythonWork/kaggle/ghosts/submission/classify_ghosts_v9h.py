@@ -37,6 +37,7 @@ from keras.layers.core import Dense, Activation
 from keras.utils import np_utils
 from sklearn import tree
 from sklearn import svm
+from keras.optimizers import SGD
 
 import time
 from functools import wraps
@@ -173,26 +174,59 @@ def decision_tree_classify(train_data,train_results,test_data):
 def keras_neural_network_classify(train_data,train_results,test_data):
     print train_data.head(4)
 
-    model = Sequential() 
-    model.add(Dense(8, input_dim=10, init='uniform',  activation='relu'))
-    model.add(Dropout(0.2))
-    model.add(Dense(3, init='uniform', activation='softmax'))
+    # model = Sequential() 
+    # model.add(Dense(16, input_dim=7, init='uniform',  activation='relu'))
+    # # model.add(Dropout(0.2))
+    # model.add(Dense(3, init='uniform', activation='softmax'))
     
-    model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+    # model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    # model = nn_model(10)
+   
 
     # model = Sequential() 
     # model.add(Dense(16, input_shape=(7,))) 
-    # model.add(Activation('sigmoid'))
+    # model.add(Activation('relu'))
     # model.add(Dense(3))
     # model.add(Activation('softmax'))
     # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=["accuracy"])
-    model.fit(train_data, train_results, nb_epoch=100, batch_size=3, verbose=0);
-    test_results=model.predict(test_data)
+    # model.fit(train_data, train_results, nb_epoch=1500, batch_size=3, verbose=0);
+
+    # model = Sequential([
+    # Dense(32, input_dim=(371,7)),
+    # Activation('relu'),
+    # Dense(10),
+    # Activation('softmax'),
+    # ])
+    # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=["accuracy"])
+    # model.fit(train_data, train_results);
+    # test_results=model.evaluate(test_data)
 
     # loss, accuracy = model.evaluate(test_data, test_y_ohe, verbose=0)
     # print("Accuracy = {:.2f}".format(accuracy))
+
+    model = Sequential()
+
+    model.add(Dense(64, input_dim=7, init='uniform'))
+    model.add(Activation('tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(64, init='uniform'))
+    model.add(Activation('tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(10, init='uniform'))
+    model.add(Activation('softmax'))
+
+    sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=sgd,
+                  metrics=['accuracy'])
+
+    model.fit(train_data,train_results,
+              nb_epoch=20,
+              batch_size=371)
+    # test_results=model.evaluate(test_data)
+
+    score = model.evaluate(test_data, y_test, batch_size=371)   
+    print score
 
     return test_results
 
@@ -248,9 +282,11 @@ def main():
     df_train_data = pd.get_dummies(df_train_data)
     df_test_data = pd.get_dummies(df_test)
 
+    # Xtrain, Xtest, ytrain, ytest = train_test_split(df_train_data, df_train_results, test_size=0.20, random_state=36)
     Xtrain, Xtest, ytrain, ytest = train_test_split(df_train_data, df_train_results, test_size=0.20, random_state=36)
- 
 
+    print Xtrain.head(5), '*****************88'
+    print ytrain.head(5)
 
     # optimize_random_forest(Xtrain,Xtest, ytrain, ytest)
 
@@ -296,8 +332,38 @@ def main():
     # test_results=eclf2.predict(df_test_data)
     # save_result(test_id, test_results,'results_eclf2.csv')
 
-    test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
+    model = Sequential()
+
+    model.add(Dense(32, input_shape=(7,), init='uniform'))
+    model.add(Activation('tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(8, init='uniform'))
+    model.add(Activation('tanh'))
+    model.add(Dropout(0.5))
+    model.add(Dense(3, init='uniform'))
+    model.add(Activation('softmax'))
+
+    sgd = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=sgd,
+                  metrics=['accuracy'])
+    print Xtrain.shape
+    print ytrain.shape
+    model.fit(Xtrain.values,pd.get_dummies(ytrain).values,
+              nb_epoch=20,
+              batch_size=16)
+
+    test_results=model.predict(df_test_data.values, batch_size=1024)
     save_result(test_id, test_results,'results_knnc.csv')
+
+
+    # model.fit(Xtrain, ytrain,
+    #       nb_epoch=20,
+    #       batch_size=20)
+    # score = model.evaluate(Xtest, ytest, batch_size=16) 
+
+    # test_results=run_classifier(df_train_data,df_train_results,df_test_data, 'knnc')
+    # save_result(test_id, test_results,'results_knnc.csv')
 
 
 

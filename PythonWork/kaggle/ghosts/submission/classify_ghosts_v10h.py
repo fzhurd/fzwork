@@ -173,7 +173,7 @@ def decision_tree_classify(train_data,train_results,test_data):
 
 @monitor_time
 def keras_neural_network_classify(train_data,train_results,test_data):
-    print train_data.head(4)
+    print (train_data.head(4))
 
     # model = Sequential() 
     # model.add(Dense(16, input_dim=7, init='uniform',  activation='relu'))
@@ -227,7 +227,7 @@ def keras_neural_network_classify(train_data,train_results,test_data):
     # test_results=model.evaluate(test_data)
 
     score = model.evaluate(test_data, y_test, batch_size=371)   
-    print score
+    print (score)
 
     return test_results
 
@@ -285,9 +285,6 @@ def main():
 
     # Xtrain, Xtest, ytrain, ytest = train_test_split(df_train_data, df_train_results, test_size=0.20, random_state=36)
     Xtrain, Xtest, ytrain, ytest = train_test_split(df_train_data, df_train_results, test_size=0.20, random_state=36)
-
-    print Xtrain.head(5), '*****************88'
-    print ytrain.head(5)
 
     # optimize_random_forest(Xtrain,Xtest, ytrain, ytest)
 
@@ -348,9 +345,7 @@ def main():
     model.compile(loss='categorical_crossentropy',
                   optimizer=sgd,
                   metrics=['accuracy'])
-    print Xtrain.shape
-    print ytrain.shape
-
+   
     # model.add(Dense(32, input_dim=7, init='uniform',  activation='sigmoid'))
 
     # model.add(Dense(8, init='uniform',  activation='sigmoid'))
@@ -369,16 +364,12 @@ def main():
 
     # result.type = creature_encoder.inverse_transform(prediction_class)
 
-    print pd.get_dummies(df_train_results).values, 'cccccc'
-    print np.argmax(test_results, axis=1), 'mmmmmmm', len(np.argmax(test_results, axis=1))
+
 
     classes = ['Ghost', 'Ghoul', 'Goblin']
     cnn_results=[]
     for i in np.argmax(test_results, axis=1):
             cnn_results.append(classes[i])
-
-    print cnn_results, 'rrrrrrrrrrrrrr'
-
 
 
     save_result(test_id, cnn_results,'results_cnn.csv')

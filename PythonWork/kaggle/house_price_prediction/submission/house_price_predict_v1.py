@@ -9,6 +9,7 @@ from sklearn import cross_validation
 from sklearn import tree
 import time
 from functools import wraps
+import seaborn as sns
 
 def monitor_time(func):
 
@@ -72,13 +73,14 @@ def main():
 
     test=load_data('../input/test.csv')
 
-    print test.head(3)
-    print test.shape
-    print test.describe()
-    print pd.isnull(test).any()
+    print 'from test'
+    print test.head(3), 'ttttttttttttttttttttttt'
+    # print test.shape
+    # print test.describe()
+    # print pd.isnull(test).any()
 
-    print test.corr(method='pearson')
-    print test.mean()
+    # print test.corr(method='pearson')
+    # print test.mean()
 
 if __name__ == '__main__':
     main()

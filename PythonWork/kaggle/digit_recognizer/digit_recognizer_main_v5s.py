@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import numpy as np
+import pandas as pd
 from numpy import *  
 import csv  
 from sklearn.neighbors import KNeighborsClassifier 
@@ -25,6 +27,12 @@ from keras.layers import Dense, Dropout
 from keras.models import Sequential 
 from keras.layers.core import Dense, Activation
 from keras.utils import np_utils
+
+import keras.layers.core as core
+import keras.layers.convolutional as conv
+import keras.models as models
+import keras.utils.np_utils as kutils
+
 
 def monitor_time(func):
 
@@ -189,14 +197,68 @@ def support_vector_machine(train_data,train_label,test_data):
 @monitor_time
 def kera_sequential_neural_classify(train_data,train_label,test_data):
 
+    train = pd.read_csv("../input/train.csv").values
+    test  = pd.read_csv("../input/test.csv").values
+
+    nb_epoch = 1 # Change to 100
+
+    batch_size = 128
+    img_rows, img_cols = 28, 28
+
+    nb_filters_1 = 32 # 64
+    nb_filters_2 = 64 # 128
+    nb_filters_3 = 128 # 256
+    nb_conv = 3
+
+    train_data = train[:, 1:].reshape(train.shape[0], img_rows, img_cols, 1)
+    train_data = train_data.astype(float)
+    train_data /= 255.0
+
+    train_label = kutils.to_categorical(train[:, 0])
+    nb_classes = train_label.shape[1]
+
+    test_data = test.reshape(test.shape[0], 28, 28, 1)
+    test_data = test_data.astype(float)
+    test_data /= 255.0
+
+
     model = Sequential()
-    model.add(conv.Convolution2D(nb_filters_1, nb_conv, nb_conv,  activation="relu", input_shape=(28, 28, 1), border_mode='same'))
-    model.add(conv.Convolution2D(nb_filters_1, nb_conv, nb_conv, activation="relu", border_mode='same'))
+
+    model.add(conv.Convolution2D(nb_filters_1, nb_conv, nb_conv,  
+        activation="relu", input_shape=(28, 28, 1), border_mode='same'))
+
+    model.add(conv.Convolution2D(nb_filters_1, nb_conv, nb_conv, 
+        activation="relu", border_mode='same'))
+
     model.add(conv.MaxPooling2D(strides=(2,2)))
 
-    model.add(conv.Convolution2D(nb_filters_2, nb_conv, nb_conv, activation="relu", border_mode='same'))
-    model.add(conv.Convolution2D(nb_filters_2, nb_conv, nb_conv, activation="relu", border_mode='same'))
+    model.add(conv.Convolution2D(nb_filters_2, nb_conv, nb_conv, 
+        activation="relu", border_mode='same'))
+
+    model.add(conv.Convolution2D(nb_filters_2, nb_conv, nb_conv, 
+        activation="relu", border_mode='same'))
+
     model.add(conv.MaxPooling2D(strides=(2,2)))
+
+    model.add(core.Flatten())
+    model.add(core.Dropout(0.2))
+    model.add(core.Dense(128, activation="relu")) 
+    model.add(core.Dense(nb_classes, activation="softmax"))
+
+    model.summary()
+    model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+
+    # model.fit(trainX, trainY, batch_size=batch_size, nb_epoch=nb_epoch, verbose=1)
+    
+    model.fit(train_data,train_label, batch_size=batch_size, nb_epoch=nb_epoch, verbose=1)
+
+    test_label=model.predict_classes(test_data)
+
+
+    np.savetxt('sklearn_kera_sequential_neural_classify_Result.csv', np.c_[range(1,len(test_label)+1),test_label], delimiter=',', header = 'ImageId,Label', comments = '', fmt='%d')
+
+    # save_result(test_label,'sklearn_kera_sequential_neural_classify_Result.csv')
+    # return test_label  
 
     # nnc=BernoulliRBM(random_state=0, verbose=True)
     # nnc.fit(train_data, ravel(train_label))

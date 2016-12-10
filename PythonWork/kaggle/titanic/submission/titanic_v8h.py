@@ -21,6 +21,11 @@ from sklearn.cross_validation import cross_val_score
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 
+from keras.models import Sequential
+from keras.layers import Dense, Activation, Dropout
+from keras.regularizers import l2, l1
+from sklearn.preprocessing import StandardScaler
+
 
 def monitor_time(func):
 
@@ -400,9 +405,53 @@ def extra_trees_classifier():
     df_output['Survived'] = output
     df_output[['PassengerId','Survived']].to_csv('./extra_trees_classifier_output.csv',index=False)
 
+def keras_sequential_alcassifier():
+    stdScaler = StandardScaler()
+    X_train_scaled = stdScaler.fit_transform(X_train)
+    X_test_scaled = stdScaler.transform(X_test)
+    model = Sequential()
+    #model.add(Dense(700, input_dim=7, init='normal', activation='relu'))
+    #model.add(Dropout(0.5))
+    model.add(Dense(1600, input_dim=16, init='normal', activation='relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(1, init='normal', activation='sigmoid'))
+    model.compile(loss='binary_crossentropy', optimizer='rmsprop')
+    model.fit(X_train_scaled, y_train, nb_epoch=20, batch_size=32)
+    result = model.predict(X_test_scaled)
+    rightnum = 0
+    for i in range(0, result.shape[0]):
+        if result[i] >= 0.5:
+            result[i] = 1
+        else:
+            result[i] = 0
+        if result[i] == y_test.iloc[i]:
+            rightnum += 1
+    print(rightnum/result.shape[0])
+
+    train_scaled = stdScaler.fit_transform(train[columns])
+    test_scaled = stdScaler.transform(test[columns])
+    model.fit(train_scaled, train['Survived'], nb_epoch=20, batch_size=32, verbose=0)
+    predict_NN = model.predict(test_scaled)
+    print(predict_NN.shape)
+    for i in range(0, predict_NN.shape[0]):
+        if predict_NN[i] >= 0.5:
+            predict_NN[i] = 1
+        else:
+            predict_NN[i] = 0
+            
+    predict_NN = predict_NN.reshape((predict_NN.shape[0]))
+    predict_NN = predict_NN.astype('int')
+    print(predict_NN.shape)
+    submission = pd.DataFrame({
+            "PassengerId": test["PassengerId"],
+            "Survived": predict_NN
+        })
+    submission.to_csv("titanic_predict_NN.csv", index=False)
+
 
 def main():
-    extra_trees_classifier()
+    # extra_trees_classifier()
+    keras_sequential_alcassifier()
     
 if __name__=="__main__":
     main()

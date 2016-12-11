@@ -406,47 +406,58 @@ def extra_trees_classifier():
     df_output[['PassengerId','Survived']].to_csv('./extra_trees_classifier_output.csv',index=False)
 
 def keras_sequential_alcassifier():
+
+    tianic=Titanic_Data('../input/train.csv','../input/test.csv')
+
+    combined_normalized_data=tianic.get_normalized_data()
+
+    train,test,targets = recover_train_test_target('../input/train.csv', combined_normalized_data)
+
     stdScaler = StandardScaler()
-    X_train_scaled = stdScaler.fit_transform(X_train)
-    X_test_scaled = stdScaler.transform(X_test)
+    X_train_scaled = stdScaler.fit_transform(train)
+    X_test_scaled = stdScaler.transform(test)
     model = Sequential()
     #model.add(Dense(700, input_dim=7, init='normal', activation='relu'))
     #model.add(Dropout(0.5))
-    model.add(Dense(1600, input_dim=16, init='normal', activation='relu'))
+    model.add(Dense(1600, input_dim=68, init='normal', activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(1, init='normal', activation='sigmoid'))
     model.compile(loss='binary_crossentropy', optimizer='rmsprop')
-    model.fit(X_train_scaled, y_train, nb_epoch=20, batch_size=32)
-    result = model.predict(X_test_scaled)
-    rightnum = 0
-    for i in range(0, result.shape[0]):
-        if result[i] >= 0.5:
-            result[i] = 1
-        else:
-            result[i] = 0
-        if result[i] == y_test.iloc[i]:
-            rightnum += 1
-    print(rightnum/result.shape[0])
+    model.fit(X_train_scaled, targets, nb_epoch=20, batch_size=32)
+    # result = model.predict(X_test_scaled)
+    # print result, 'rrrrrrrrrrrrrr'
+    # rightnum = 0
+    # for i in range(0, result.shape[0]):
+    #     if result[i] >= 0.5:
+    #         result[i] = 1
+    #     else:
+    #         result[i] = 0
+    #     if result[i] == y_test.iloc[i]:
+    #         rightnum += 1
+    # print(rightnum/result.shape[0])
 
-    train_scaled = stdScaler.fit_transform(train[columns])
-    test_scaled = stdScaler.transform(test[columns])
-    model.fit(train_scaled, train['Survived'], nb_epoch=20, batch_size=32, verbose=0)
-    predict_NN = model.predict(test_scaled)
-    print(predict_NN.shape)
-    for i in range(0, predict_NN.shape[0]):
-        if predict_NN[i] >= 0.5:
-            predict_NN[i] = 1
-        else:
-            predict_NN[i] = 0
+    # train_scaled = stdScaler.fit_transform(train[columns])
+    # test_scaled = stdScaler.transform(test[columns])
+    # model.fit(train_scaled, train['Survived'], nb_epoch=20, batch_size=32, verbose=0)
+    # predict_NN = model.predict(test_scaled)
+    # print(predict_NN.shape)
+    # for i in range(0, predict_NN.shape[0]):
+    #     if predict_NN[i] >= 0.5:
+    #         predict_NN[i] = 1
+    #     else:
+    #         predict_NN[i] = 0
             
-    predict_NN = predict_NN.reshape((predict_NN.shape[0]))
-    predict_NN = predict_NN.astype('int')
-    print(predict_NN.shape)
-    submission = pd.DataFrame({
-            "PassengerId": test["PassengerId"],
-            "Survived": predict_NN
-        })
-    submission.to_csv("titanic_predict_NN.csv", index=False)
+    # predict_NN = predict_NN.reshape((predict_NN.shape[0]))
+    # predict_NN = predict_NN.astype('int')
+    # print(predict_NN.shape)
+    # submission = pd.DataFrame({
+    #         "PassengerId": test["PassengerId"],
+    #         "Survived": predict_NN
+    #     })
+    # submission.to_csv("titanic_predict_NN.csv", index=False)
+
+    test_results=model.predict(X_test_scaled, batch_size=200)
+    print test_results
 
 
 def main():

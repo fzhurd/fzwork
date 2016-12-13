@@ -27,6 +27,9 @@ from keras.regularizers import l2, l1
 from sklearn.preprocessing import StandardScaler
 from keras.optimizers import SGD
 
+from sklearn.decomposition import PCA
+from sklearn import svm
+
 
 def monitor_time(func):
 
@@ -434,22 +437,26 @@ def keras_sequential_alcassifier():
     # model.fit(X_train_scaled, targets, nb_epoch=20, batch_size=32)
     # result = model.predict(X_test_scaled)
 
-    model.add(Dense(800, input_dim=68, init='normal'))
-    model.add(Activation('relu'))
+    from keras.utils.np_utils import to_categorical
+# y_binary = to_categorical(y_int)
+
+
+    model.add(Dense(1600,  input_shape=(68,), init='uniform'))
+    model.add(Activation('tanh'))
     model.add(Dropout(0.5))
    
-    model.add(Dense(1, init='normal'))
+    model.add(Dense(1, init='uniform'))
     model.add(Activation('softmax'))
 
     sgd = SGD(lr=0.3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(loss='binary_crossentropy',
+    model.compile(loss='sparse_categorical_crossentropy',
                   optimizer=sgd,
                   metrics=['accuracy'])
   
     model.fit(X_train_scaled, targets,
-              nb_epoch=20,
+              nb_epoch=40,
               batch_size=32)
-    result=model.predict(X_test_scaled)
+    result=model.predict(X_test_scaled, batch_size=32)
 
 
 
@@ -495,11 +502,27 @@ def keras_sequential_alcassifier():
 
     save_result2(test['PassengerId'], final,'results_keras_sequential_neural_work.csv')
 
+@monitor_time
+def support_vector_machine():
 
+    tianic=Titanic_Data('../input/train.csv','../input/test.csv')
+
+    combined_normalized_data=tianic.get_normalized_data()
+
+    train,test,targets = recover_train_test_target('../input/train.csv', combined_normalized_data)
+
+    pca = PCA(n_components=0.8, whiten=True) 
+    train_x = pca.fit_transform(train) 
+    test_x = pca.transform(test) 
+    svm_dr = svm.SVC(kernel='rbf', C=10) 
+    svm_dr.fit(train_x, targets) 
+    test_targets=svm_dr.predict(test_x)
+    print test_targets
 
 def main():
     # extra_trees_classifier()
-    keras_sequential_alcassifier()
+    # keras_sequential_alcassifier()
+    support_vector_machine()
     
 if __name__=="__main__":
     main()

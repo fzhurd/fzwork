@@ -14,10 +14,11 @@ import re
 #     print 'Some regex matched!'
 
 
-
+from collections import Counter
 def read_file(file, mode):
 
     # regex=re.compile("*.js")
+    tests=[]
     with open(file,mode) as fn:
         for f in fn:
             line=f.split()
@@ -31,10 +32,19 @@ def read_file(file, mode):
                 for e in ele:
                     if '.js' in e:
                         print e
+                        tests.append(e)
+        return tests
 
 
 def main():
-    read_file('./temp.txt', 'r')
+    tests=read_file('./temp.txt', 'r')
+    print tests
+    tim=Counter(tests)
+    print tim
+
+    for k, v in tim.iteritems():
+        if v==2:
+            print k, v
     
 
 

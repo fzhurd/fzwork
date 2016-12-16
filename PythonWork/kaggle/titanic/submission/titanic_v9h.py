@@ -511,18 +511,57 @@ def support_vector_machine():
 
     train,test,targets = recover_train_test_target('../input/train.csv', combined_normalized_data)
 
-    pca = PCA(n_components=0.8, whiten=True) 
-    train_x = pca.fit_transform(train) 
-    test_x = pca.transform(test) 
-    svm_dr = svm.SVC(kernel='rbf', C=10) 
-    svm_dr.fit(train_x, targets) 
-    test_targets=svm_dr.predict(test_x)
+    print '^^^^^^^^^^^^^^^^^^^^^^^^^^6'
+    print train.head(5)
+    print targets.head(100)
+
+    # pca = PCA(n_components=0.8, whiten=True) 
+    svm_dr=svm.SVC()
+    # train_x = pca.fit_transform(train) 
+    # test_x = pca.transform(test) 
+    # svm_dr = svm.SVC(kernel='rbf', C=10) 
+    svm_dr.fit(train, targets) 
+    test_targets=svm_dr.predict(test)
     print test_targets
+
+
+@monitor_time
+def optimized_random_forest_classify():
+
+    tianic=Titanic_Data('../input/train.csv','../input/test.csv')
+    combined_normalized_data=tianic.get_normalized_data()
+    train,test,targets = recover_train_test_target('../input/train.csv', combined_normalized_data)
+
+    x,y=train, targets
+
+    x,y = make_classification(n_samples=5000,
+                                                           n_features=10,
+                                                           n_informative=3,
+                                                           n_redundant=0,
+                                                           n_repeated=0,
+                                                           n_classes=2,
+                                                           random_state=0,
+                                                           shuffle=False)
+    orfc=RandomForestClassifier(n_jobs=-1,max_features= 'sqrt' ,n_estimators=100, oob_score = True) 
+    
+    param_grid = { 
+        'n_estimators': [50, 200],
+        'max_features': ['auto', 'sqrt', 'log2']
+    }
+
+    CV_rfc = GridSearchCV(estimator=orfc, param_grid=param_grid, cv= 5)
+    CV_rfc.fit(train, targets)
+
+    test_targets=CV_rfc.predict(test_data)
+    
+    save_result(test_label,'sklearn_optimized_random_forest_classify_Result.csv')  
+    return test_label 
 
 def main():
     # extra_trees_classifier()
     # keras_sequential_alcassifier()
     support_vector_machine()
+    # optimized_random_forest_classify()
     
 if __name__=="__main__":
     main()

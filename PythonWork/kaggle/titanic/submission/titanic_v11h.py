@@ -4,6 +4,9 @@
 import numpy as np
 import pandas as pd
 from sklearn import svm
+from sklearn.model_selection import train_test_split
+
+
 from functools import wraps
 import time
 
@@ -66,17 +69,41 @@ def save_results(id, results, file):
         this_file.write(str(i)+","+str(v)+"\n")
     this_file.close()
 
+# def main():
+#     train_data=load_data('../input/train.csv')
+#     test_data=load_data('../input/test.csv')
+
+#     # print train_data.head(2)
+#     # print train_data.shape
+#     # print train_data.info()
+
+#     # print train_data.head(3)
+#     # print train_data.shape
+#     # print train_data['Age'].describe()
+
+#     train_data=preprocess_data(train_data)
+
+#     PassengerId=train_data['PassengerId']
+#     train_data=train_data.drop('PassengerId', axis=1)
+
+#     train_target=train_data['Survived']
+#     train_data=train_data.drop('Survived', axis=1)
+
+#     # print train_data.shape
+#     # print train_data.info()
+#     # print train_data.head(3)
+
+#     test_data=preprocess_data(test_data)
+#     test_passengerid=test_data['PassengerId']
+#     test_data=test_data.drop('PassengerId', axis=1)
+#     # print test_data.info()
+#     # print test_data.shape
+
+#     run_classify('svm', train_data, train_target, test_data, test_passengerid)
+
 def main():
     train_data=load_data('../input/train.csv')
     test_data=load_data('../input/test.csv')
-
-    # print train_data.head(2)
-    # print train_data.shape
-    # print train_data.info()
-
-    # print train_data.head(3)
-    # print train_data.shape
-    # print train_data['Age'].describe()
 
     train_data=preprocess_data(train_data)
 
@@ -86,17 +113,24 @@ def main():
     train_target=train_data['Survived']
     train_data=train_data.drop('Survived', axis=1)
 
-    # print train_data.shape
-    # print train_data.info()
-    # print train_data.head(3)
 
-    test_data=preprocess_data(test_data)
-    test_passengerid=test_data['PassengerId']
-    test_data=test_data.drop('PassengerId', axis=1)
-    # print test_data.info()
-    # print test_data.shape
+    Xtrain, Xtest, ytrain, ytest = train_test_split(train_data, train_target, test_size=0.20, random_state=36)
 
-    run_classify('svm', train_data, train_target, test_data, test_passengerid)
+    print Xtrain.shape
+    print Xtest.shape
+
+    clf = svm.SVC()
+    clf.fit(Xtrain, ytrain)
+    print clf.score(Xtest, ytest)
+    # results = clf.predict(Xtest)
+
+
+
+    # test_data=preprocess_data(test_data)
+    # test_passengerid=test_data['PassengerId']
+    # test_data=test_data.drop('PassengerId', axis=1)
+ 
+    # run_classify('svm', train_data, train_target, test_data, test_passengerid)
 
 if __name__=='__main__':
     main()

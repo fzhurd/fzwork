@@ -4,6 +4,8 @@
 import numpy as np
 import pandas as pd
 from sklearn import svm
+from functools import wraps
+import time
 
 
 def monitor_time(func):
@@ -43,6 +45,19 @@ def preprocess_data(data):
 
     return data
 
+@monitor_time
+def support_vector_machine(train_data,train_target,test_data, test_passengerid):
+    
+    clf = svm.SVC()
+    clf.fit(train_data, train_target)
+    results = clf.predict(test_data)
+    save_results(test_passengerid, results, 'results_svm')
+
+def run_classify(model, train_data, train_target, test_data, test_passengerid):
+    if model=='svm':
+        support_vector_machine(train_data,train_target,test_data, test_passengerid)
+
+
 def save_results(id, results, file):  
 
     this_file=open(file,'w')
@@ -63,26 +78,6 @@ def main():
     # print train_data.shape
     # print train_data['Age'].describe()
 
-
-
-
-    # train_data=train_data.drop('Name', axis=1)
-
-    # train_data=train_data.drop('Cabin', axis=1)
-    # train_data=train_data.drop('Ticket', axis=1)
-
-    # train_data['Age'].fillna(train_data['Age'].mean(), inplace=True)
-    # train_data['Fare'].fillna(train_data['Fare'].mean(), inplace=True)
-    # train_data['Embarked'].fillna('S', inplace=True)
-
-    # gender_dummy=pd.get_dummies(train_data['Sex'])
-    # train_data=pd.concat([train_data, gender_dummy], axis=1)
-    # train_data=train_data.drop('Sex', axis=1)
-
-    # gender_dummy=pd.get_dummies(train_data['Embarked'])
-    # train_data=pd.concat([train_data, gender_dummy], axis=1)
-    # train_data=train_data.drop('Embarked', axis=1)
-
     train_data=preprocess_data(train_data)
 
     PassengerId=train_data['PassengerId']
@@ -91,27 +86,17 @@ def main():
     train_target=train_data['Survived']
     train_data=train_data.drop('Survived', axis=1)
 
-
-
-    print train_data.shape
-    print train_data.info()
-    print train_data.head(3)
+    # print train_data.shape
+    # print train_data.info()
+    # print train_data.head(3)
 
     test_data=preprocess_data(test_data)
-
     test_passengerid=test_data['PassengerId']
-
     test_data=test_data.drop('PassengerId', axis=1)
-    print test_data.info()
-    print test_data.shape
+    # print test_data.info()
+    # print test_data.shape
 
-    clf = svm.SVC()
-    clf.fit(train_data, train_target)
-    results = clf.predict(test_data)
-
-
-    save_results(test_passengerid, results, 'results_svm')
-
+    run_classify('svm', train_data, train_target, test_data, test_passengerid)
 
 if __name__=='__main__':
     main()

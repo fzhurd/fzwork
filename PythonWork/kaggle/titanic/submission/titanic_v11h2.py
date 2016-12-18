@@ -9,6 +9,9 @@ from sklearn.model_selection import cross_val_score
 from sklearn import svm
 from sklearn import tree
 
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier
+
 from functools import wraps
 import time
 
@@ -135,14 +138,23 @@ def main():
     clf = svm.SVC()
     clf.fit(Xtrain, ytrain)
     print ('svm:', clf.score(Xtest, ytest))
+
     svm_scores = cross_val_score(clf, train_data, train_target, cv=5)
     print ('svm cross score:', svm_scores)
 
     dt=tree.DecisionTreeClassifier()
     dt.fit(Xtrain, ytrain)
     print ('decision tree:', dt.score(Xtest, ytest))
+
     dt_scores = cross_val_score(dt, train_data, train_target, cv=5)
     print ('dt cross score:', dt_scores)
+
+    rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
+    rf.fit(Xtrain, ytrain)
+
+    print ('random forest:', rf.score(Xtest, ytest))
+    rf_scores = cross_val_score(rf, train_data, train_target, cv=5)
+    print ('rf cross score:', rf_scores)
 
     # test_data=preprocess_data(test_data)
     # test_passengerid=test_data['PassengerId']

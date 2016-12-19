@@ -140,21 +140,21 @@ def main():
     print ('svm:', clf.score(Xtest, ytest))
 
     svm_scores = cross_val_score(clf, train_data, train_target, cv=5)
-    print ('svm cross score:', svm_scores)
+    print ('svm cross score:', svm_scores, svm_scores.mean())
 
     dt=tree.DecisionTreeClassifier()
     dt.fit(Xtrain, ytrain)
     print ('decision tree:', dt.score(Xtest, ytest))
 
     dt_scores = cross_val_score(dt, train_data, train_target, cv=5)
-    print ('dt cross score:', dt_scores)
+    print ('dt cross score:', dt_scores, dt_scores.mean())
 
     rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
     rf.fit(Xtrain, ytrain)
 
     print ('random forest:', rf.score(Xtest, ytest))
     rf_scores = cross_val_score(rf, train_data, train_target, cv=5)
-    print ('rf cross score:', rf_scores)
+    print ('rf cross score:', rf_scores, rf_scores.mean())
 
     # test_data=preprocess_data(test_data)
     # test_passengerid=test_data['PassengerId']

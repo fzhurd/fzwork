@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import GridSearchCV
 
 from sklearn import svm
 from sklearn import tree
@@ -138,23 +139,38 @@ def main():
     clf = svm.SVC()
     clf.fit(Xtrain, ytrain)
     print ('svm:', clf.score(Xtest, ytest))
-
     svm_scores = cross_val_score(clf, train_data, train_target, cv=5)
     print ('svm cross score:', svm_scores, svm_scores.mean())
 
     dt=tree.DecisionTreeClassifier()
     dt.fit(Xtrain, ytrain)
     print ('decision tree:', dt.score(Xtest, ytest))
-
     dt_scores = cross_val_score(dt, train_data, train_target, cv=5)
     print ('dt cross score:', dt_scores, dt_scores.mean())
 
     rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
     rf.fit(Xtrain, ytrain)
-
     print ('random forest:', rf.score(Xtest, ytest))
     rf_scores = cross_val_score(rf, train_data, train_target, cv=5)
     print ('rf cross score:', rf_scores, rf_scores.mean())
+
+
+    orfc=RandomForestClassifier(n_jobs=-1,max_features= 'sqrt' ,n_estimators=100, oob_score = True)
+    param_grid = { 
+        'n_estimators': [10, 50,100, 200],
+        'max_features': ['auto', 'sqrt', 'log2']
+    }
+
+    CV_orfc = GridSearchCV(estimator=orfc, param_grid=param_grid, cv= 5)
+    CV_orfc.fit(Xtrain, ytrain)
+    print ('optimzied random forest:', CV_orfc.score(Xtest, ytest))
+    CV_orfc_scores = cross_val_score(CV_orfc, train_data, train_target, cv=5)
+    print('Best score: {}'.format(CV_orfc.best_score_))
+    print('Best parameters: {}'.format(CV_orfc.best_params_))
+    print ('optimzied random forest:', CV_orfc_scores, CV_orfc_scores.mean())
+
+    # test_label=CV_rfc.predict(test_data)
+    
 
     # test_data=preprocess_data(test_data)
     # test_passengerid=test_data['PassengerId']

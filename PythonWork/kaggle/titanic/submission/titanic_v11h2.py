@@ -10,6 +10,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn import svm
 from sklearn import tree
 
+from sklearn.neighbors import KNeighborsClassifier
+
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import RandomForestClassifier
 
@@ -154,20 +156,35 @@ def main():
     rf_scores = cross_val_score(rf, train_data, train_target, cv=5)
     print ('rf cross score:', rf_scores, rf_scores.mean())
 
+    knnClf=KNeighborsClassifier(weights='uniform')
+    parameters = {'n_neighbors':[3,4,5], 'p':[1,2]}
+    model = GridSearchCV(knnClf, param_grid=parameters)
+    model.fit(Xtrain,ytrain) 
+    print ('knn:', model.score(Xtest, ytest))  
+    knnClf_scores = cross_val_score(model, train_data, train_target, cv=5)
+    print ('knn cross score:', knnClf_scores, knnClf_scores.mean())
 
-    orfc=RandomForestClassifier(n_jobs=-1,max_features= 'sqrt' ,n_estimators=100, oob_score = True)
-    param_grid = { 
-        'n_estimators': [10, 50,100, 200],
-        'max_features': ['auto', 'sqrt', 'log2']
-    }
+    
 
-    CV_orfc = GridSearchCV(estimator=orfc, param_grid=param_grid, cv= 5)
-    CV_orfc.fit(Xtrain, ytrain)
-    print ('optimzied random forest:', CV_orfc.score(Xtest, ytest))
-    CV_orfc_scores = cross_val_score(CV_orfc, train_data, train_target, cv=5)
-    print('Best score: {}'.format(CV_orfc.best_score_))
-    print('Best parameters: {}'.format(CV_orfc.best_params_))
-    print ('optimzied random forest:', CV_orfc_scores, CV_orfc_scores.mean())
+
+
+    # orfc=RandomForestClassifier(n_jobs=-1,max_features= 'sqrt' ,n_estimators=100, oob_score = True)
+    # param_grid = { 
+    #     'n_estimators': [10, 50,100, 200],
+    #     'max_features': ['auto', 'sqrt', 'log2']
+    # }
+
+    # CV_orfc = GridSearchCV(estimator=orfc, param_grid=param_grid, cv= 5)
+    # CV_orfc.fit(Xtrain, ytrain)
+    # print ('optimzied random forest:', CV_orfc.score(Xtest, ytest))
+    # CV_orfc_scores = cross_val_score(CV_orfc, train_data, train_target, cv=5)
+    # print('Best score: {}'.format(CV_orfc.best_score_))
+    # print('Best parameters: {}'.format(CV_orfc.best_params_))
+    # print ('optimzied random forest:', CV_orfc_scores, CV_orfc_scores.mean())
+
+
+
+
 
     # test_label=CV_rfc.predict(test_data)
     

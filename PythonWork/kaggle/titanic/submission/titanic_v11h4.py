@@ -142,12 +142,27 @@ def decision_tree_classify(train_data,train_target,test_data, test_passengerid):
     results=dt.predict(test_data)
     save_results(test_passengerid,results, 'results_dt.csv')  
 
+@monitor_time
+def random_forest_classify(train_data,train_target,test_data, test_passengerid):
+    
+    rf = RandomForestClassifier(n_estimators=150, criterion='gini', max_depth=10, 
+        min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, 
+        max_features='auto', max_leaf_nodes=None, min_impurity_split=1e-07, bootstrap=True, 
+        oob_score=False, n_jobs=1, random_state=232, verbose=0, warm_start=False, class_weight=None)
+    rf.fit(train_data, train_target)
+
+    results = rf.predict(test_data)
+    save_results(test_passengerid,results, 'results_rf.csv')  
+    
+
 
 def run_classify(model, train_data, train_target, test_data, test_passengerid):
     if model=='svm':
         support_vector_machine_classify(train_data,train_target,test_data, test_passengerid)
     elif model=='dt':
         decision_tree_classify(train_data,train_target,test_data, test_passengerid)
+    elif model=='rfc':
+        random_forest_classify(train_data,train_target,test_data, test_passengerid)
 
 
 def save_results(id, results, file):  
@@ -220,7 +235,11 @@ def main():
     dt_scores = cross_val_score(dt, train_data, train_target, cv=5)
     print ('dt cross score:', dt_scores, dt_scores.mean())
 
-    rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
+    # rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
+    rf = RandomForestClassifier(n_estimators=150, criterion='gini', max_depth=10, 
+        min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, 
+        max_features='auto', max_leaf_nodes=None, min_impurity_split=1e-07, bootstrap=True, 
+        oob_score=False, n_jobs=1, random_state=232, verbose=0, warm_start=False, class_weight=None)
     rf.fit(Xtrain, ytrain)
     print ('random forest:', rf.score(Xtest, ytest))
     rf_scores = cross_val_score(rf, train_data, train_target, cv=5)
@@ -263,8 +282,9 @@ def main():
     test_passengerid=test_data['PassengerId']
     test_data=test_data.drop('PassengerId', axis=1)
  
-    run_classify('svm', train_data, train_target, test_data, test_passengerid)
+    # run_classify('svm', train_data, train_target, test_data, test_passengerid)
     # run_classify('dt', train_data, train_target, test_data, test_passengerid)
+    run_classify('rfc', train_data, train_target, test_data, test_passengerid)
 
 if __name__=='__main__':
     main()

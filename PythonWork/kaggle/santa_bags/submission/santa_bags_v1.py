@@ -33,7 +33,7 @@ def Weight(mType):
         return 3.0 + np.random.rand(1)[0] if np.random.rand(1) < 0.3 else np.random.rand(1)[0]
 
 
-def fill_bags():
+def fill_bags_m1():
     total_weight = 0
     missed_count = 0
     for i in range(1000):
@@ -65,7 +65,7 @@ def save_results(file, mode):
             f.write('train_'+str(i)+' blocks_'+str(i)+' horse_'+str(i)+' doll_'+str(i)+' book_'+str(i)+' ball_'+str(i)+'\n')
 
 def main():
-    fill_bags()
+    fill_bags_m1()
 
 if __name__=='__main__':
     main()

@@ -83,7 +83,7 @@ def main():
     # test=load_data('../input/test.csv')
 
     # print 'from test'
-    # print test.head(3), 'ttttttttttttttttttttttt'
+
     # print test.shape
     # print test.describe()
     # print pd.isnull(test).any()

@@ -197,7 +197,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--file', '-f', required=False, dest='file_name', 
         default='./s1.txt',type=str, 
-        help='please input the file name, default will be coho.txt in current directory' )
+        help='please input the file name, default will be s1.txt in current directory' )
 
     args = parser.parse_args()
     input_file=args.file_name

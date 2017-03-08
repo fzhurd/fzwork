@@ -12,4 +12,4 @@ class Employee {
 }
 
 e1=new Employee("Jerry", "Zhang");
-e1.printinf();
+e1.printinfo();

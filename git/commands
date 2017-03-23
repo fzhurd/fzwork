@@ -17,3 +17,5 @@
 方法: git commit --amend 或 git commit --amend -m "Fixes bug #42"
 
 原理: git commit --amend 会用一个新的 commit 更新并替换最近的 commit ，这个新的 commit 会把任何修改内容和上一个 commit 的内容结合起来。如果当前没有提出任何修改，这个操作就只会把上次的 commit 消息重写一遍。
+
+3.

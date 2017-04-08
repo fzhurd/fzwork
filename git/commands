@@ -63,3 +63,34 @@ reflog
     如果你希望准确地恢复项目的历史到某个时间点，用 git reset --hard <SHA>
     如果你希望重建工作目录里的一个或多个文件，让它们恢复到某个时间点的状态，用 git checkout <SHA> -- <filename>
     如果你希望把这些 commit 里的某一个重新提交到你的代码库里，用 git cherry-pick <SHA>
+
+
+6.
+
+利用分支的另一种做法
+
+场景: 你进行了一些提交，然后意识到你开始 check out 的是 master 分支。你希望这些提交进到另一个特性（feature）分支里。
+
+方法: git branch feature, git reset --hard origin/master, and git checkout feature
+
+原理: 你可能习惯了用 git checkout -b <name> 创建新的分支 — 这是创建新分支并马上 check out 的流行捷径 — 但是你不希望马上切换分支。这里， git branch feature 创建一个叫做 feature 的新分支并指向你最近的 commit，但还是让你 check out 在 master 分支上。
+
+下一步，在提交任何新的 commit 之前，用 git reset --hard 把 master 分支倒回 origin/master 。不过别担心，那些 commit 还在 feature 分支里。
+
+最后，用 git checkout 切换到新的 feature 分支，并且让你最近所有的工作成果都完好无损。
+
+
+7.-----------------------------------------IMPORTANT
+及时分支，省去繁琐
+
+场景: 你在 master 分支的基础上创建了 feature 分支，但 master 分支已经滞后于 origin/master 很多。现在 master 分支已经和 origin/master 同步，你希望在 feature 上的提交是从现在开始，而不是也从滞后很多的地方开始。
+
+方法: git checkout feature 和 git rebase master
+
+原理: 要达到这个效果，你本来可以通过 git reset (不加 --hard, 这样可以在磁盘上保留修改) 和 git checkout -b <new branch name> 然后再重新提交修改，不过这样做的话，你就会失去提交历史。我们有更好的办法。
+
+git rebase master 会做如下的事情：
+
+    首先它会找到你当前 check out 的分支和 master 分支的共同祖先。
+    然后它 reset 当前  check out 的分支到那个共同祖先，在一个临时保存区存放所有之前的提交。
+    然后它把当前 check out 的分支提到 master 的末尾部分，并从临时保存区重新把存放的 commit 提交到 master 分支的最后一个 commit 之后。

@@ -1,3 +1,7 @@
+http://blog.jobbole.com/87700/
+如何在 Git 里撤销(几乎)任何操作
+
+
 1.
 撤销一个“已公开”的改变
 
@@ -94,3 +98,69 @@ git rebase master 会做如下的事情：
     首先它会找到你当前 check out 的分支和 master 分支的共同祖先。
     然后它 reset 当前  check out 的分支到那个共同祖先，在一个临时保存区存放所有之前的提交。
     然后它把当前 check out 的分支提到 master 的末尾部分，并从临时保存区重新把存放的 commit 提交到 master 分支的最后一个 commit 之后。
+
+
+
+8.
+
+大量的撤销/恢复
+
+场景: 你向某个方向开始实现一个特性，但是半路你意识到另一个方案更好。你已经进行了十几次提交，但你现在只需要其中的一部分。你希望其他不需要的提交统统消失。
+
+方法: git rebase -i <earlier SHA>
+
+原理: -i 参数让 rebase 进入“交互模式”。它开始类似于前面讨论的 rebase，但在重新进行任何提交之前，它会暂停下来并允许你详细地修改每个提交。
+
+rebase -i 会打开你的缺省文本编辑器，里面列出候选的提交。如下所示：
+
+rebase-interactive1
+
+前面两列是键：第一个是选定的命令，对应第二列里的 SHA 确定的 commit。缺省情况下， rebase -i  假定每个 commit 都要通过  pick 命令被运用。
+
+要丢弃一个 commit，只要在编辑器里删除那一行就行了。如果你不再需要项目里的那几个错误的提交，你可以删除上例中的1、3、4行。
+
+如果你需要保留 commit 的内容，而是对 commit 消息进行编辑，你可以使用 reword 命令。 把第一列里的 pick 替换为 reword (或者直接用 r)。有人会觉得在这里直接重写 commit 消息就行了，但是这样不管用 —rebase -i 会忽略 SHA 列前面的任何东西。它后面的文本只是用来帮助我们记住 0835fe2 是干啥的。当你完成 rebase -i 的操作之后，你会被提示输入需要编写的任何 commit 消息。
+
+如果你需要把两个 commit 合并到一起，你可以使用 squash 或 fixup 命令，如下所示：
+
+rebase-interactive2
+
+squash 和 fixup 会“向上”合并 — 带有这两个命令的 commit 会被合并到它的前一个 commit 里。在这个例子里， 0835fe2 和 6943e85 会被合并成一个 commit， 38f5e4e 和 af67f82 会被合并成另一个。
+
+如果你选择了 squash， Git 会提示我们给新合并的 commit 一个新的 commit 消息； fixup 则会把合并清单里第一个 commit 的消息直接给新合并的 commit 。 这里，你知道 af67f82 是一个“完了完了….” 的 commit，所以你会留着 38f5e4e as的 commit 消息，但你会给合并了 0835fe2 和 6943e85 的新 commit 编写一个新的消息。
+
+在你保存并退出编辑器的时候，Git 会按从顶部到底部的顺序运用你的 commit。你可以通过在保存前修改 commit 顺序来改变运用的顺序。如果你愿意，你也可以通过如下安排把 af67f82 和 0835fe2 合并到一起：
+
+
+9.
+
+修复更早期的 commit
+
+场景: 你在一个更早期的 commit 里忘记了加入一个文件，如果更早的 commit 能包含这个忘记的文件就太棒了。你还没有 push，但这个 commit 不是最近的，所以你没法用 commit --amend.
+
+方法: git commit --squash <SHA of the earlier commit> 和 git rebase --autosquash -i <even earlier SHA>
+
+原理: git commit --squash 会创建一个新的 commit ，它带有一个 commit 消息，类似于 squash! Earlier commit。 (你也可以手工创建一个带有类似 commit 消息的 commit，但是 commit --squash 可以帮你省下输入的工作。)
+
+如果你不想被提示为新合并的 commit 输入一条新的 commit 消息，你也可以利用 git commit --fixup 。在这个情况下，你很可能会用commit --fixup ，因为你只是希望在 rebase 的时候使用早期 commit 的 commit 消息。
+
+rebase --autosquash -i  会激活一个交互式的 rebase 编辑器，但是编辑器打开的时候，在 commit 清单里任何 squash! 和 fixup! 的 commit 都已经配对到目标 commit 上了，如下所示：
+
+rebase-autosquash
+
+在使用 --squash 和 --fixup 的时候，你可能不记得想要修正的 commit 的 SHA 了— 只记得它是前面第 1 个或第 5 个 commit。你会发现 Git 的 ^ 和 ~ 操作符特别好用。HEAD^ 是 HEAD 的前一个 commit。 HEAD~4 是 HEAD 往前第 4 个 – 或者一起算，倒数第 5 个 commit。
+
+
+
+10.
+
+停止追踪一个文件
+
+场景: 你偶然把 application.log 加到代码库里了，现在每次你运行应用，Git 都会报告在 application.log 里有未提交的修改。你把 *.login 放到了 .gitignore 文件里，可文件还是在代码库里 — 你怎么才能告诉 Git “撤销” 对这个文件的追踪呢？
+
+方法: git rm --cached application.log
+
+原理: 虽然 .gitignore 会阻止 Git 追踪文件的修改，甚至不关注文件是否存在，但这只是针对那些以前从来没有追踪过的文件。一旦有个文件被加入并提交了，Git 就会持续关注该文件的改变。类似地，如果你利用 git add -f 来强制或覆盖了 .gitignore， Git 还会持续追踪改变的情况。之后你就不必用-f  来添加这个文件了。
+
+如果你希望从 Git 的追踪对象中删除那个本应忽略的文件， git rm --cached 会从追踪对象中删除它，但让文件在磁盘上保持原封不动。因为现在它已经被忽略了，你在  git status 里就不会再看见这个文件，也不会再偶然提交该文件的修改了。
+

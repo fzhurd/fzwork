@@ -44,8 +44,8 @@ def main():
     sns.pairplot(train[["MSSubClass", "MSZoning",  "LotFrontage" ]], hue=train[["SalePrice"]])
     sns.plt.show()
 
-    # y=train["SalePrice"]
-    # train.drop("SalePrice", axis=1, inplace=True)
+    y=train["SalePrice"]
+    train.drop("SalePrice", axis=1, inplace=True)
 
     # print train.corr(method='pearson')
 

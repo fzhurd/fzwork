@@ -56,11 +56,18 @@ public class MyService {
 	public List<String> filterMessages(List<String> expectedOptions,  String... messageTypes){
 		
 		List<String> filteredDataType = new ArrayList<String>(); 
-		
+		/*
 		for (int i=0; i< messageTypes.length; i++){
 			if (expectedOptions.contains(messageTypes[i]))
 			{
 				filteredDataType.add(messageTypes[i]);
+			}
+		}
+		*/
+		for (String type: messageTypes){
+			if (expectedOptions.contains(type))
+			{
+				filteredDataType.add(type);
 			}
 		}
 		return filteredDataType;

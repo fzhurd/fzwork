@@ -89,5 +89,9 @@ def main():
     # print test.corr(method='pearson')
     # print test.mean()
 
+    test = pd.read_csv('../input/test.csv')
+    NAs = pd.concat([train.isnull().sum(), test.isnull().sum()], axis=1, keys=['Train', 'Test'])
+    NAs[NAs.sum(axis=1) > 0]
+
 if __name__ == '__main__':
     main()

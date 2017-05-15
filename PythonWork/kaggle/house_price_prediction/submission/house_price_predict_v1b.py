@@ -33,7 +33,7 @@ def load_data(file):
 def main():
     train=load_data('../input/train.csv')
     print train.head(5)
-    # print train.shape
+    print train.shape
     # print train.describe()
     # print pd.isnull(train).any()
     # print train.mean()

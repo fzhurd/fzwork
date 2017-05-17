@@ -1,15 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# import pandas as pd
-# from pandas import Series,DataFrame
-# import numpy as np
-# import matplotlib.pyplot as plt
-# from sklearn import cross_validation
-# from sklearn import tree
-# import time
-# from functools import wraps
-# import seaborn as sns
+import numpy as np 
+import pandas as pd 
+from numpy.polynomial.chebyshev import *
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def main():
     print 'test'

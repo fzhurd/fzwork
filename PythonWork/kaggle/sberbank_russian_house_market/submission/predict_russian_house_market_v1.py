@@ -30,6 +30,10 @@ def main():
     train=load_data('../input/train.csv')
     print train.head(5)
     print train.shape
+    print ('************************')
+    print train.describe()
+    print pd.isnull(train).any()
+    print train.mean()
 
 
 if __name__=="__main__":

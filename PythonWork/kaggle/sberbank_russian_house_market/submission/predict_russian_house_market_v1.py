@@ -35,6 +35,13 @@ def main():
     print pd.isnull(train).any()
     print train.mean()
 
+    read_columns= ['timestamp', 'oil_urals', 'gdp_quart_growth', 'cpi', 'usdrub', \
+                'salary_growth', 'unemployment', 'average_provision_of_build_contract_moscow', 'mortgage_rate', \
+                 'deposits_rate','deposits_growth','rent_price_3room_eco',\
+                 'rent_price_3room_bus']
+    train_df = pd.read_csv("../input/train.csv",usecols=['timestamp','price_doc','full_sq'])
+    macro_df = pd.read_csv("../input/macro.csv",usecols=read_columns)
+
 
 if __name__=="__main__":
     main()

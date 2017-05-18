@@ -26,6 +26,45 @@ def load_data(file):
     df=pd.read_csv(file)
     return df
 
+# ###### Service Read routines ###
+# def condition_train(value, col):
+#     vals = (macro_df[macro_df['mo_ye'] == value])
+    
+#     ret = vals[col].asobject
+  
+#     ret = ret[0]
+
+#     return ret
+
+# def condition_test(value, col):
+#     vals = (macro[macro['mo_ye'] == value])
+
+#     ret = vals[col].asobject
+
+#     ret = ret[0]
+
+#     return ret
+
+# def condition(value,col):
+#     vals = (macro_df[macro_df['timestamp'] == value])
+#     ret=vals[col].asobject
+#     ret=ret[0]
+
+#     return ret
+
+# def init_anlz_file(train_df, read_columns):
+
+#     anlz_df = train_df
+#     for clmn in read_columns:
+#         if clmn == 'timestamp':
+#             continue
+#         anlz_df[clmn] = np.nan
+#         anlz_df[clmn] = anlz_df['timestamp'].apply(condition, col=clmn)
+#         print(clmn)
+#     return anlz_df
+
+
+
 def main():
     train=load_data('../input/train.csv')
     print train.head(5)
@@ -41,6 +80,47 @@ def main():
                  'rent_price_3room_bus']
     train_df = pd.read_csv("../input/train.csv",usecols=['timestamp','price_doc','full_sq'])
     macro_df = pd.read_csv("../input/macro.csv",usecols=read_columns)
+
+    ###### Service Read routines ###
+    def condition_train(value, col):
+        vals = (macro_df[macro_df['mo_ye'] == value])
+        
+        ret = vals[col].asobject
+      
+        ret = ret[0]
+
+        return ret
+
+    def condition_test(value, col):
+        vals = (macro[macro['mo_ye'] == value])
+
+        ret = vals[col].asobject
+
+        ret = ret[0]
+
+        return ret
+
+    def condition(value,col):
+        vals = (macro_df[macro_df['timestamp'] == value])
+        ret=vals[col].asobject
+        ret=ret[0]
+
+        return ret
+
+    def init_anlz_file(train_df, read_columns):
+
+        anlz_df = train_df
+        for clmn in read_columns:
+            if clmn == 'timestamp':
+                continue
+            anlz_df[clmn] = np.nan
+            anlz_df[clmn] = anlz_df['timestamp'].apply(condition, col=clmn)
+            print(clmn)
+        return anlz_df
+
+    print ('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^6')
+    ### Read Data for macro analysis
+    anlz_df=init_anlz_file(train_df, read_columns)
 
 
 if __name__=="__main__":

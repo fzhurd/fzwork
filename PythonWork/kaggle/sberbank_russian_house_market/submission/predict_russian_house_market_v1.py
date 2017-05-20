@@ -118,7 +118,7 @@ def main():
             print(clmn)
         return anlz_df
 
-    print ('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^6')
+    print ('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
     ### Read Data for macro analysis
     anlz_df=init_anlz_file(train_df, read_columns)
 

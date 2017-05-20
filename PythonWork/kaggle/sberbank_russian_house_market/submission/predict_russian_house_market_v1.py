@@ -171,5 +171,11 @@ def main():
     macro_df.drop(['index'],axis=1,inplace=True)
 
 
+    corr_df=pd.DataFrame(columns=['feature','pearson', 'kendall', 'spearman'])
+    corr=macro_df[macro_columns].corr(method='spearman')
+    fig, ax = plt.subplots(figsize=(10,10))         # Sample figsize in inches
+    sns.heatmap(corr, annot=True, linewidths=.5, ax=ax)
+
+
 if __name__=="__main__":
     main()

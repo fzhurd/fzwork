@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import numpy as np 
+import pandas as pd 
+from subprocess import check_output
+print(check_output(["ls", "../input"]).decode("utf8"))
 
 # Any results you write to the current directory are saved as output.
 
@@ -113,6 +117,14 @@ from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
 #Get Data
 #Y_train = train_df['price_doc'].values
+
+def get_xgb_imp(xgb, feat_names):
+    from numpy import array
+    imp_vals = xgb.booster().get_fscore()
+    imp_dict = {feat_names[i]:float(imp_vals.get('f'+str(i),0.)) for i in range(len(feat_names))}
+    total = array(imp_dict.values()).sum()
+    return {k:v/total for k,v in imp_dict.items()}
+    
 Y_train = np.log1p(train_df['price_doc'].values)
 X_train = train_df.ix[:, train_df.columns != 'price_doc'].values
 X_test = test_df.values
@@ -127,7 +139,7 @@ print(cross_val_results.mean())
 
 
 model = xgb.fit(X_train, Y_train)
-model.feature_importances_;
+# model.feature_importances_;
 
 from xgboost import XGBRegressor
 

@@ -178,11 +178,11 @@ def main():
 
 
     for feat in macro_columns:
-    if (feat=='price_doc'):
-        continue
-        plot_grouped_trends(macro_df,'price_doc',feat,corr_df)
+        if (feat=='price_doc'):
+            continue
+            plot_grouped_trends(macro_df,'price_doc',feat,corr_df)
 
-    print(corr_df)
+        print(corr_df)
 
     sig_macro_columns=['oil_urals', 'gdp_quart_growth', 'cpi', 'usdrub', \
                 'salary_growth', 'unemployment', 'mortgage_rate', \

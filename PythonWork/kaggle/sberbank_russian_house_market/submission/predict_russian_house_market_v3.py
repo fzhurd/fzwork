@@ -14,7 +14,12 @@ macro_raw = pd.read_csv('../input//macro.csv', parse_dates=['timestamp'])
 
 #Join macro-economic data
 train_full = pd.merge(train_raw, macro_raw, how='left', on='timestamp')
+
+# train_full.dropna(axis=1, how='all')
+
 test_full = pd.merge(test_raw, macro_raw, how='left', on='timestamp')
+
+# test_full.dropna(axis=1, how='all')
 
 from sklearn.preprocessing import LabelEncoder
 
@@ -150,9 +155,12 @@ from xgboost import XGBRegressor
 # #Get Data
 Y_train = train_df['price_doc'].values
 X_train = train_df.ix[:, train_df.columns != 'price_doc'].values
-X_train.dropna(axis=1, how='all')
+
+# X_train.dropna(axis=1, how='all')
+
 X_test = test_df.values
-X_test = X_test.dropna(axis=1, how='all')
+
+# X_test = X_test.dropna(axis=1, how='all')
 #Init Model
 xgb = XGBRegressor(learning_rate=0.05, max_depth=6, subsample=0.8, colsample_bytree=0.7)
 #Train Model

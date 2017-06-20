@@ -18,11 +18,16 @@ macro_raw = pd.read_csv('../input//macro.csv', parse_dates=['timestamp'])
 
 #Join macro-economic data
 train_full = pd.merge(train_raw, macro_raw, how='left', on='timestamp')
-train_full.dropna()
+# train_full.dropna(axis=1, how='all')
+# train_full.fillna(0)
+print train_full.isnull().sum()
+print '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
 # train_full.dropna(axis=1, how='all')
 test_full = pd.merge(test_raw, macro_raw, how='left', on='timestamp')
-test_full.dropna()
+# test_full.dropna(axis=1, how='all')
+# test_full.fillna(0)
+print test_full.isnull().sum()
 
 # test_full.dropna(axis=1, how='all')
 
@@ -175,6 +180,7 @@ X_test = test_df.values
 xgb = XGBRegressor(learning_rate=0.05, max_depth=6, subsample=0.8, colsample_bytree=0.7)
 #Train Model
 model = xgb.fit(X_train, Y_train)
+
 #Make Predictions
 predictions = xgb.predict(X_test)
 

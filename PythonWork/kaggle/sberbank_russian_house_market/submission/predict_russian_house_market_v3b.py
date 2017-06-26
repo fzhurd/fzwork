@@ -8,12 +8,35 @@ from sklearn.preprocessing import LabelEncoder
 from xgboost import XGBRegressor
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
-# print(check_output(["ls", "../input"]).decode("utf8"))
 
 train_raw = pd.read_csv('../input/train.csv', parse_dates=['timestamp'])
 test_raw = pd.read_csv('../input/test.csv', parse_dates=['timestamp'])
 macro_raw = pd.read_csv('../input//macro.csv', parse_dates=['timestamp']) 
 
+X_list_num = ['full_sq', 'num_room', 'floor', 'area_m', 
+              'timestamp',
+              'preschool_education_centers_raion', 'school_education_centers_raion', 
+              'children_preschool', 'children_school',
+              'shopping_centers_raion', 'healthcare_centers_raion', 
+              'office_raion', 'sport_objects_raion',
+              'public_transport_station_min_walk', 
+              'railroad_station_walk_min', 'railroad_station_avto_km',
+              'cafe_count_500',
+              'kremlin_km', 'workplaces_km', 
+              'ID_metro', 'metro_km_avto', 'metro_min_walk', 
+              'public_healthcare_km', 'shopping_centers_km', 'big_market_km',
+              'fitness_km', 'swim_pool_km', 'stadium_km', 'park_km',
+              'kindergarten_km', 'school_km', 'preschool_km', 
+              'university_km', 'additional_education_km',
+              'theater_km', 'exhibition_km', 'museum_km', 
+              'big_road1_km', 'big_road2_km',
+              'detention_facility_km', 'cemetery_km', 'oil_chemistry_km', 'radiation_km',
+              'raion_popul', 'work_all', 'young_all', 'ekder_all']
+X_list_cat = ['sub_area', 'ecology', 'big_market_raion']
+
+# features_train = train_full[X_list_num]
+# features_test = test_full[X_list_num]
+# target_train = train_full['price_doc']
 
 
 #Join macro-economic data
@@ -23,11 +46,21 @@ train_full = pd.merge(train_raw, macro_raw, how='left', on='timestamp')
 print train_full.isnull().sum()
 print '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
+train_full_selected=train_full[X_list_num]
+
+print train_full_selected.isnull().sum()
+print '*********************'
+
 # train_full.dropna(axis=1, how='all')
 test_full = pd.merge(test_raw, macro_raw, how='left', on='timestamp')
 # test_full.dropna(axis=1, how='all')
 # test_full.fillna(0)
 print test_full.isnull().sum()
+
+test_full_selected=test_full[X_list_num]
+
+print test_full_selected.isnull().sum()
+print '*********************'
 
 # test_full.dropna(axis=1, how='all')
 

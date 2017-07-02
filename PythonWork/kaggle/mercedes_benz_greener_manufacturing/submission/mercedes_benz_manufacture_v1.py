@@ -10,7 +10,15 @@ from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
 
 def main():
-    print "test"
+    train = pd.read_csv('../input/train.csv')
+    test = pd.read_csv('../input/test.csv')
+
+
+    print train.head(4)
+    print train.shape
+
+    print train.isnull().sum()
+    print test.isnull().sum()
 
 
 if __name__=="__main__":

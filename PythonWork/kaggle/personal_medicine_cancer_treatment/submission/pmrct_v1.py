@@ -9,11 +9,17 @@ from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 import xgboost as xgb
 from sklearn.decomposition import PCA, FastICA
 
+from sklearn.model_selection import train_test_split
+
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn import svm
+
 
 def main():
     # train = pd.read_csv('../input/training_variants')
     # test = pd.read_csv('../input/test_variants')
-
 
     # print train.head(4)
     # print train.shape
@@ -34,25 +40,16 @@ def main():
     print training_merge_df.describe()
     print testing_merge_df.describe()
 
-    from sklearn.model_selection import train_test_split
-
     train ,test = train_test_split(training_merge_df,test_size=0.2) 
     X_train = train['Text'].values
     X_test = test['Text'].values
     y_train = train['Class'].values
     y_test = test['Class'].values
 
-    from sklearn.pipeline import Pipeline
-    from sklearn.feature_extraction.text import CountVectorizer
-    from sklearn.feature_extraction.text import TfidfTransformer
-    from sklearn import svm
-
-
-
+    
     text_clf = Pipeline([('vect', CountVectorizer()),
                      ('tfidf', TfidfTransformer()),
-                     ('clf', svm.LinearSVC())
-    ])
+                     ('clf', svm.LinearSVC())])
     text_clf = text_clf.fit(X_train,y_train)
 
     y_test_predicted = text_clf.predict(X_test)

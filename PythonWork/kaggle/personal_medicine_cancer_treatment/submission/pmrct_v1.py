@@ -11,7 +11,15 @@ from sklearn.decomposition import PCA, FastICA
 
 
 def main():
-    print 'test'
+    train = pd.read_csv('../input/training_variants')
+    test = pd.read_csv('../input/test_variants')
+
+
+    print train.head(4)
+    print train.shape
+
+    print train.isnull().sum()
+    print test.isnull().sum()
 
 
 if __name__=='__main__':

@@ -52,7 +52,11 @@ def main():
     y_train = train['Class'].values
     y_test = test['Class'].values
 
-    
+    print '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+    print len(X_train)
+    print X_train[0]
+    print '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+
     text_clf = Pipeline([('vect', CountVectorizer()),
                      ('tfidf', TfidfTransformer()),
                      ('clf', svm.LinearSVC())])

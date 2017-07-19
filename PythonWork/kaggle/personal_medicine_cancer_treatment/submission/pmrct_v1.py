@@ -43,6 +43,8 @@ def main():
     print training_merge_df.shape
     print training_merge_df.head(3)
     print '**************************************'
+    print testing_merge_df.shape
+    print testing_merge_df.head(3)
 
     train ,test = train_test_split(training_merge_df,test_size=0.2) 
     X_train = train['Text'].values

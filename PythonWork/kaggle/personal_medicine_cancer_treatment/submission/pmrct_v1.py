@@ -36,9 +36,13 @@ def main():
     testing_text_df = pd.read_csv("../input/test_text", sep="\|\|", engine='python', header=None, skiprows=1, names=["ID","Text"])
     testing_merge_df = testing_variants_df.merge(testing_text_df,left_on="ID",right_on="ID")
 
+    print '*******************************************'
     print training_merge_df["Class"].unique()
     print training_merge_df.describe()
     print testing_merge_df.describe()
+    print training_merge_df.shape
+    print training_merge_df.head(3)
+    print '**************************************'
 
     train ,test = train_test_split(training_merge_df,test_size=0.2) 
     X_train = train['Text'].values

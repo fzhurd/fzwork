@@ -4,9 +4,11 @@
 import numpy as np 
 import pandas as pd 
 from subprocess import check_output
-# print(check_output(["ls", "../input"]).decode("utf8"))
+from sklearn.preprocessing import LabelEncoder
+from xgboost import XGBRegressor
+from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 
-# Any results you write to the current directory are saved as output.
+# print(check_output(["ls", "../input"]).decode("utf8"))
 
 train_raw = pd.read_csv('../input/train.csv', parse_dates=['timestamp'])
 test_raw = pd.read_csv('../input/test.csv', parse_dates=['timestamp'])
@@ -16,16 +18,13 @@ macro_raw = pd.read_csv('../input//macro.csv', parse_dates=['timestamp'])
 train_full = pd.merge(train_raw, macro_raw, how='left', on='timestamp')
 
 # train_full.dropna(axis=1, how='all')
-
 test_full = pd.merge(test_raw, macro_raw, how='left', on='timestamp')
 
 # test_full.dropna(axis=1, how='all')
 
-from sklearn.preprocessing import LabelEncoder
-
 def encode_object_features(train, test):
+
     '''(DataFrame, DataFrame) -> DataFrame, DataFrame
-    
     Will encode each non-numerical column.
     '''
     train = pd.DataFrame(train)
@@ -33,8 +32,10 @@ def encode_object_features(train, test):
     cols_to_encode = train.select_dtypes(include=['object'], exclude=['int64', 'float64']).columns
     for col in cols_to_encode:
         le = LabelEncoder()
+
         #Fit encoder
         le.fit(list(train[col].values.astype('str')) + list(test[col].values.astype('str')))
+
         #Transform
         train[col] = le.transform(list(train[col].values.astype('str')))
         test[col] = le.transform(list(test[col].values.astype('str')))
@@ -44,6 +45,7 @@ def encode_object_features(train, test):
 train_df, test_df = encode_object_features(train_full, test_full)
 
 def add_date_features(df):
+
     '''(DataFrame) -> DataFrame
     
     Will add some specific columns based on the date
@@ -60,6 +62,7 @@ def add_date_features(df):
     month_year = df['timestamp'].dt.month + df['timestamp'].dt.year * 100
     month_year_map = month_year.value_counts().to_dict()
     df['month_year'] = month_year.map(month_year_map)
+
     #Week-Year
     week_year = df['timestamp'].dt.weekofyear + df['timestamp'].dt.year * 100
     week_year_map = week_year.value_counts().to_dict()
@@ -68,6 +71,7 @@ def add_date_features(df):
     return df
     
 def add_state_features(df):
+
     '''(DataFrame) -> DataFrame
     
     Add's features, meant to be used for both train and test df's.
@@ -75,6 +79,7 @@ def add_state_features(df):
     '''
     #Get median of full sq by state
     df['state_median_full_sq'] = df['full_sq'].groupby(df['state']).transform('median')
+
     #Build features from full sq median by state
     df['full_sq_state_median_diff'] = df['full_sq'] - df['state_median_full_sq']
     df['life_sq_state_median_full_diff'] = df['life_sq'] - df['state_median_full_sq']
@@ -116,8 +121,7 @@ test_df = add_features(test_df)
 
 train_df.shape
 
-from xgboost import XGBRegressor
-from sklearn.model_selection import TimeSeriesSplit, cross_val_score
+
 
 #Get Data
 # Y_train = train_df['price_doc'].values

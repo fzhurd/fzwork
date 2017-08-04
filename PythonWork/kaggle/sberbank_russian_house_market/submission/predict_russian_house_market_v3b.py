@@ -62,6 +62,21 @@ test_full_selected=test_full[X_list_num]
 print test_full_selected.isnull().sum()
 print '*********************'
 
+
+# df = pd.DataFrame(features_train, columns=X_list_num)
+# df['prices'] = target_train
+
+# train_full = train_full_selected.dropna(subset=['num_room'])
+
+# df['metro_min_walk'] = df['metro_min_walk'].interpolate(method='linear')
+# features_test['metro_min_walk'] = features_test['metro_min_walk'].interpolate(method='linear')
+
+# df['railroad_station_walk_min'] = df['railroad_station_walk_min'].interpolate(method='linear')
+# features_test['railroad_station_walk_min'] = \
+# features_test['railroad_station_walk_min'].interpolate(method='linear')
+
+# df['floor'] = df['floor'].fillna(df['floor'].median())
+
 # test_full.dropna(axis=1, how='all')
 
 def encode_object_features(train, test):

@@ -115,7 +115,6 @@ for c in df_obj:
 
 df_values = pd.concat([df_numeric, df_obj], axis=1)
 
-
 # Convert to numpy values
 X_all = df_values.values
 print(X_all.shape)
@@ -140,7 +139,7 @@ dtrain = xgb.DMatrix(X_train, y_train, feature_names=df_columns)
 dtest = xgb.DMatrix(X_test, feature_names=df_columns)
 
 
-num_boost_round = 489  # From Bruno's original CV, I think
+num_boost_round = 489  
 model = xgb.train(dict(xgb_params, silent=0), dtrain, num_boost_round=num_boost_round)
 
 y_pred = model.predict(dtest)

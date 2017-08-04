@@ -7,6 +7,10 @@ import numpy as np
 import numpy as np 
 import pandas as pd 
 
+% matplotlib inline
+ 
+plt.style.use('ggplot')
+
 client = pymongo.MongoClient('localhost')
 db = client['zhilian']
 table = db['python']
@@ -36,4 +40,3 @@ df = pd.DataFrame([records for records in table.find()], columns=columns)
 # df.columns = columns_update
 print('总行数为：{}行'.format(df.shape[0]))
 df.head(2)
- 

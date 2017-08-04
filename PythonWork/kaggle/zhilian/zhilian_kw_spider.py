@@ -57,8 +57,9 @@ def get_content(html):
                    }
  
 def main(args):
-    basic_url = '招聘（求职）尽在智联招聘?'
- 
+    # basic_url = '招聘（求职）尽在智联招聘?'
+    basic_url = 'http://sou.zhaopin.com/jobs/searchresult.ashx?isadv=1'
+
     for keyword in KEYWORDS:
         mongo_table = db[keyword]
         paras = {'jl': args[0],

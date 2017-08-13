@@ -16,6 +16,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import BernoulliRBM
 
 
 def main():
@@ -54,9 +55,14 @@ def main():
     encoder.fit(y_train)
     encoded_y = encoder.transform(y_train)
 
-    nnc=BernoulliRBM(random_state=0, verbose=True)
-    nnc.fit(yet_to_complete[:3321],encoded_y)
-    y_pred=ncc.predict(yet_to_complete[3321:])
+    # nnc=BernoulliRBM(random_state=0, verbose=True)
+    # nnc.fit(yet_to_complete[:3321],encoded_y)
+    # y_pred=nnc.predict(yet_to_complete[3321:])
+
+    from sklearn.neighbors import KNeighborsClassifier 
+    knnClf=KNeighborsClassifier(n_neighbors=5)
+    knnClf.fit(yet_to_complete[:3321],encoded_y)  
+    y_pred=knnClf.predict(yet_to_complete[3321:])  
 
     testing_merge_df=testing_merge_df.drop('Gene', axis=1)
     testing_merge_df=testing_merge_df.drop('Variation', axis=1)
@@ -75,29 +81,7 @@ def main():
     submission_df.insert(7,'class7',0)
 
 
-
-    # rf = RandomForestClassifier(n_estimators=100,min_samples_split=5)
-    # rf.fit(yet_to_complete[:3321],encoded_y)
-    # y_pred=rf.predict(yet_to_complete[3321:])
-
-
-    # testing_merge_df=testing_merge_df.drop('Gene', axis=1)
-    # testing_merge_df=testing_merge_df.drop('Variation', axis=1)
-    # testing_merge_df=testing_merge_df.drop('Text', axis=1)
-    
-    # testing_merge_df['predicted_class'] = y_pred
-
-    # onehot = pd.get_dummies(testing_merge_df['predicted_class'])
-    # testing_merge_df = testing_merge_df.join(onehot)
-    # testing_merge_df=testing_merge_df.drop('predicted_class', axis=1)
- 
-    # submission_df = testing_merge_df[['ID',1,2,3,4,5,6,8]]
-    # submission_df.columns = [['ID','class1','class2','class3','class4','class5','class6','class8']]
-
-    # submission_df['class9']=0
-    # submission_df.insert(7,'class7',0)
-
-    submission_df.to_csv('submission_nnc.csv', index=False)
+    submission_df.to_csv('submission_knn.csv', index=False)
 
 
 

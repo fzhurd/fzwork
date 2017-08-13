@@ -52,10 +52,8 @@ def main():
     y_train = train['Class'].values
     y_test = test['Class'].values
 
-    print '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
     print len(X_train)
     print X_train[0]
-    print '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 
     text_clf = Pipeline([('vect', CountVectorizer()),
                      ('tfidf', TfidfTransformer()),
@@ -68,6 +66,10 @@ def main():
     X_test_final = testing_merge_df['Text'].values
 
     predicted_class = text_clf.predict(X_test_final)
+    print predicted_class[0]
+    print predicted_class[1]
+    print predicted_class[2]
+    print predicted_class[3]
     testing_merge_df['predicted_class'] = predicted_class
 
     onehot = pd.get_dummies(testing_merge_df['predicted_class'])

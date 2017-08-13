@@ -84,22 +84,28 @@ def main():
 
 
 
-    # testing_merge_df=testing_merge_df.drop('Gene', axis=1)
-    # testing_merge_df=testing_merge_df.drop('Variation', axis=1)
-    # testing_merge_df=testing_merge_df.drop('Text', axis=1)
+    testing_merge_df=testing_merge_df.drop('Gene', axis=1)
+    testing_merge_df=testing_merge_df.drop('Variation', axis=1)
+    testing_merge_df=testing_merge_df.drop('Text', axis=1)
     
-    # testing_merge_df['predicted_class'] = y_pred
+    testing_merge_df['predicted_class'] = y_pred
 
-    # onehot = pd.get_dummies(testing_merge_df['predicted_class'])
-    # testing_merge_df = testing_merge_df.join(onehot)
-    # testing_merge_df=testing_merge_df.drop('predicted_class', axis=1)
-    # print testing_merge_df.head(8) 
+    onehot = pd.get_dummies(testing_merge_df['predicted_class'])
+    testing_merge_df = testing_merge_df.join(onehot)
+    testing_merge_df=testing_merge_df.drop('predicted_class', axis=1)
+    print testing_merge_df.head(8) 
 
-    # submission_df = testing_merge_df[["ID",1,2,3,4,5,6,7,8,9]]
-    # submission_df.columns = ['ID', 'class1','class2','class3','class4','class5','class6','class7','class8','class9']
-    # submission_df.head(5)
+    submission_df = testing_merge_df[['ID',1,2,3,4,5,6,8]]
+    submission_df.columns = [['ID','class1','class2','class3','class4','class5','class6','class8']]
+    print submission_df.head(10)
 
-    # submission_df.to_csv('submission_rf.csv', index=False)
+    submission_df['class9']=0
+    submission_df.insert(7,'class7',0)
+    print '******************************8'
+    print submission_df.head(10)
+  
+
+    submission_df.to_csv('submission_rf.csv', index=False)
 
     # X_test_final = testing_merge_df['Text'].values
 
@@ -121,18 +127,18 @@ def main():
 
 
     #tweaking the submission file as required
-    onehot = pd.get_dummies(y_pred)
-    print onehot[0]
-    subm_file = pd.DataFrame(onehot)
-    print subm_file.columns
-    # subm_file= subm_file.drop('predicted_class', axis=1)
-    subm_file['id'] = test_index
-    subm_file.columns = ['class1', 'class2', 'class3', 'class4', 'class5', 'class6', 'class7', 'class8', 'class9']
+    # onehot = pd.get_dummies(y_pred)
+    # print onehot[0]
+    # subm_file = pd.DataFrame(onehot)
+    # print subm_file.columns
+    # # subm_file= subm_file.drop('predicted_class', axis=1)
+    # subm_file['id'] = test_index
+    # subm_file.columns = ['class1', 'class2', 'class3', 'class4', 'class5', 'class6', 'class7', 'class8', 'class9']
     # subm_file=subm_file.reset_index()
-    # subm_file.columns[0]=['ID']
+    # # subm_file.columns[0]=['ID']
     # subm_file=subm_file.index
 
-    subm_file.to_csv("submission_rf.csv",index=False)
+    # subm_file.to_csv("submission_rf.csv",index=False)
 
 
 

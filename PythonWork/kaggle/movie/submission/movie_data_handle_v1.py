@@ -60,7 +60,12 @@ def main():
     sns.heatmap(corr, cmap=cmap, vmax=1,
             square=True,
             linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
-    plt.show()
 
+    g = sns.jointplot(x="title_year", y="profit",kind='scatter',size=10,ylim = [0,110],xlim=[1980,2020],data=movie_raw_data_dropna)
+    h = sns.jointplot(x="imdb_score", y="profit",kind='reg',size=10,ylim = [0,110],data=movie_raw_data_dropna)
+
+    # j = sns.pairplot(movie_raw_data_dropna,hue='content_rating')
+
+    plt.show()
 if __name__=='__main__':
     main()

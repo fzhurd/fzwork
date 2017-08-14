@@ -9,6 +9,10 @@ from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 import xgboost as xgb
 from sklearn.decomposition import PCA, FastICA
 
+import seaborn as sns
+sns.set(style='white')
+import matplotlib.pyplot as plt
+
 
 def main():
     movie_raw_data = pd.read_csv('../input/movie_metadata.csv')
@@ -46,6 +50,16 @@ def main():
     movie_raw_data_dropna.loc[:,'profit']=pd.Series(profit, movie_raw_data_dropna.index)
     print movie_raw_data_dropna.shape
     print movie_raw_data_dropna.head(3)
+
+
+    corr=movie_raw_data_dropna.corr()
+    print corr
+
+    f, ax = plt.subplots(figsize=(11, 9))
+    cmap = sns.diverging_palette(220, 10, as_cmap=True)
+    sns.heatmap(corr, cmap=cmap, vmax=1,
+            square=True,
+            linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
 
 if __name__=='__main__':
     main()

@@ -60,6 +60,7 @@ def main():
     sns.heatmap(corr, cmap=cmap, vmax=1,
             square=True,
             linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
+    plt.show()
 
 if __name__=='__main__':
     main()

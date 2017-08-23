@@ -16,9 +16,9 @@ import matplotlib.pyplot as plt
 
 def main():
     movie_raw_data = pd.read_csv('../input/movie_metadata.csv')
-    # print movie_raw_data.head(3)
+    print movie_raw_data.head(3)
 
-    # print movie_raw_data.isnull().sum()
+    print movie_raw_data.isnull().sum()
 
     print movie_raw_data.shape
     movie_raw_data_dropna=movie_raw_data.dropna()

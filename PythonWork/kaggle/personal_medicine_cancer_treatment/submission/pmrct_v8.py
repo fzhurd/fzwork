@@ -6,6 +6,11 @@ import pandas as pd
 
 from subprocess import check_output
 
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn import svm
+
 train_variant = pd.read_csv("../input/training_variants")
 train_text = pd.read_csv("../input/training_text", sep="\|\|", engine='python', header=None, skiprows=1, names=["ID","Text"])
 
@@ -22,3 +27,28 @@ data=pd.DataFrame(data)
 data.columns = ["ID", "Gene", "Variation", "Text"]
 
 print data.head(3)
+
+text_clf = Pipeline([('vect', CountVectorizer()),
+                     ('tfidf', TfidfTransformer()),
+                     ('clf', svm.LinearSVC())
+])
+
+y_train = train['Class']
+text_clf = text_clf.fit(x_train,y_train)
+
+y_test_predicted = text_clf.predict(x_test)
+# np.mean(y_test_predicted == y_test)
+print y_test_predicted
+
+
+X_test_final = testing_merge_df['Text'].values
+
+predicted_class = text_clf.predict(X_test_final)
+
+testing_merge_df['predicted_class'] = predicted_class
+
+Appended the predicted values to the testing data
+
+testing_merge_df.head(5)
+
+

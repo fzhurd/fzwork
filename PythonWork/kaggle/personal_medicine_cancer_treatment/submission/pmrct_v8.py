@@ -20,3 +20,5 @@ x_test = pd.merge(test_variant, test_text, how='left', on='ID')
 data = np.concatenate((x_train, x_test), axis=0)
 data=pd.DataFrame(data)
 data.columns = ["ID", "Gene", "Variation", "Text"]
+
+print data.head(3)

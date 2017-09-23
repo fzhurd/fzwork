@@ -9,9 +9,13 @@ def conn_scan(tgt_host, tgt_port):
     try:
         conn_skt=socket(AF_INET, SOCK_STREAM)
         conn_skt.connect(tgt_host, tgt_port)
-        print tgt_port
+        conn_skt.send('ViolentPython\r\n')
+        results =conn_skt.recv(100)
+        print '[+] %d/tcp open' %tgt_port
+        print '[+] '+str(results)
+        conn_skt.close()
     except:
-        print tgt_port
+        print '[-]%d/tcp closed'% tgt_port
 
 def port_scan(tgt_host, tgt_ports):
     try:

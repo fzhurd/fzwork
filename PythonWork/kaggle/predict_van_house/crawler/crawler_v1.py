@@ -18,9 +18,24 @@ content = response.read().decode('utf-8')
 # print content
 
 pattern_list_price=re.compile('<div class="listing-price">(.*?)</div>')
-items=re.findall(pattern_list_price, content)
+pattern_list_information=re.compile('<ul class="listing-information">(.*)')
+pattern_list_features=re.compile('<dl class="listing-extras hidden-xs">(.*?)')
 
-for item in items:
+items_price=re.findall(pattern_list_price, content)
+items_information=re.findall(pattern_list_information, content)
+items_features=re.findall(pattern_list_features, content)
+
+for item in items_price:
+    print item
+
+print '*'*50
+
+for item in items_information:
+    print item
+
+print '*'*50
+
+for item in items_features:
     print item
 
 # import requests

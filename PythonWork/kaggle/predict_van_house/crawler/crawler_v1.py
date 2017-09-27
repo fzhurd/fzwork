@@ -3,6 +3,7 @@
 
 import numpy as np 
 import pandas as pd 
+import re
 
 import urllib2
 
@@ -12,7 +13,15 @@ url = "https://www.rew.ca/properties/areas/vancouver-bc"
 
 request = urllib2.Request(url)
 response = urllib2.urlopen(request)
-print response.read()
+content = response.read().decode('utf-8')
+
+# print content
+
+pattern_list_price=re.compile('<div class="listing-price">(.*?)</div>')
+items=re.findall(pattern_list_price, content)
+
+for item in items:
+    print item
 
 # import requests
 # from bs4 import BeautifulSoup

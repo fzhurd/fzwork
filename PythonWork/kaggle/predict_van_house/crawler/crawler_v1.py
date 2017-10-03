@@ -14,6 +14,8 @@ def save_info_to_mongodb():
     db=client['vancouver_properties']
     collection=db.properties_info
 
+    return collection
+
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7'}
 # url = "https://www.realtor.ca"
 url = "https://www.rew.ca/properties/areas/vancouver-bc"
@@ -34,7 +36,7 @@ items_price=re.findall(pattern_list_price, content)
 items_information=re.findall(pattern_list_information, content)
 items_features=re.findall(pattern_list_features, content)
 
-full_info={}
+
 price=[]
 info=[]
 features=[]
@@ -97,8 +99,21 @@ for f in xrange(0, len(info), 2):
     one_item_feature['type']=features[0].split(" ")[0]
     one_item_feature['listId']=features[1].split(" ")[0]
     features_info.append(one_item_feature)
-
 print features_info
+
+collection = save_info_to_mongodb()
+for a, b, c in zip(price, modified_info, features_info):
+    full_info={}
+    full_info['price']=a
+    full_info['info']=b
+    full_info['features']=c
+
+    print full_info
+    collection.insert(full_info)
+
+
+
+
 
 # import requests
 # from bs4 import BeautifulSoup

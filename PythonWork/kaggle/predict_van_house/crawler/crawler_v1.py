@@ -18,8 +18,10 @@ content = response.read().decode('utf-8')
 # print content
 
 pattern_list_price=re.compile('<div class="listing-price">(.*?)</div>')
-pattern_list_information=re.compile('<ul class="listing-information">(.*)')
-pattern_list_features=re.compile('<dl class="listing-extras hidden-xs">(.*?)')
+# pattern_list_information=re.compile('<ul class="listing-information">(.*)')
+pattern_list_information=re.compile('<li class="listing-feature">(.*)')
+# pattern_list_features=re.compile('<dl class="listing-extras.*?">(.*?)')
+pattern_list_features=re.compile('<dd>(.*?)</dd>')
 
 items_price=re.findall(pattern_list_price, content)
 items_information=re.findall(pattern_list_information, content)

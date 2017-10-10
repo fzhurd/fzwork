@@ -23,10 +23,14 @@ def main():
     missing_df = np.sum(train_raw_data==-1, axis=0)
     print missing_df.head(10)
     missing_df.sort_values(ascending=False, inplace=True)
-    plt.figure(figsize=(10, 20))
-    sns.barplot(x=missing_df.values, y=missing_df.index)
-    plt.title("Number of missing values in each column")
-    plt.xlabel("Count of missing values")
+    # plt.figure(figsize=(10, 20))
+    # sns.barplot(x=missing_df.values, y=missing_df.index)
+    # plt.title("Number of missing values in each column")
+    # plt.xlabel("Count of missing values")
+    # plt.show()
+    corr = train_raw_data.corr()
+    plt.figure(figsize=(20,15))
+    sns.heatmap(corr)
     plt.show()
 
 

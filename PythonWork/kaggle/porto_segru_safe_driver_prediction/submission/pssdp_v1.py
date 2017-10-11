@@ -37,6 +37,25 @@ def main():
     # plt.figure(figsize=(20,15))
     # sns.heatmap(corr)
     # plt.show()
+    train_raw_data.drop(["ps_car_03_cat", "ps_car_05_cat"], axis=1, inplace=True)
+
+    cat_cols = [col for col in train_raw_data.columns if 'cat' in col]
+    print cat_cols
+    bin_cols = [col for col in train_raw_data.columns if 'bin' in col]
+    print bin_cols
+    con_cols = [col for col in train_raw_data.columns if col not in bin_cols + cat_cols]
+    print con_cols
+
+    for col in cat_cols:
+        train_raw_data[col].fillna(value = train_raw_data[col].mode()[0], inplace=True)
+    
+    for col in bin_cols:
+        train_raw_data[col].fillna(value = train_raw_data[col].mode()[0], inplace=True)
+    
+    for col in con_cols:
+        train_raw_data[col].fillna(value = train_raw_data[col].mean(), inplace=True)
+
+    test_raw_data.drop(["ps_car_03_cat", "ps_car_05_cat"], axis=1, inplace=True)
 
 
 if __name__=='__main__':

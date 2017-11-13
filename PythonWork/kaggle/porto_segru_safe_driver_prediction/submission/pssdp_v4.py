@@ -48,47 +48,17 @@ def main():
         train_raw_data[col].fillna(value = train_raw_data[col].mean(), inplace=True)
 
    
-
-
     y_train = train_raw_data['target'].values
     id_train = train_raw_data['id'].values
     id_test = test_raw_data['id'].values
 
-
-    # We drop these variables as we don't want to train on them
-    # The other 57 columns are all numerical and can be trained on without preprocessing
-    # x_train = train_raw_data.drop(['target', 'id'], axis=1)
-    # x_test = test_raw_data.drop(['id'], axis=1)
-
-    # X=x_train
-    # y=y_train
-
-
-
-    # # Take a random 20% of the dataset as validation data
-    # x_train, x_valid, y_train, y_valid = train_test_split(x_train, y_train, test_size=0.2, random_state=4242)
-    # print('Train samples: {} Validation samples: {}'.format(len(x_train), len(x_valid)))
-
-    # # Convert our data into XGBoost format
-    # d_train = xgb.DMatrix(x_train, y_train)
-    # d_valid = xgb.DMatrix(x_valid, y_valid)
-    # d_test = xgb.DMatrix(x_test)
-
     kfold = 5
     skf = StratifiedKFold(n_splits=kfold, random_state=42)
 
-    # Set xgboost parameters
-    # params = {}
-    # params['objective'] = 'binary:logistic'
-    # params['eta'] = 0.02
-    # params['silent'] = True
-    # params['max_depth'] = 6
-    # params['subsample'] = 0.9
-    # params['colsample_bytree'] = 0.9
     params = {
     'min_child_weight': 10.0,
     'objective': 'binary:logistic',
-    'max_depth': 7,
+    'max_depth': 6,
     'max_delta_step': 1.8,
     'colsample_bytree': 0.4,
     'subsample': 0.8,
@@ -124,14 +94,13 @@ def main():
         gini_score = gini_normalized(labels, preds)
         return [('gini', gini_score)]
 
-    # This is the data xgboost will test on after eachboosting round
-    # watchlist = [(d_train, 'train'), (d_valid, 'valid')]
-
+    # Create a submission file
+    sub = pd.DataFrame()
+    sub['id'] = id_test
+    sub['target'] = np.zeros_like(test_id)
 
     for i, (train_index, test_index) in enumerate(skf.split(X, y)):
         print('[Fold %d/%d]' % (i + 1, kfold))
-        # import pdb
-        # pdb.set_trace()
         X_train, X_valid = X[train_index], X[test_index]
         y_train, y_valid = y[train_index], y[test_index]
         # Convert our data into XGBoost format
@@ -142,30 +111,14 @@ def main():
 
         # Train the model! We pass in a max of 1,600 rounds (with early stopping after 70)
         # and the custom metric (maximize=True tells xgb that higher metric is better)
-        mdl = xgb.train(params, d_train, 1600, watchlist, early_stopping_rounds=70, feval=gini_xgb, maximize=True, verbose_eval=100)
+        mdl = xgb.train(params, d_train, 1000, watchlist, early_stopping_rounds=20, feval=gini_xgb, maximize=True, verbose_eval=100)
 
         print('[Fold %d/%d Prediciton:]' % (i + 1, kfold))
         # Predict on our test data
         p_test = mdl.predict(d_test, ntree_limit=mdl.best_ntree_limit)
         sub['target'] += p_test/kfold
 
-
-
-
-
-
-    # Train the model! We pass in a max of 10,000 rounds (with early stopping after 100)
-    # and the custom metric (maximize=True tells xgb that higher metric is better)
-    # mdl = xgb.train(params, d_train, 10000, watchlist, early_stopping_rounds=100, feval=gini_xgb, maximize=True, verbose_eval=10)
-
-    # Predict on our test data
-    p_test = mdl.predict(d_test)
-
-    # Create a submission file
-    sub = pd.DataFrame()
-    sub['id'] = id_test
-    sub['target'] = p_test
-    sub.to_csv('xgb1.csv', index=False)
+    sub.to_csv('xgb2.csv', index=False)
 
     print(sub.head())
 

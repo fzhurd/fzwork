@@ -35,6 +35,11 @@ def main():
     train_raw_data = pd.read_csv("../input/train.csv")
     test_raw_data = pd.read_csv("../input/test.csv")
 
+    print train_raw_data.head(10)
+
+    import pdb
+    pdb.set_trace()
+
     print 'train data shape:'+ str(train_raw_data.shape)
     print 'test data shape:'+ str(test_raw_data.shape)
 
@@ -98,6 +103,9 @@ def main():
     d_train = xgb.DMatrix(x_train, y_train)
     d_valid = xgb.DMatrix(x_valid, y_valid)
     d_test = xgb.DMatrix(x_test)
+
+    kfold = 5
+    skf = StratifiedKFold(n_splits=kfold, random_state=42)
 
     # Set xgboost parameters
     params = {}

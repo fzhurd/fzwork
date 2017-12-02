@@ -8,6 +8,16 @@ import re
 
 import urllib2
 
+def getPageNum():
+    page = getPage(1)
+    pattern = re.compile('<li class="l_reply_num.*?</span>.*?<span.*?>(.*?)</span>',re.S)
+    result = re.search(pattern,page)
+    if result:
+        #print result.group(1)  #测试输出
+        return result.group(1).strip()
+    else:
+        return None  
+
 
 def save_info_to_mongodb():
     client = pymongo.MongoClient('127.0.0.1', 27017)

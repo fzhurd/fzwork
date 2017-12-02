@@ -7,6 +7,8 @@ import pandas as pd
 import re
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.cross_validation import train_test_split
+import xgboost as xgb
 
 import urllib2
 
@@ -77,7 +79,7 @@ def main():
     test_raw_data.drop(["ps_car_03_cat", "ps_car_05_cat"], axis=1, inplace=True)
 
     # ******************************************************************
-    iy_train = train_raw_data['target'].values
+    y_train = train_raw_data['target'].values
     id_train = train_raw_data['id'].values
     id_test = test_raw_data['id'].values
 

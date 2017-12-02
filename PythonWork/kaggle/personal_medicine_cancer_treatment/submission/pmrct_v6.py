@@ -60,25 +60,38 @@ def main():
     # y_pred=nnc.predict(yet_to_complete[3321:])
 
     from sklearn.neighbors import KNeighborsClassifier 
+
     knnClf=KNeighborsClassifier(n_neighbors=5)
     knnClf.fit(yet_to_complete[:3321],encoded_y)  
     y_pred=knnClf.predict(yet_to_complete[3321:])  
+
+    x_test['predicted_class'] = y_pred
+
+    onehot = pd.get_dummies(x_test['predicted_class'])
+    testing_merge_df = x_test.join(onehot)
+
+    print testing_merge_df.head(10)
+
+
+
+    submission_df = testing_merge_df[["ID",1,2,3,4,5,6,7,8]]
+    submission_df.columns = ['ID', 'class1','class2','class3','class4','class5','class6','class7','class8']
 
     testing_merge_df=testing_merge_df.drop('Gene', axis=1)
     testing_merge_df=testing_merge_df.drop('Variation', axis=1)
     testing_merge_df=testing_merge_df.drop('Text', axis=1)
     
-    testing_merge_df['predicted_class'] = y_pred
+    # testing_merge_df['predicted_class'] = y_pred
 
-    onehot = pd.get_dummies(testing_merge_df['predicted_class'])
-    testing_merge_df = testing_merge_df.join(onehot)
-    testing_merge_df=testing_merge_df.drop('predicted_class', axis=1)
+    # onehot = pd.get_dummies(testing_merge_df['predicted_class'])
+    # testing_merge_df = testing_merge_df.join(onehot)
+    # testing_merge_df=testing_merge_df.drop('predicted_class', axis=1)
  
-    submission_df = testing_merge_df[['ID',1,2,3,4,5,6,8]]
-    submission_df.columns = [['ID','class1','class2','class3','class4','class5','class6','class8']]
+    # submission_df = testing_merge_df[['ID',1,2,3,4,5,6,8]]
+    # submission_df.columns = [['ID','class1','class2','class3','class4','class5','class6','class8']]
 
     submission_df['class9']=0
-    submission_df.insert(7,'class7',0)
+    # submission_df.insert(7,'class7',0)
 
 
     submission_df.to_csv('submission_knn.csv', index=False)

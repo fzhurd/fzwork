@@ -10,11 +10,23 @@ import urllib2
 
 from selenium import webdriver
 
-driver = webdriver.Chrome(executable_path="/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver")
-driver.get("https://www.rew.ca/properties/areas/vancouver-bc")
+# driver = webdriver.Chrome(executable_path="/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver")
+# driver.get("https://www.rew.ca/properties/areas/vancouver-bc")
 
-elem = driver.find_element_by_name("q")
-print elem
+
+
+# elem = driver.find_element_by_name("q")
+# print elem
+
+
+def init_driver(path,url):
+    driver = webdriver.Chrome(executable_path=path)
+    driver.get(url)
+    return driver
+
+
+def stop_driver():
+    driver.quit()
 
 # def getPageNum():
 #     page = getPage(1)
@@ -27,12 +39,36 @@ print elem
 #         return None  
 
 
-# def save_info_to_mongodb():
-#     client = pymongo.MongoClient('127.0.0.1', 27017)
-#     db=client['vancouver_properties']
-#     collection=db.properties_info
+def save_info_to_mongodb():
+    client = pymongo.MongoClient('127.0.0.1', 27017)
+    db=client['vancouver_properties']
+    collection=db.properties_info
 
-#     return collection
+    return collection
+
+
+
+driver=init_driver("/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver", 
+    "https://www.rew.ca/properties/areas/vancouver-bc")
+
+# import pdb
+# pdb.set_trace()
+
+if driver.find_element_by_css_selector(".modal--rew.modalform .modal-content"):
+    print driver.find_elements_by_css_selector(".modal--rew.modalform .btn-block")
+
+list_addresses=driver.find_elements_by_css_selector(".listing-address")
+for l in list_addresses:
+    print l.text
+list_prices=driver.find_elements_by_css_selector(".listing-price")
+
+for la, ls in zip(list_addresses, list_prices):
+    print la.text, "   ", ls.text
+
+
+stop_driver()
+
+
 
 # headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7'}
 # # url = "https://www.realtor.ca"
@@ -60,74 +96,74 @@ print elem
 # features=[]
 
 
-for item in items_price:
-    # print item
-    price.append(item)
+# for item in items_price:
+#     # print item
+#     price.append(item)
 
-print len(price)
-print price
+# print len(price)
+# print price
 
-print '*'*50
+# print '*'*50
 
-count=0
-for item in items_information:
-    info.append(item)
-    # count =count +1
-    # print item
+# count=0
+# for item in items_information:
+#     info.append(item)
+#     # count =count +1
+#     # print item
     
-    # if count%3==1:
-    #     one_item['bed']=item
-    #     continue
-    # elif count%3==2:
-    #     one_item['bath']=item
-    #     continue
-    # elif count%3==0:
-    #     one_item['area']=item
-    #     one_item={}
+#     # if count%3==1:
+#     #     one_item['bed']=item
+#     #     continue
+#     # elif count%3==2:
+#     #     one_item['bath']=item
+#     #     continue
+#     # elif count%3==0:
+#     #     one_item['area']=item
+#     #     one_item={}
 
-print len(info)
-print info
+# print len(info)
+# print info
 
-modified_info=[]
-for i in xrange(0, len(info), 3):
-    print info[0] + " "+ info[1]+" "+ info[2]
-    info_dic={}
-    info_dic['bed']=info[0].split(" ")[0]
-    info_dic['bath']=info[1].split(" ")[0]
-    info_dic['sqrt']=info[2].split(" ")[0]
-    modified_info.append(info_dic)
+# modified_info=[]
+# for i in xrange(0, len(info), 3):
+#     print info[0] + " "+ info[1]+" "+ info[2]
+#     info_dic={}
+#     info_dic['bed']=info[0].split(" ")[0]
+#     info_dic['bath']=info[1].split(" ")[0]
+#     info_dic['sqrt']=info[2].split(" ")[0]
+#     modified_info.append(info_dic)
 
-print modified_info
+# print modified_info
 
 
 
-print '*'*50
+# print '*'*50
 
-for item in items_features:
-    print item
-    features.append(item)
+# for item in items_features:
+#     print item
+#     features.append(item)
 
-print len(features)
-print features
+# print len(features)
+# print features
 
-features_info=[]
-for f in xrange(0, len(info), 2):
-    # print features[0] + " "+ features[1]
-    one_item_feature={}
-    one_item_feature['type']=features[0].split(" ")[0]
-    one_item_feature['listId']=features[1].split(" ")[0]
-    features_info.append(one_item_feature)
-print features_info
+# features_info=[]
+# for f in xrange(0, len(info), 2):
+#     # print features[0] + " "+ features[1]
+#     one_item_feature={}
+#     one_item_feature['type']=features[0].split(" ")[0]
+#     one_item_feature['listId']=features[1].split(" ")[0]
+#     features_info.append(one_item_feature)
+# print features_info
 
-collection = save_info_to_mongodb()
-for a, b, c in zip(price, modified_info, features_info):
-    full_info={}
-    full_info['price']=a
-    full_info['info']=b
-    full_info['features']=c
+# collection = save_info_to_mongodb()
+# for a, b, c in zip(price, modified_info, features_info):
+#     full_info={}
+#     full_info['price']=a
+#     full_info['info']=b
+#     full_info['features']=c
 
-    print full_info
-    collection.insert(full_info)
+#     print full_info
+#     collection.insert(full_info)
 
 
 

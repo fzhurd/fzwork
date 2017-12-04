@@ -9,14 +9,7 @@ import re
 import urllib2
 
 from selenium import webdriver
-
-# driver = webdriver.Chrome(executable_path="/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver")
-# driver.get("https://www.rew.ca/properties/areas/vancouver-bc")
-
-
-
-# elem = driver.find_element_by_name("q")
-# print elem
+from selenium.common.exceptions import NoSuchElementException
 
 
 def init_driver(path,url):
@@ -51,19 +44,35 @@ def save_info_to_mongodb():
 driver=init_driver("/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver", 
     "https://www.rew.ca/properties/areas/vancouver-bc")
 
-# import pdb
-# pdb.set_trace()
+page_number=1
 
-if driver.find_element_by_css_selector(".modal--rew.modalform .modal-content"):
-    print driver.find_elements_by_css_selector(".modal--rew.modalform .btn-block")
+while True and page_number<5:
+    try:
+        # if driver.find_element_by_css_selector(".modal--rew.modalform .modal-content"):
+        #     driver.find_elements_by_css_selector(".modal--rew.modalform .btn-block")[1].click()
+        # list_addresses=[]
+        # list_prices=[]
+        list_addresses=driver.find_elements_by_css_selector(".listing-address")
+        list_prices=driver.find_elements_by_css_selector(".listing-price")
 
-list_addresses=driver.find_elements_by_css_selector(".listing-address")
-for l in list_addresses:
-    print l.text
-list_prices=driver.find_elements_by_css_selector(".listing-price")
+        for la, ls in zip(list_addresses, list_prices):
+            print la.text, "   ", ls.text
 
-for la, ls in zip(list_addresses, list_prices):
-    print la.text, "   ", ls.text
+
+        link = driver.find_element_by_link_text(str(page_number))
+    except NoSuchElementException:
+        break
+    link.click()
+    print driver.current_url
+
+
+
+
+    page_number += 1
+
+
+
+
 
 
 stop_driver()

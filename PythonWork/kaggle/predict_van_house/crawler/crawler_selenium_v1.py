@@ -58,7 +58,11 @@ while True and page_number<5:
         # list_addresses=[]
         # list_prices=[]
         # time.sleep(3)
-        wait = WebDriverWait(driver, 10)
+        # EC.presence_of_all_elements_located((By.CSS_SELECTOR, ''.join(selector))))
+        # wait = WebDriverWait(driver, 10)
+        WebDriverWait(driver, 10).until(
+            # EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-address"))
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-price")))
 
         list_addresses=driver.find_elements_by_css_selector(".listing-address")
         list_prices=driver.find_elements_by_css_selector(".listing-price")

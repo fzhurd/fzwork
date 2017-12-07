@@ -7,9 +7,14 @@ import pandas as pd
 import re
 
 import urllib2
+import time
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 
 def init_driver(path,url):
@@ -52,6 +57,9 @@ while True and page_number<5:
         #     driver.find_elements_by_css_selector(".modal--rew.modalform .btn-block")[1].click()
         # list_addresses=[]
         # list_prices=[]
+        # time.sleep(3)
+        wait = WebDriverWait(driver, 10)
+
         list_addresses=driver.find_elements_by_css_selector(".listing-address")
         list_prices=driver.find_elements_by_css_selector(".listing-price")
 

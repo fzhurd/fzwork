@@ -49,18 +49,15 @@ def save_info_to_mongodb():
 driver=init_driver("/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver", 
     "https://www.rew.ca/properties/areas/vancouver-bc")
 
+if driver.find_element_by_css_selector(".modal--rew.modalform .modal-content"):
+            driver.find_elements_by_css_selector(".modal--rew.modalform .btn-block")[1].click()
+
 page_number=1
 
-while True and page_number<5:
+while True and page_number<10:
+    print driver.current_url
     try:
-        # if driver.find_element_by_css_selector(".modal--rew.modalform .modal-content"):
-        #     driver.find_elements_by_css_selector(".modal--rew.modalform .btn-block")[1].click()
-        # list_addresses=[]
-        # list_prices=[]
-        # time.sleep(3)
-        # EC.presence_of_all_elements_located((By.CSS_SELECTOR, ''.join(selector))))
-        # wait = WebDriverWait(driver, 10)
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 20).until(
             # EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-address"))
             EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-price")))
 
@@ -74,8 +71,10 @@ while True and page_number<5:
         link = driver.find_element_by_link_text(str(page_number))
     except NoSuchElementException:
         break
+    print '######################################################'
     link.click()
-    print driver.current_url
+
+    
 
 
 

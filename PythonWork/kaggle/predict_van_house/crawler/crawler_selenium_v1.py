@@ -40,6 +40,7 @@ def stop_driver():
 def save_info_to_mongodb():
     client = pymongo.MongoClient('127.0.0.1', 27017)
     db=client['vancouver_properties']
+    db.drop_collection('properties_info')
     collection=db.properties_info
 
     return collection
@@ -54,7 +55,11 @@ if driver.find_element_by_css_selector(".modal--rew.modalform .modal-content"):
 
 page_number=1
 
-while True and page_number<10:
+list_address_data=[]
+list_prices_data=[]
+list_informations_data=[]
+
+while True and page_number<26:
     print driver.current_url
     try:
         WebDriverWait(driver, 20).until(
@@ -63,9 +68,14 @@ while True and page_number<10:
 
         list_addresses=driver.find_elements_by_css_selector(".listing-address")
         list_prices=driver.find_elements_by_css_selector(".listing-price")
+        list_informations=driver.find_elements_by_css_selector(".listing-information")
 
-        for la, ls in zip(list_addresses, list_prices):
-            print la.text, "   ", ls.text
+        for la, ls, li in zip(list_addresses, list_prices, list_informations):
+
+            print la.text, "   ", ls.text, " ", li.text
+            list_address_data.append(la.text)
+            list_prices_data.append(ls.text)
+            list_informations_data.append(li.text)
 
 
         link = driver.find_element_by_link_text(str(page_number))
@@ -73,20 +83,11 @@ while True and page_number<10:
         break
     print '######################################################'
     link.click()
-
-    
-
-
-
-
     page_number += 1
 
-
-
-
-
-
 stop_driver()
+
+print len(list_address_data), '&&&&&&&&&&&&&&&&&&&7'
 
 
 
@@ -175,15 +176,15 @@ stop_driver()
 #     features_info.append(one_item_feature)
 # print features_info
 
-# collection = save_info_to_mongodb()
-# for a, b, c in zip(price, modified_info, features_info):
-#     full_info={}
-#     full_info['price']=a
-#     full_info['info']=b
-#     full_info['features']=c
+collection = save_info_to_mongodb()
+for a, b, c in zip(list_address_data, list_prices_data, list_informations_data):
+    full_info={}
+    full_info['price']=a
+    full_info['info']=b
+    full_info['features']=c
 
-#     print full_info
-#     collection.insert(full_info)
+    print full_info
+    collection.insert(full_info)
 
 
 

@@ -58,25 +58,55 @@ page_number=1
 list_address_data=[]
 list_prices_data=[]
 list_informations_data=[]
+list_bed_data=[]
+list_bath_data=[]
+list_sqrt_data=[]
+
+list_beds=[]
+list_bath=[]
+list_sqrt=[]
 
 while True and page_number<3:
     print driver.current_url
     try:
-        WebDriverWait(driver, 20).until(
+        WebDriverWait(driver, 60).until(
             # EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-address"))
             EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-price")))
 
         list_addresses=driver.find_elements_by_css_selector(".listing-address")
         list_prices=driver.find_elements_by_css_selector(".listing-price")
         list_informations=driver.find_elements_by_css_selector(".listing-information")
-        list_features=driver.find_elements_by_css_selector(".listing-features")
 
-        for la, ls, li in zip(list_addresses, list_prices, list_informations):
+        list_features_per_page=driver.find_elements_by_css_selector(".listing-feature")
+        house_num=0
 
-            print la.text, "   ", ls.text, " ", li.text
+        house_numbers_per_page=len(list_features_per_page)
+        print house_numbers_per_page
+        
+        for j in xrange(0,house_numbers_per_page,3):
+            list_beds.append(list_features_per_page[j])
+
+        for j in xrange(1,house_numbers_per_page,3):
+            list_bath.append(list_features_per_page[j])
+
+        for j in xrange(2,house_numbers_per_page,3):
+            list_sqrt.append(list_features_per_page[j])
+           
+
+
+        # for i,v in enumerate(list_features_per_page):
+        #     list_features_per_page[i]
+
+        for la, ls, li,lb, lbath, lsqrt in zip(list_addresses, 
+            list_prices, list_informations, list_beds, list_bath, list_sqrt):
+
+            print la.text, "   ", ls.text, " ", li.text, " ", lb.text, " ", lbath.text, " ", lsqrt.text
             list_address_data.append(la.text)
             list_prices_data.append(ls.text)
             list_informations_data.append(li.text)
+            list_bed_data.append(lb.text)
+            list_bath_data.append(lbath.text)
+            list_sqrt_data.append(lsqrt.text)
 
 
         link = driver.find_element_by_link_text(str(page_number))

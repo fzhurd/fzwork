@@ -59,7 +59,7 @@ list_address_data=[]
 list_prices_data=[]
 list_informations_data=[]
 
-while True and page_number<26:
+while True and page_number<3:
     print driver.current_url
     try:
         WebDriverWait(driver, 20).until(
@@ -69,6 +69,7 @@ while True and page_number<26:
         list_addresses=driver.find_elements_by_css_selector(".listing-address")
         list_prices=driver.find_elements_by_css_selector(".listing-price")
         list_informations=driver.find_elements_by_css_selector(".listing-information")
+        list_features=driver.find_elements_by_css_selector(".listing-features")
 
         for la, ls, li in zip(list_addresses, list_prices, list_informations):
 

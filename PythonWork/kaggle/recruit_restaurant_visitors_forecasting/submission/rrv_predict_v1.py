@@ -1,9 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
-
-import pymongo
 import numpy as np 
 import pandas as pd 
 import re

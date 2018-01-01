@@ -9,6 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 import xgboost as xgb
 from sklearn.decomposition import PCA, FastICA
+from collections import Counter
 
 
 import seaborn as sns
@@ -40,7 +41,7 @@ def age_process(age):
     if age>=0 and age<=100:
         return age
     else:
-        return 30
+        return 50
 survey_data['Age'] = survey_data['Age'].apply(age_process)
 
 # fig,ax = plt.subplots(figsize=(8,6))
@@ -87,15 +88,11 @@ print survey_data_cat_features
 survey_data_numeric_features=survey_data.select_dtypes(exclude=['object']).columns
 print survey_data_numeric_features
 
-# survey_data['Age']=pd.to_numeric(survey_data['Age'])
 
-# sns.distplot(survey_data['Age'])
-# fig=plt.figure()
-# res=stats.probplot(survey_data['Age', plot=plt])
-fig, ax=plt.subplots(figsize=(20,6),sharex=True)
-sns.distplot(survey_data['Age'], ax=ax)
-plt.ylabel('Freq')
-plt.show()
+# fig, ax=plt.subplots(figsize=(20,6),sharex=True)
+# sns.distplot(survey_data['Age'], ax=ax)
+# plt.ylabel('Freq')
+# plt.show()
 
 
 # corr=survey_data.corr()
@@ -105,4 +102,19 @@ plt.show()
 #             square=True,
 #             linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
 # plt.show()
+
+
+country_count = Counter(survey_data['Country'].tolist()).most_common(10)
+print country_count
+country_idx = [country[0] for country in country_count]
+print country_idx, country
+country_val = [country[1] for country in country_count]
+print country_val
+fig,ax = plt.subplots(figsize=(8,6))
+sns.barplot(x = country_idx,y=country_val ,ax =ax)
+plt.title('Top ten country')
+plt.xlabel('Country')
+plt.ylabel('Count')
+ticks = plt.setp(ax.get_xticklabels(),rotation=90)
+plt.show()
 

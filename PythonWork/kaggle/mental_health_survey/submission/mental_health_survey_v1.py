@@ -126,7 +126,7 @@ plt.show()
 #                          labels=['<18','18-24','25-34','35-44','45+'])
 
 # fig,ax = plt.subplots(figsize=(8,6))
-# sns.countplot(data=survey_data,x = 'Age_Group',hue= 'family_history',ax=ax)
-# plt.title('Age vs family_history')
+# sns.countplot(data=survey_data,x = 'Age_Group', hue='family_history',ax=ax)
+# plt.title('mental_health_interview')
 # plt.show()
 

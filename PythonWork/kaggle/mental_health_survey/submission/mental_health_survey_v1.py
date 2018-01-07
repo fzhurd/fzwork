@@ -104,17 +104,29 @@ print survey_data_numeric_features
 # plt.show()
 
 
-country_count = Counter(survey_data['Country'].tolist()).most_common(10)
-print country_count
-country_idx = [country[0] for country in country_count]
-print country_idx, country
-country_val = [country[1] for country in country_count]
-print country_val
-fig,ax = plt.subplots(figsize=(8,6))
-sns.barplot(x = country_idx,y=country_val ,ax =ax)
-plt.title('Top ten country')
-plt.xlabel('Country')
-plt.ylabel('Count')
-ticks = plt.setp(ax.get_xticklabels(),rotation=90)
+# country_count = Counter(survey_data['Country'].tolist()).most_common(10)
+# print country_count
+# country_idx = [country[0] for country in country_count]
+# print country_idx, country
+# country_val = [country[1] for country in country_count]
+# print country_val
+# fig,ax = plt.subplots(figsize=(8,6))
+# sns.barplot(x = country_idx,y=country_val ,ax =ax)
+# plt.title('Top ten country')
+# plt.xlabel('Country')
+# plt.ylabel('Count')
+# ticks = plt.setp(ax.get_xticklabels(),rotation=90)
+# plt.show()
+sns.countplot(survey_data['treatment'])
+plt.title('Treatement Distribution')
 plt.show()
+
+# survey_data['Age_Group'] = pd.cut(survey_data['Age'].dropna(),
+#                          [0,18,25,35,45,99],
+#                          labels=['<18','18-24','25-34','35-44','45+'])
+
+# fig,ax = plt.subplots(figsize=(8,6))
+# sns.countplot(data=survey_data,x = 'Age_Group',hue= 'family_history',ax=ax)
+# plt.title('Age vs family_history')
+# plt.show()
 

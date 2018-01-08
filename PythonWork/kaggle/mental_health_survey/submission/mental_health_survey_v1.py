@@ -68,6 +68,15 @@ print survey_data_cat_features
 survey_data_numeric_features=survey_data.select_dtypes(exclude=['object']).columns
 print survey_data_numeric_features
 
+
+# This is the method to check the field value is unique or not
+print survey_data['Country'].unique()
+print survey_data['Gender'].unique()
+print survey_data['mental_health_interview'].unique()
+print survey_data['phys_health_interview'].unique()
+
+
+# This is the method to change the category type to dummies
 survey_treatment=pd.get_dummies(survey_data['treatment'])
 
 survey_country=pd.get_dummies(survey_data['Country'])
@@ -88,6 +97,9 @@ print survey_data_cat_features
 survey_data_numeric_features=survey_data.select_dtypes(exclude=['object']).columns
 print survey_data_numeric_features
 
+print "*"*60
+
+# This is the plot to check the Freq
 
 # fig, ax=plt.subplots(figsize=(20,6),sharex=True)
 # sns.distplot(survey_data['Age'], ax=ax)
@@ -126,7 +138,9 @@ plt.show()
 #                          labels=['<18','18-24','25-34','35-44','45+'])
 
 # fig,ax = plt.subplots(figsize=(8,6))
-# sns.countplot(data=survey_data,x = 'Age_Group', hue='family_history',ax=ax)
+# sns.countplot(data=survey_data,x = 'Age_Group', hue='seek_help',ax=ax)
 # plt.title('mental_health_interview')
 # plt.show()
+
+
 

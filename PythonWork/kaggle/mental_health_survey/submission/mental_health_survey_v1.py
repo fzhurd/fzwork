@@ -16,7 +16,7 @@ import seaborn as sns
 sns.set(style='white')
 import matplotlib.pyplot as plt
 
-
+# read into data
 survey_data=pd.read_csv('../input/survey.csv')
 
 print "*"*60
@@ -54,14 +54,18 @@ survey_data['Age'] = survey_data['Age'].apply(age_process)
 
 # survey_data.plot.scatter(x=var, y='treatment')
 
+# method to drop the column
 survey_data=survey_data.drop('work_interfere', axis=1)
 survey_data=survey_data.drop('state', axis=1)
 survey_data=survey_data.drop('comments', axis=1)
 survey_data=survey_data.drop('self_employed', axis=1)
 
+
+# method to check the null value
 print survey_data.shape
 print survey_data.isnull().sum()
 
+# method to select out numeric or category data type
 survey_data_cat_features=survey_data.select_dtypes(include=['object']).columns
 print survey_data_cat_features
 
@@ -129,9 +133,11 @@ print "*"*60
 # plt.ylabel('Count')
 # ticks = plt.setp(ax.get_xticklabels(),rotation=90)
 # plt.show()
-sns.countplot(survey_data['treatment'])
-plt.title('Treatement Distribution')
-plt.show()
+
+
+# sns.countplot(survey_data['treatment'])
+# plt.title('Treatement Distribution')
+# plt.show()
 
 # survey_data['Age_Group'] = pd.cut(survey_data['Age'].dropna(),
 #                          [0,18,25,35,45,99],
@@ -141,6 +147,15 @@ plt.show()
 # sns.countplot(data=survey_data,x = 'Age_Group', hue='seek_help',ax=ax)
 # plt.title('mental_health_interview')
 # plt.show()
+
+
+x, y = survey_data.drop('treatment', axis=1), survey_data.treatment
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score
+model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')
+scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)
+print(scores.mean())
 
 
 

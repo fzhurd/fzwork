@@ -67,7 +67,9 @@ list_bath=[]
 list_sqrt=[]
 
 page_number2=1
-while True and page_number2<3:
+while True and page_number2<5:
+
+    print page_number2, ' current page'
 
     WebDriverWait(driver, 30).until(
             EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".listing-feature")))
@@ -77,21 +79,32 @@ while True and page_number2<3:
     house_numbers_per_page=len(list_features_per_page)
 
     for j in xrange(0,house_numbers_per_page,3):
-            list_beds.append(list_features_per_page[j])
+            list_beds.append(list_features_per_page[j].text)
 
     for j in xrange(1,house_numbers_per_page,3):
-            list_bath.append(list_features_per_page[j])
+            list_bath.append(list_features_per_page[j].text)
 
     for j in xrange(2,house_numbers_per_page,3):
-            list_sqrt.append(list_features_per_page[j])
+            list_sqrt.append(list_features_per_page[j].text)
 
-    for lbed, lbath, lsqrt in zip(list_beds, 
-            list_bath, list_sqrt):
+    list_addresses=driver.find_elements_by_css_selector(".listing-address")
+    print len(list_addresses), 'aaaaaaaaaaaaaaaaaaaaaaa'
 
-            print lbed.text, "   ", lbath.text, " ", lsqrt.text
-            list_bed_data.append(lbed.text)
-            list_bath_data.append(lbath.text)
-            list_sqrt_data.append(lsqrt.text)
+    list_prices=driver.find_elements_by_css_selector(".listing-price")
+    print len(list_prices), 'pppppppppppppppppppppppppppppppppp'
+
+    list_informations=driver.find_elements_by_css_selector(".listing-information")
+    print len(list_informations), 'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'
+
+    for la, ls, li in zip(list_addresses, 
+            list_prices, list_informations):
+
+            print la.text, "   ", ls.text, " ", li.text
+            list_address_data.append(la.text)
+            list_prices_data.append(ls.text)
+            list_informations_data.append(li.text)
+           
+
 
     link2 = driver.find_element_by_link_text(str(page_number2))
     link2.click()
@@ -102,72 +115,75 @@ print len(list_beds)
 print len(list_bath)
 print len(list_sqrt)
 
-
 for i in list_beds:
-    list_bed_data.append(i.text)
+    print i
 
-for i in list_bath:
-    list_bath_data.append(i.text)
 
-for i in list_sqrt:
-    list_sqrt_data.append(i.tesxt)
+# for i in list_beds:
+#     list_bed_data.append(i.text)
 
-while True and page_number<5:
-    print driver.current_url
-    try:
-        WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-price")))
+# for i in list_bath:
+#     list_bath_data.append(i.text)
 
-        list_addresses=driver.find_elements_by_css_selector(".listing-address")
-        list_prices=driver.find_elements_by_css_selector(".listing-price")
-        list_informations=driver.find_elements_by_css_selector(".listing-information")
+# for i in list_sqrt:
+#     list_sqrt_data.append(i.tesxt)
 
-        # list_features_per_page=driver.find_elements_by_css_selector(".listing-feature")
-        # house_num=0
+# while True and page_number<5:
+#     print driver.current_url
+#     try:
+#         WebDriverWait(driver, 30).until(
+#             EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-price")))
 
-        # house_numbers_per_page=len(list_features_per_page)
-        # print house_numbers_per_page
+#         list_addresses=driver.find_elements_by_css_selector(".listing-address")
+#         list_prices=driver.find_elements_by_css_selector(".listing-price")
+#         list_informations=driver.find_elements_by_css_selector(".listing-information")
+
+#         # list_features_per_page=driver.find_elements_by_css_selector(".listing-feature")
+#         # house_num=0
+
+#         # house_numbers_per_page=len(list_features_per_page)
+#         # print house_numbers_per_page
         
-        # for j in xrange(0,house_numbers_per_page,3):
-        #     list_beds.append(list_features_per_page[j])
+#         # for j in xrange(0,house_numbers_per_page,3):
+#         #     list_beds.append(list_features_per_page[j])
 
-        # for j in xrange(1,house_numbers_per_page,3):
-        #     list_bath.append(list_features_per_page[j])
+#         # for j in xrange(1,house_numbers_per_page,3):
+#         #     list_bath.append(list_features_per_page[j])
 
-        # for j in xrange(2,house_numbers_per_page,3):
-        #     list_sqrt.append(list_features_per_page[j])
+#         # for j in xrange(2,house_numbers_per_page,3):
+#         #     list_sqrt.append(list_features_per_page[j])
            
 
 
-        # for i,v in enumerate(list_features_per_page):
-        #     list_features_per_page[i]
+#         # for i,v in enumerate(list_features_per_page):
+#         #     list_features_per_page[i]
 
-        # for la, ls, li,lb, lbath, lsqrt in zip(list_addresses, 
-        #     list_prices, list_informations, list_beds, list_bath, list_sqrt):
+#         # for la, ls, li,lb, lbath, lsqrt in zip(list_addresses, 
+#         #     list_prices, list_informations, list_beds, list_bath, list_sqrt):
 
-        #     print la.text, "   ", ls.text, " ", li.text, " ", lb.text, " ", lbath.text, " ", lsqrt.text
-        #     list_address_data.append(la.text)
-        #     list_prices_data.append(ls.text)
-        #     list_informations_data.append(li.text)
-        #     list_bed_data.append(lb.text)
-        #     list_bath_data.append(lbath.text)
-        #     list_sqrt_data.append(lsqrt.text)
-        for la, ls, li in zip(list_addresses, 
-            list_prices, list_informations):
+#         #     print la.text, "   ", ls.text, " ", li.text, " ", lb.text, " ", lbath.text, " ", lsqrt.text
+#         #     list_address_data.append(la.text)
+#         #     list_prices_data.append(ls.text)
+#         #     list_informations_data.append(li.text)
+#         #     list_bed_data.append(lb.text)
+#         #     list_bath_data.append(lbath.text)
+#         #     list_sqrt_data.append(lsqrt.text)
+#         for la, ls, li in zip(list_addresses, 
+#             list_prices, list_informations):
 
-            print la.text, "   ", ls.text, " ", li.text
-            list_address_data.append(la.text)
-            list_prices_data.append(ls.text)
-            list_informations_data.append(li.text)
+#             print la.text, "   ", ls.text, " ", li.text
+#             list_address_data.append(la.text)
+#             list_prices_data.append(ls.text)
+#             list_informations_data.append(li.text)
            
 
 
-        link = driver.find_element_by_link_text(str(page_number))
-    except NoSuchElementException:
-        break
-    print '######################################################'
-    link.click()
-    page_number += 1
+#         link = driver.find_element_by_link_text(str(page_number))
+#     except NoSuchElementException:
+#         break
+#     print '######################################################'
+#     link.click()
+#     page_number += 1
 
 stop_driver()
 

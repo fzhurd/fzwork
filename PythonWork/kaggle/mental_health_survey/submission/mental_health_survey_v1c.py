@@ -44,21 +44,12 @@ def age_process(age):
         return 50
 survey_data['Age'] = survey_data['Age'].apply(age_process)
 
-# fig,ax = plt.subplots(figsize=(8,6))
-# sns.distplot(survey_data['Age'].dropna(),ax=ax,kde=False,color='#ffa726')
-# plt.title('Age Distribution')
-# plt.ylabel('Freq')
-
-
-# var='family_history'
-
-# survey_data.plot.scatter(x=var, y='treatment')
-
 # method to drop the column
 survey_data=survey_data.drop('work_interfere', axis=1)
 survey_data=survey_data.drop('state', axis=1)
 survey_data=survey_data.drop('comments', axis=1)
 survey_data=survey_data.drop('self_employed', axis=1)
+survey_data=survey_data.drop('Gender', axis=1)
 
 
 # method to check the null value
@@ -74,21 +65,49 @@ print survey_data_numeric_features
 
 
 # This is the method to check the field value is unique or not
-print survey_data['Country'].unique()
-print survey_data['Gender'].unique()
-print survey_data['mental_health_interview'].unique()
-print survey_data['phys_health_interview'].unique()
+# print survey_data['Country'].unique()
+# print survey_data['mental_health_interview'].unique()
+# print survey_data['phys_health_interview'].unique()
+
+# from sklearn.preprocessing import LabelEncoder
+
+# le=LabelEncoder()
+# le.fit(survey_data['treatment'])
+
+# survey_treatment=le.transform(survey_data['treatment'])
+# print survey_treatment
+# print "&&&&&&&&&"
+
+# le2=LabelEncoder()
+# le2.fit(survey_data['treatment'])
+# survey_country=le2.transform(survey_data['Country'])
+# print survey_country
+# print "&&&&&&&&&"
+
+
+# le3=LabelEncoder()
+
+# le3.fit(survey_data['mental_health_interview'])
+# survey_mhi=le3.transform(survey_data['mental_health_interview'])
+# print survey_mhi
+# print "&&&&&&&&&"
+
+# le4=LabelEncoder()
+# le4.fit(survey_data['phys_health_interview'])
+# survey_phi=le4.transform(survey_data['phys_health_interview'])
+# print survey_phi
+# print "&&&&&&&&&"
 
 
 # This is the method to change the category type to dummies
 survey_treatment=pd.get_dummies(survey_data['treatment'])
 
 survey_country=pd.get_dummies(survey_data['Country'])
-survey_gender=pd.get_dummies(survey_data['Gender'])
+# survey_gender=pd.get_dummies(survey_data['Gender'])
 survey_mhi=pd.get_dummies(survey_data['mental_health_interview'])
 survey_phi=pd.get_dummies(survey_data['phys_health_interview'])
 
-survey_data=pd.concat([survey_data, survey_treatment, survey_country, survey_gender, survey_mhi, survey_phi], axis=1)
+survey_data=pd.concat([survey_data, survey_treatment, survey_country, survey_mhi, survey_phi], axis=1)
 
 print survey_data.head(3)
 
@@ -135,27 +154,11 @@ print "*"*60
 # plt.show()
 
 
-# sns.countplot(survey_data['treatment'])
-# plt.title('Treatement Distribution')
-# plt.show()
-
-# survey_data['Age_Group'] = pd.cut(survey_data['Age'].dropna(),
-#                          [0,18,25,35,45,99],
-#                          labels=['<18','18-24','25-34','35-44','45+'])
-
-# fig,ax = plt.subplots(figsize=(8,6))
-# sns.countplot(data=survey_data,x = 'Age_Group', hue='seek_help',ax=ax)
-# plt.title('mental_health_interview')
-# plt.show()
+sns.countplot(survey_data['treatment'])
+plt.title('Treatement Distribution')
+plt.show()
 
 
-x, y = survey_data.drop('treatment', axis=1), survey_data.treatment
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_score
-model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')
-scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)
-print(scores.mean())
 
 
 

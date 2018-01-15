@@ -46,7 +46,6 @@ def save_info_to_mongodb():
     return collection
 
 
-
 driver=init_driver("/home/frank/workAtHome/fzwork/Selenium/webdriver/chromedriver", 
     "https://www.rew.ca/properties/areas/vancouver-bc")
 
@@ -58,6 +57,7 @@ page_number=1
 list_address_data=[]
 list_prices_data=[]
 list_informations_data=[]
+
 list_bed_data=[]
 list_bath_data=[]
 list_sqrt_data=[]
@@ -70,7 +70,7 @@ page_number2=1
 while True and page_number2<3:
 
     WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".listing-feature")))
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".listing-feature")))
 
     list_features_per_page=driver.find_elements_by_css_selector(".listing-feature")
 
@@ -85,13 +85,13 @@ while True and page_number2<3:
     for j in xrange(2,house_numbers_per_page,3):
             list_sqrt.append(list_features_per_page[j])
 
-    # for lbed, lbath, lsqrt in zip(list_beds, 
-    #         list_bath, list_sqrt):
+    for lbed, lbath, lsqrt in zip(list_beds, 
+            list_bath, list_sqrt):
 
-    #         print lbed.text, "   ", lbath.text, " ", lsqrt.text
-    #         list_bed_data.append(lbed.text)
-    #         list_bath_data.append(lbath.text)
-    #         list_sqrt_data.append(lsqrt.text)
+            print lbed.text, "   ", lbath.text, " ", lsqrt.text
+            list_bed_data.append(lbed.text)
+            list_bath_data.append(lbath.text)
+            list_sqrt_data.append(lsqrt.text)
 
     link2 = driver.find_element_by_link_text(str(page_number2))
     link2.click()

@@ -148,15 +148,3 @@ for a, b, c, d, e, f in zip(list_address_data, list_prices_data, list_informatio
     print full_info
     collection.insert(full_info)
 
-
-
-
-
-# import requests
-# from bs4 import BeautifulSoup
-# request_page = requests.get(url)
-# soup = BeautifulSoup(request_page.text, 'lxml')
-
-
-# for i in soup.findAll('li'):
-#     print(i.text)

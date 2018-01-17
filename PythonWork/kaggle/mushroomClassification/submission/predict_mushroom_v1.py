@@ -16,3 +16,16 @@ print mushrooms.columns
 # Get the null value of columns
 print mushrooms.isnull().sum()
 
+# Get the unique of each columns
+print mushrooms['cap-shape'].unique()
+print mushrooms['cap-surface'].unique()
+print mushrooms['gill-color'].unique()
+
+mushrooms_category_features=mushrooms.select_dtypes(include=['object']).columns
+print mushrooms_category_features
+
+mushrooms_numeric_features=mushrooms.select_dtypes(exclude=['object']).columns
+print mushrooms_numeric_features
+
+
+

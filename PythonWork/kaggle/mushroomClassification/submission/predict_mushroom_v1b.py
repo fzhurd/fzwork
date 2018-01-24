@@ -61,4 +61,39 @@ for col in mushrooms.columns:
 print mushrooms.head()
 
 
+X = mushrooms.iloc[:,1:23]  # all rows, all the features and no labels
+y = mushrooms.iloc[:, 0]  # all rows, label only
+print X.head()
+print y.head()
+
+print mushrooms.corr()
+
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X=scaler.fit_transform(X)
+print X
+
+
+from sklearn.decomposition import PCA
+pca = PCA()
+pca.fit_transform(X)
+
+covariance=pca.get_covariance()
+explained_variance=pca.explained_variance_
+explained_variance
+
+with plt.style.context('dark_background'):
+    plt.figure(figsize=(6, 4))
+    
+    plt.bar(range(22), explained_variance, alpha=0.5, align='center',
+            label='individual explained variance')
+    plt.ylabel('Explained variance ratio')
+    plt.xlabel('Principal components')
+    plt.legend(loc='best')
+    plt.tight_layout()
+
+    plt.show()
+
+
 

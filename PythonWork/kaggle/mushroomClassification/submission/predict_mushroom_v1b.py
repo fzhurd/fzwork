@@ -53,6 +53,7 @@ print mushrooms_numeric_features
 #             linewidths=.5, cbar_kws={"shrink": .5}, ax=ax)
 # plt.show()
 
+# transform category data to numeric data
 from sklearn.preprocessing import LabelEncoder
 labelencoder=LabelEncoder()
 for col in mushrooms.columns:
@@ -60,7 +61,7 @@ for col in mushrooms.columns:
  
 print mushrooms.head()
 
-
+# split the class from other features
 X = mushrooms.iloc[:,1:23]  # all rows, all the features and no labels
 y = mushrooms.iloc[:, 0]  # all rows, label only
 print X.head()
@@ -68,7 +69,7 @@ print y.head()
 
 print mushrooms.corr()
 
-
+# scale the data
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 X=scaler.fit_transform(X)

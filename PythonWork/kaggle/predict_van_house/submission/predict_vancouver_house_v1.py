@@ -13,5 +13,11 @@ print houses.head(3)
 print houses.shape
 print houses.isnull().sum()
 
-print int(houses['info'].split(',').join())
+# f=lambda x: int(x['info'].split(',').join())
+f = lambda x: int(x['info'].replace(",",""))
+houses['info']=houses.apply(f, axis=1)
+
+print houses['info']
+
+print houses.head(3)
 

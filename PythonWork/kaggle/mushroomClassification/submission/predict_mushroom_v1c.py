@@ -92,4 +92,35 @@ with plt.style.context('dark_background'):
     plt.show()
 
 
+# Take the first two features from PCA
+
+N=mushrooms.values
+print N
+pca = PCA(n_components=2)
+x = pca.fit_transform(N)
+plt.figure(figsize = (5,5))
+plt.scatter(x[:,0],x[:,1])
+plt.show()
+
+
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=2, random_state=5)
+X_clustered = kmeans.fit_predict(N)
+
+LABEL_COLOR_MAP = {0 : 'g',
+                   1 : 'y'
+                  }
+
+label_color = [LABEL_COLOR_MAP[l] for l in X_clustered]
+plt.figure(figsize = (5,5))
+plt.scatter(x[:,0],x[:,1], c= label_color)
+plt.show()
+
+pca_modified=PCA(n_components=17)
+pca_modified.fit_transform(X)
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=4)
+
+
 

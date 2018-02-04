@@ -10,13 +10,15 @@ import pandas as pd
 from xgboost import plot_importance
 from matplotlib import pyplot
 
-dataset = loadtxt('pima-indians-diabetes.csv', delimiter=",")
-# dataset=pd.read_csv('pima-indians-diabetes.csv',delimiter=",",header=None)
+# dataset = loadtxt('pima-indians-diabetes.csv', delimiter=",")
+dataset=pd.read_csv('pima-indians-diabetes.csv',delimiter=",",header=None)
 
-# print dataset.head(3)
+print dataset.head(3)
 
-X = dataset[:,0:8]
-Y = dataset[:,8]
+# X = dataset[:,0:8]
+# Y = dataset[:,8]
+X = dataset.iloc[:,0:8]
+Y = dataset.iloc[:,8]
 
 seed = 7
 test_size = 0.33

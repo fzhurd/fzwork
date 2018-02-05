@@ -25,7 +25,11 @@ print houses.head(3)
 # print houses.groupby('info').agg({'info':['max', 'mean']})
 print houses.max()
 
-plt.hist(houses['info'], 10)
-plt.xlim(100000, 38000000)
+
+plt.hist(houses['info'], 50)
+plt.xlim(1000000, 38000000)
 plt.show()
 
+
+corr = houses.corr()
+print corr

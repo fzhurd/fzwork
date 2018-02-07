@@ -4,6 +4,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 # mongoexport --host 127.0.0.1 --db vancouver_properties --collection properties_info --type=csv --out vancouver_houses.csv --fields _id,info,features,sqrt,bath,bed,address
 # db.properties_info2.update({},{$rename:{'price':'address'}},false, true)
 
@@ -33,3 +34,10 @@ plt.show()
 
 corr = houses.corr()
 print corr
+
+
+sns.distplot(houses['info'])
+plt.show()
+
+
+

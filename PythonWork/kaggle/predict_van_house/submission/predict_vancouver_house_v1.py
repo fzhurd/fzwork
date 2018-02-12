@@ -5,6 +5,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.preprocessing import StandardScaler
 # mongoexport --host 127.0.0.1 --db vancouver_properties --collection properties_info --type=csv --out vancouver_houses.csv --fields _id,info,features,sqrt,bath,bed,address
 # db.properties_info2.update({},{$rename:{'price':'address'}},false, true)
 
@@ -35,7 +39,6 @@ corr = houses.corr()
 print corr, 'ccc'
 print corr.nlargest(2, 'info'),
 
-get distribution plot
 sns.distplot(houses['info'])
 plt.show()
 
@@ -55,10 +58,28 @@ data.plot.scatter(x=var, y='bath', ylim=(0,38000000))
 plt.show()
 
 
-var = 'bath'
-data = pd.concat([houses['bath'], houses[var]], axis=1)
-sns.boxplot(x=var, y='bath', ylim=(0,38000000))
-plt.show()
+# var = 'bath'
+# data = pd.concat([houses['bath'], houses[var]], axis=1)
+# sns.boxplot(x=var, y='bath', ylim=(0,38000000))
+# plt.show()
 
 
 
+print houses.info()
+
+# Use knn to predict
+
+feature_cols=['sqrt','bath','bed']
+X=data[feature_cols]
+
+y=data['info']
+
+X_train, X_test, y_train, y_test =  train_test_split(X, y, test_size=0.2, random_state=12345)
+
+model = NeighborClassifer()
+model.fit(X_train, y_train)
+
+y_pred=model.predict(X_test)
+
+score = accuracy_score(y_test, y_pred)
+print score

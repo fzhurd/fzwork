@@ -78,9 +78,9 @@ X=houses[feature_cols]
 print X.head(10)
 
 
-scaler = StandardScaler()
-scaler.fit(X)
-X=scaler.transform(X)
+# scaler = StandardScaler()
+# scaler.fit(X)
+# X=scaler.transform(X)
 
 print X.shape
 

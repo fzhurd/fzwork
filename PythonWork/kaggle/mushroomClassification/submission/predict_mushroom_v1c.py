@@ -52,7 +52,7 @@ sns.heatmap(corr, cmap=cmap, vmax=1,
 plt.show()
 
 # get the corr 
-print corr, '****'
+print corr, '**************************'
 
 # split the class from other features
 X = mushrooms.iloc[:,1:23]  # all rows, all the features and no labels
@@ -60,7 +60,7 @@ y = mushrooms.iloc[:, 0]  # all rows, label only
 print X.head()
 print y.head()
 
-print mushrooms.corr()
+print mushrooms.corr(), '#########################'
 
 # scale the data
 from sklearn.preprocessing import StandardScaler
@@ -75,7 +75,7 @@ pca.fit_transform(X)
 
 covariance=pca.get_covariance()
 
-print covariance, '********************'
+print covariance, '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
 explained_variance=pca.explained_variance_
 explained_variance
 

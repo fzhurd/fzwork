@@ -122,5 +122,18 @@ pca_modified.fit_transform(X)
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=4)
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn import metrics
+
+model_LR= LogisticRegression()
+model_LR.fit(X_train,y_train)
+
+y_prob = model_LR.predict_proba(X_test)[:,1] # This will give you positive class prediction probabilities  
+y_pred = np.where(y_prob > 0.5, 1, 0) # This will threshold the probabilities to give class predictions.
+scores = model_LR.score(X_test, y_pred)
+
+print (scores)
+
 
 

@@ -118,7 +118,7 @@ pca_modified=PCA(n_components=17)
 pca_modified.fit_transform(X)
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=4)
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score
@@ -138,6 +138,46 @@ print 'scores: ', scores
 
 model_LR_cross_val_scores = cross_val_score(model_LR, X, y, cv=5)
 print 'cross_val_scores: ', model_LR_cross_val_scores
+
+# calculate the confusion_matrix
+confusion_matrix=metrics.confusion_matrix(y_test,y_pred)
+print 'confustion matrix: ', confusion_matrix
+
+# calculate roc_auc_score
+auc_roc=metrics.roc_auc_score(y_test,y_pred)
+print 'roc_auc_score: ', auc_roc
+
+# calculate roc_curve, auc_score
+from sklearn.metrics import roc_curve, auc
+false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_prob)
+roc_auc = auc(false_positive_rate, true_positive_rate)
+print 'roc_auc: ',roc_auc
+
+# plot the roc_curve
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10,10))
+plt.title('Receiver Operating Characteristic')
+plt.plot(false_positive_rate,true_positive_rate, color='red',label = 'AUC = %0.2f' % roc_auc)
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],linestyle='--')
+plt.axis('tight')
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+# Logistic regression tuned model
+
+LR_before_tuned_model= LogisticRegression()
+
+tuned_parameters = {'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000] ,
+              'penalty':['l1','l2'] }
+from sklearn.model_selection import GridSearchCV
+
+LR= GridSearchCV(LR_before_tuned_model, tuned_parameters,cv=10)
+
+LR.fit(X_train,y_train)
+
+print 'Model best params: ', LR.best_params_
 
 
 

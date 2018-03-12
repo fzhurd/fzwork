@@ -13,6 +13,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 import math
 import os
+import seaborn as sns
 
 
 # convert an array of values into a dataset matrix
@@ -27,6 +28,7 @@ def create_dataset(dataset, look_back=1):
   return np.asarray(dataX), np.asarray(dataY)
 
 # fix random seed for reproducibility
+# np.random.seed(30)
 np.random.seed(9)
 
 # load the dataset
@@ -38,6 +40,8 @@ df.index = pd.to_datetime(df.index)
 df = df.sort_index(ascending=True)
 
 print df.info()
+
+sns.heatmap(df.corr())
 
 df = df.drop(['Open','High','Low','Volume','Market Cap'], axis=1)
 print df.columns
@@ -68,6 +72,7 @@ print X.shape, 'XXXXX', y.shape
 trainX, testX, trainY, testY = train_test_split(X, y, test_size=0.20, shuffle=False)
 
 print scaler.inverse_transform(trainX[:10])
+print len(testY), 'testY length'
 
 # reshape input to be [samples, time steps, features]
 trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
@@ -79,7 +84,14 @@ model = Sequential()
 model.add(LSTM(4, input_shape=(1, 1)))
 model.add(Dense(1))
 model.compile(loss='mean_squared_error', optimizer='adam')
-model.fit(trainX, trainY, nb_epoch=10, batch_size=1,  verbose=2)
+history=model.fit(trainX, trainY, nb_epoch=5, batch_size=1, validation_data=(testX, testY), verbose=2)
+
+plt.plot(history.history['loss'], label='train')
+plt.plot(history.history['val_loss'], label='test')
+plt.legend()
+plt.show()
+
+
 
 #save model for later use
 # model.save('./savedModel')
@@ -102,6 +114,7 @@ testY = scaler.inverse_transform(testY)
 print("Price for last 5 days: ")
 print(testPredict[-5:])
 print("Bitcoin price for tomorrow: ", futurePredict)
+print ('test prdict length', len(testPredict))
 
 # calculate root mean squared error
 trainScore = math.sqrt(mean_squared_error(trainY[:,0], trainPredict[:,0]))
@@ -122,5 +135,5 @@ testPredictPlot[len(trainPredict):len(dataset)-1, :] = testPredict
 # plot baseline and predictions
 plt.plot(scaler.inverse_transform(dataset))
 plt.plot(trainPredictPlot)
-plt.plot(testPredictPlot)
+plt.plot(testPredictPlot, alpha=0.5)
 plt.show()

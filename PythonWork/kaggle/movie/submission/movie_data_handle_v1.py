@@ -26,7 +26,6 @@ def main():
     print movie_raw_data.dtypes
 
 
-
     # movie_filterd_imdbscore=movie_raw_data['imdb_score'].loc
     # movie_filterd_imdbscore=movie_raw_data.loc[movie_raw_data['imdb_score'].isin([2,3])]
 

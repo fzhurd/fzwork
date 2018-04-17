@@ -11,11 +11,16 @@ def main():
     test = pd.read_csv("../input/test.csv")
     item_categories = pd.read_csv("../input/item_categories.csv")
 
-    # print sales_train.head()
+    print sales_train.head()
+    print sales_train.tail()
+
+
+    print sales_train.shape
+    print sales_train.info()
     # print items.head()
     # print shops.head()
     # print test.head()
-    print item_categories.head()
+    # print item_categories.head()
 
 if __name__=='__main__':
     main()

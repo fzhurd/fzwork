@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 def main():
-    sales_train=pd.read_csv("../input/sales_train_100.csv")
+    sales_train=pd.read_csv("../input/sales_train.csv")
     items=pd.read_csv("../input/items.csv")
     shops = pd.read_csv("../input/shops.csv")
     test = pd.read_csv("../input/test.csv")
@@ -26,6 +26,31 @@ def main():
     print sales_train.tail()
     print sales_train.shape
     print sales_train.info()
+
+
+    # chdeck if all the columns in train dataset are in test dataset
+    print [c for c in sales_train.columns if c not in test.columns]
+
+
+    print "Before unique handling for train data",sales_train.shop_id, sales_train.shop_id.shape
+    train_shop_ids = sales_train.shop_id.unique()
+
+    print "After unique handling for train data",train_shop_ids, train_shop_ids.shape
+    print train_shop_ids, train_shop_ids.shape
+
+    ##################################################
+    print "Before unique handling",test.shop_id, test.shop_id.shape
+    test_shop_ids = test.shop_id.unique()
+
+    print "After unique handling",test_shop_ids, test_shop_ids.shape
+    print test_shop_ids, test_shop_ids.shape
+
+    is_train_id_in_test = sales_train[sales_train.shop_id.isin(test_shop_ids)]
+    # print is_train_id_in_test
+
+    # Group by the data
+    grouped = pd.DataFrame(sales_train.groupby(['shop_id','date_block_num'])['item_cnt_day'].sum().reset_index())
+    print grouped, grouped.shape
 
 
 def convert_to_date(date_str):

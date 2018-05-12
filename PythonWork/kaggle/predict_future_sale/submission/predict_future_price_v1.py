@@ -24,6 +24,8 @@ def main():
     sales_train['date']=sales_train.apply(pd.to_datetime, axis=1 )
     print sales_train.head()
     print sales_train.tail()
+    print sales_train.shape
+    print sales_train.info()
 
 
 def convert_to_date(date_str):

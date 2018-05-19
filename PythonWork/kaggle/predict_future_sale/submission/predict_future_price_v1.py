@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 def main():
-    sales_train=pd.read_csv("../input/sales_train.csv")
+    sales_train=pd.read_csv("../input/sales_train_100000.csv")
     items=pd.read_csv("../input/items.csv")
     shops = pd.read_csv("../input/shops.csv")
     test = pd.read_csv("../input/test.csv")
@@ -49,7 +49,7 @@ def main():
     # print is_train_id_in_test
 
     # Group by the data
-    grouped = pd.DataFrame(sales_train.groupby(['shop_id','date_block_num'])['item_cnt_day'].sum().reset_index())
+    grouped = pd.DataFrame(sales_train.groupby(['item_id','shop_id','date_block_num'])['item_cnt_day'].sum().reset_index())
     print grouped, grouped.shape
 
 

@@ -53,6 +53,18 @@ def main():
     print grouped, grouped.shape
 
 
+    # grouped_clean = grouped.drop(labels=['date','item_price'], axis=1)
+    # print grouped_clean.head(), grouped_clean.shape
+
+    features=['date_block_num','shop_id','item_id','item_cnt_day']
+
+    print grouped[features].head(100)
+
+    # print grouped[features]['date_block_num'==0 and 'shop_id'==25]
+    grouped_data=grouped[features]
+    print grouped_data[grouped_data['shop_id']==25]
+
+
 def convert_to_date(date_str):
     pass
 

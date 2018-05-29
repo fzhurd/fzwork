@@ -29,9 +29,21 @@ def main():
     # print sales_train.info()
     # print sales_train['date'].dt.date, 'mmmmmmmmmmmm'
 
-    sales_train['date_day'] = sales_train['date'].map(lambda d: str(d)
-        .split('-')[2].split()[0]).astype('int32')
-    print sales_train['date_day']
+    # sales_train['date_year'] = sales_train['date'].map(lambda d: str(d)
+    #     .split('-')[0]).astype('int32')
+    # print sales_train['date_year']
+
+    # sales_train['date_month'] = sales_train['date'].map(lambda d: str(d)
+    #     .split('-')[1]).astype('int32')
+    # print sales_train['date_month']
+
+
+    # sales_train['date_day'] = sales_train['date'].map(lambda d: str(d)
+    #     .split('-')[2].split()[0]).astype('int32')
+    # print sales_train['date_day']
+
+    # print '#'*50
+    # print sales_train
 
 
 #     # chdeck if all the columns in train dataset are in test dataset
@@ -54,9 +66,9 @@ def main():
 #     is_train_id_in_test = sales_train[sales_train.shop_id.isin(test_shop_ids)]
 #     # print is_train_id_in_test
 
-#     # Group by the data
-#     grouped = pd.DataFrame(sales_train.groupby(['item_id','shop_id','date_block_num'])['item_cnt_day'].sum().reset_index())
-#     print grouped, grouped.shape
+    # Group by the data
+    grouped = pd.DataFrame(sales_train.groupby(['date_block_num','shop_id', 'item_id'])['item_cnt_day'].sum().reset_index())
+    print grouped, grouped.shape
 
 
 #     # grouped_clean = grouped.drop(labels=['date','item_price'], axis=1)

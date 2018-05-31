@@ -6,7 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def main():
-    sales_train=pd.read_csv("../input/sales_train_10000.csv")
+    sales_train_full=pd.read_csv("../input/sales_train.csv")
+    sales_train = sales_train_full.sample(100000)
     items=pd.read_csv("../input/items.csv")
     shops = pd.read_csv("../input/shops.csv")
     test = pd.read_csv("../input/test.csv")

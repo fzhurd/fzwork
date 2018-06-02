@@ -7,6 +7,7 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
+from sklearn import linear_model
 
 
 
@@ -57,5 +58,19 @@ print res
 
 res2=knc_model.predict(test_data2)
 print res2
+
+print '#'*50
+
+log_reg_model = linear_model.LogisticRegression()
+log_reg_model.fit(X_train, y_train)
+
+print 'Accuracy with a single train/test split', log_reg_model.score(X_test, y_test)
+scores_log_reg_model = cross_val_score(log_reg_model, X_train, y_train, cv=5)
+
+print 'the mean of Accuracy with a cross value train/test split is: ', scores_log_reg_model.mean()
+
+print 'The std of Accuracy with a cross value train/test split is', scores_log_reg_model.std()
+
+
 
 

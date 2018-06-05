@@ -9,6 +9,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn import linear_model
 from sklearn import svm
+import xgboost as xgb
 
 
 
@@ -83,6 +84,17 @@ scores_clf_model = cross_val_score(clf_model, X_train, y_train, cv=5)
 print 'SVM: the mean of Accuracy with a cross value train/test split is: ', scores_clf_model.mean()
 
 print 'SVM: The std of Accuracy with a cross value train/test split is', scores_clf_model.std()
+
+print '#'*50
+xgb_model = xgb.XGBClassifier()
+xgb_model.fit(X_train, y_train)
+
+print 'XGBoost: Accuracy with a single train/test split', xgb_model.score(X_test, y_test)
+scores_xgb_model = cross_val_score(xgb_model, X_train, y_train, cv=5)
+
+print 'XGBoost: the mean of Accuracy with a cross value train/test split is: ', scores_xgb_model.mean()
+
+print 'XGBoost: The std of Accuracy with a cross value train/test split is', scores_xgb_model.std()
 
 
 

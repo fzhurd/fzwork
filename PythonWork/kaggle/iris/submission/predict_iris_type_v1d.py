@@ -105,14 +105,23 @@ parameter_candidates = [ {'C':[1, 10, 100], 'kernel':['linear']},{ 'C':[1, 10, 1
 
 clf_model2 = GridSearchCV(estimator =svm.SVC(), param_grid = parameter_candidates, n_jobs=-1)
 clf_model2.fit(X_train, y_train)
-print clf_model2.best_score_
+print 'Best score: ', clf_model2.best_score_
+print 'Best C: ', clf_model2.best_estimator_.C
+print 'Best kernel: ', clf_model2.best_estimator_.kernel
+print 'Best gamma: ', clf_model2.best_estimator_.gamma
 
-# print 'SVM: Accuracy with a single train/test split', clf_model.score(X_test, y_test)
-# scores_clf_model2 = cross_val_score(clf_model2, X_train, y_train, cv=5)
+print '#'*50
 
-# print 'SVM: the mean of Accuracy with a cross value train/test split is: ', scores_clf_model2.mean()
+clf_model3 = svm.SVC(C=1, gamma='auto', kernel='linear')
+clf_model3.fit(X_train, y_train)
 
-# print 'SVM: The std of Accuracy with a cross value train/test split is', scores_clf_model2.std()
+print 'SVM: Accuracy with a single train/test split', clf_model3.score(X_test, y_test)
+scores_clf_model3 = cross_val_score(clf_model3, X_train, y_train, cv=5)
+
+print 'SVM: the mean of Accuracy with a cross value train/test split is: ', scores_clf_model3.mean()
+
+print 'SVM: The std of Accuracy with a cross value train/test split is', scores_clf_model3.std()
+
 
 
 

@@ -101,7 +101,7 @@ print 'XGBoost: The std of Accuracy with a cross value train/test split is', sco
 
 print '#'*50
 
-parameter_candidates = [ {'C':[1, 10, 100, 1000], 'kernal':['linear']},{ 'C':[1, 10, 100, 1000], 'kernal':['rbf'] }]
+parameter_candidates = [ {'C':[1, 10, 100], 'kernel':['linear']},{ 'C':[1, 10, 100],'gamma':[0.001, 0.0001], 'kernel':['rbf'] }]
 
 clf_model2 = GridSearchCV(estimator =svm.SVC(), param_grid = parameter_candidates, n_jobs=-1)
 clf_model2.fit(X_train, y_train)

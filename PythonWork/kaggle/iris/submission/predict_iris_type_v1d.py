@@ -11,6 +11,8 @@ from sklearn import linear_model
 from sklearn import svm
 import xgboost as xgb
 
+from sklearn.grid_search import GridSearchCV
+
 
 
 iris = pd.read_csv ('../input/Iris.csv')
@@ -95,6 +97,23 @@ scores_xgb_model = cross_val_score(xgb_model, X_train, y_train, cv=5)
 print 'XGBoost: the mean of Accuracy with a cross value train/test split is: ', scores_xgb_model.mean()
 
 print 'XGBoost: The std of Accuracy with a cross value train/test split is', scores_xgb_model.std()
+
+
+print '#'*50
+
+parameter_candidates = [ {'C':[1, 10, 100, 1000], 'kernal':['linear']},{ 'C':[1, 10, 100, 1000], 'kernal':['rbf'] }]
+
+clf_model2 = GridSearchCV(estimator =svm.SVC(), param_grid = parameter_candidates, n_jobs=-1)
+clf_model2.fit(X_train, y_train)
+print clf_model2.best_score_
+
+# print 'SVM: Accuracy with a single train/test split', clf_model.score(X_test, y_test)
+# scores_clf_model2 = cross_val_score(clf_model2, X_train, y_train, cv=5)
+
+# print 'SVM: the mean of Accuracy with a cross value train/test split is: ', scores_clf_model2.mean()
+
+# print 'SVM: The std of Accuracy with a cross value train/test split is', scores_clf_model2.std()
+
 
 
 

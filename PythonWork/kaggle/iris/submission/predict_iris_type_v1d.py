@@ -3,6 +3,7 @@
 
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score
@@ -25,6 +26,8 @@ print iris.isnull().sum()
 print iris.info()
 print iris.shape
 
+sns.pairplot(iris.drop('Id', axis=1), hue='Species')
+
 features=['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
 # print iris.corr(features)
 # sepalLengthCm= iris[['SepalLengthCm', 'SepalWidthCm']]
@@ -39,8 +42,10 @@ print iris_features.corr()
 
 print '#'*80
 
-plt.scatter(iris['SepalLengthCm'], iris['SepalWidthCm'], 'rg')
+plt.scatter(iris['SepalLengthCm'], iris['SepalWidthCm'])
 plt.show()
+
+
 
 print '#################################################'
 

@@ -12,6 +12,7 @@ from sklearn import svm
 import xgboost as xgb
 
 from sklearn.grid_search import GridSearchCV
+import matplotlib.pyplot as plt
 
 
 
@@ -35,6 +36,11 @@ print iris_features
 print iris_features.shape, type(iris_features)
 
 print iris_features.corr()
+
+print '#'*80
+
+plt.scatter(iris['SepalLengthCm'], iris['SepalWidthCm'], 'rg')
+plt.show()
 
 print '#################################################'
 

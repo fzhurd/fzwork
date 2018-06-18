@@ -26,13 +26,21 @@ print iris.isnull().sum()
 print iris.info()
 print iris.shape
 
+
+# Pair plot for two columns
 sns.pairplot(iris.drop('Id', axis=1), hue='Species')
+
+# Scatter plot for two columns
+# iris.plot.scatter(x='SepalLengthCm', y='PetalLengthCm')
 
 features=['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
 # print iris.corr(features)
 # sepalLengthCm= iris[['SepalLengthCm', 'SepalWidthCm']]
 # print sepalLengthCm
 # print sepalLengthCm.shape, type(sepalLengthCm)
+
+# The distributuon of one column
+# sns.distplot(iris['SepalLengthCm'])
 
 iris_features= iris[features]
 print iris_features

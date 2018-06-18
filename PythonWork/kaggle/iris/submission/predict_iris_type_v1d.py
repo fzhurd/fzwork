@@ -27,11 +27,13 @@ print iris.info()
 print iris.shape
 
 
-# Pair plot for two columns
+# Pair plot for two columns 
 sns.pairplot(iris.drop('Id', axis=1), hue='Species')
 
-# Scatter plot for two columns
+# Scatter plot for two columns (numeric feature)
 # iris.plot.scatter(x='SepalLengthCm', y='PetalLengthCm')
+
+# sns.boxplot(x='SepalLengthCm', y='Species', datat=iris)
 
 features=['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
 # print iris.corr(features)
@@ -140,6 +142,28 @@ scores_clf_model3 = cross_val_score(clf_model3, X_train, y_train, cv=5)
 print 'SVM: the mean of Accuracy with a cross value train/test split is: ', scores_clf_model3.mean()
 
 print 'SVM: The std of Accuracy with a cross value train/test split is', scores_clf_model3.std()
+
+
+print '#'*50
+
+# plt.scatter(iris[:50]['SepalLengthCm'], iris[:50]['SepalWidthCm'], label='Iris-virginica')
+# plt.scatter(iris[51:101]['SepalLengthCm'], iris[51:101]['SepalWidthCm'], label='Iris-setosa')
+# plt.show()
+
+# f, ax = plt.subplots()
+sns.lmplot('SepalLengthCm', 'SepalWidthCm', data=iris, hue='Species')
+plt.show()
+
+# clf_model = svm.SVC()
+# clf_model.fit(X_train, y_train)
+
+# print 'SVM: Accuracy with a single train/test split', clf_model.score(X_test, y_test)
+# scores_clf_model = cross_val_score(clf_model, X_train, y_train, cv=5)
+
+# print 'SVM: the mean of Accuracy with a cross value train/test split is: ', scores_clf_model.mean()
+
+# print 'SVM: The std of Accuracy with a cross value train/test split is', scores_clf_model.std()
+
 
 
 

@@ -8,7 +8,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 
-train_data=pd.read_json("../input/train.json")
+train_data_full=pd.read_json("../input/train.json")
+train_data = train_data_full[:10001]
 test_data=pd.read_json("../input/test.json")
 
 
@@ -39,11 +40,16 @@ print train_data_ingredients
 print '*'*100
 
 features=['ingredients']
-print train_data[features]
+# print train_data[features]
+
+print type(train_data['ingredients'])
+
+train_data['ingredients']= map(lambda x: ' '.join(( x )), train_data['ingredients'])
+# print train_data['ingredients']
 
 vectorizer = TfidfVectorizer(stop_words='english',min_df=1)
 
-X = vectorizer.fit_transform(train_data[features])
+X = vectorizer.fit_transform(train_data['ingredients'])
 
 print X
 

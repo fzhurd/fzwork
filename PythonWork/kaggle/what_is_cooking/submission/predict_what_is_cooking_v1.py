@@ -45,13 +45,19 @@ features=['ingredients']
 print type(train_data['ingredients'])
 
 train_data['ingredients']= map(lambda x: ' '.join(( x )), train_data['ingredients'])
+print "&"*100
 # print train_data['ingredients']
+test_data['ingredients']= map(lambda x: ' '.join(( x )), test_data['ingredients'])
+print test_data['ingredients']
 
 vectorizer = TfidfVectorizer(stop_words='english',min_df=1)
 
 X = vectorizer.fit_transform(train_data['ingredients'])
+# X = vectorizer.fit_transform(test_data['ingredients'])
 
 print X
+
+test_data_transformed = vectorizer.transform(test_data['ingredients'])
 
 y=train_data['cuisine']
 
@@ -59,6 +65,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
 knc_model =KNeighborsClassifier(n_neighbors=5)
 knc_model.fit(X_train,y_train)
+knc_model.predict(X_train)
 
 print 'KNN: Accuracy with a single train/test split', knc_model.score(X_test, y_test)
 
@@ -67,5 +74,16 @@ scores = cross_val_score(knc_model, X_train, y_train, cv=5)
 print 'KNN: the mean of Accuracy with a cross value train/test split is: ', scores.mean()
 
 print 'KNN:The std of Accuracy with a cross value train/test split is', scores.std()
+
+############################ Predict the test ###################################
+
+print test_data_transformed
+
+res=knc_model.predict(test_data_transformed)
+
+# print len(res)
+
+# for r in res:
+#     print res
 
 

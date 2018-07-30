@@ -21,7 +21,7 @@ def generate_text(data):
     text_data = [" ".join(doc['ingredients']).lower() for doc in data]
     return text_data 
 
-# train_data_full=pd.read_json("../input/train.json")
+train_data_full=pd.read_json("../input/train.json")
 train_data = train_data_full[:10001]
 test_data=pd.read_json("../input/test.json")
 
@@ -130,9 +130,9 @@ sub['id'] = test_data.sort_values(by='id' , ascending=True)
 # sub['cuisine'] = LinearSVC(C = 0.499, dual=False).fit(X_train,y).predict(X_test) 
 # knc_model =KNeighborsClassifier(n_neighbors=3)
 # knc_model.fit(X,y)
-# sub['cuisine'] = knc_model.predict(X_test[:100])
-res2 = knc_model.predict(test_data_transformed)
-print len(res2)
+sub['cuisine'] = knc_model.predict(test_data_transformed)
+# res2 = knc_model.predict(test_data_transformed)
+# print len(res2)
 
 # for r in res2:
 # 	print r

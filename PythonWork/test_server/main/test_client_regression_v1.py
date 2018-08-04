@@ -34,7 +34,8 @@ class TestJsonRPC20Server(unittest.TestCase):
 
 
     def test_add(self):
-        pass
+        self.first_res = self.server.add_numbers(first_number=36,second_number=72)
+        self.assertEqual(self.first_res, 108)
 
     def test_minus(self):
         self.first_res = self.server.minus_numbers(first_number=36,second_number=72)

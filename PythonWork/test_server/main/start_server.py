@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 #frank2@frank2-VirtualBox:~/workAtHome/git/fzwork/PythonWork$ python -m test_server.main.start_server.py
+#frank2@frank2-VirtualBox:~/workAtHome/git/fzwork/PythonWork$ python -m test_server.main.test_client
+from test_server.lib import jsonrpc
 
-from ..lib import jsonrpc
+# from lib import jsonrpc
 
 server = jsonrpc.Server(jsonrpc.JsonRpc20(), 
     jsonrpc.TransportTcpIp(addr=('127.0.0.1', 31415),

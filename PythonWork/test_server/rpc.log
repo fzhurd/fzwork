@@ -1,0 +1,10 @@
+listen ('127.0.0.1', 31415)
+('127.0.0.1', 39478) connected
+('127.0.0.1', 39478) --> '{"jsonrpc": "2.0", "method": "add_numbers", "params": {"second_number": 72, "first_number": 36}, "id": 0}'
+('127.0.0.1', 39478) <-- '{"jsonrpc": "2.0", "result": 108, "id": 0}'
+('127.0.0.1', 39478) close
+('127.0.0.1', 39480) connected
+('127.0.0.1', 39480) --> '{"jsonrpc": "2.0", "method": "minus_numbers", "params": {"second_number": 72, "first_number": 36}, "id": 0}'
+('127.0.0.1', 39480) <-- '{"jsonrpc": "2.0", "result": -36, "id": 0}'
+('127.0.0.1', 39480) close
+close ('127.0.0.1', 31415)

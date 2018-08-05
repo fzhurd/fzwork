@@ -17,19 +17,19 @@
 # print second_res
 # print third_res
 
-from ..lib import jsonrpc
+from test_server.lib import jsonrpc
 import unittest
 
 
 class TestJsonRPC20Server(unittest.TestCase):
 
     @classmethod
-    def setUpClass(self):
-        self.server = jsonrpc.ServerProxy(jsonrpc.JsonRpc20(),
+    def setUpClass(cls):
+        cls.server = jsonrpc.ServerProxy(jsonrpc.JsonRpc20(),
             jsonrpc.TransportTcpIp(addr=('127.0.0.1',31415)))
 
     @classmethod
-    def tearDown(self):
+    def tearDown(cls):
         pass
 
 
@@ -40,3 +40,19 @@ class TestJsonRPC20Server(unittest.TestCase):
     def test_minus(self):
         self.first_res = self.server.minus_numbers(first_number=36,second_number=72)
         self.assertEqual(self.first_res, -36)
+
+    def test_request(self):
+        self.res=jsonrpc.JsonRpc20().dumps_request("some method")
+        print self.res
+
+    def test_request_with_int_id(self):
+        pass
+
+    def test_request_with_strid(self):
+        pass
+
+    def test_request_with_params(self):
+        pass
+
+    def test_response(self):
+        pass

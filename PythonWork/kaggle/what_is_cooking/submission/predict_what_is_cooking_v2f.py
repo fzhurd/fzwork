@@ -78,24 +78,24 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 # 		probability=True))], voting='soft', weights=[1, 2])
 # vclf_model.fit(X_train,y_train)
 
-# classifier = SVC(C=100, gamma=1, kernel='rbf',probability=False)
+classifier = SVC(C=100, gamma=1, kernel='rbf',probability=False)
 
-classifier = SVC(C=100, # penalty parameter, setting it to a larger value 
-                 kernel='rbf', # kernel type, rbf working fine here
-                 degree=3, # default value, not tuned yet
-                 gamma=1, # kernel coefficient, not tuned yet
-                 coef0=1, # change to 1 from default value of 0.0
-                 shrinking=True, # using shrinking heuristics
-                 tol=0.001, # stopping criterion tolerance 
-                 probability=False, # no need to enable probability estimates
-                 cache_size=200, # 200 MB cache size
-                 class_weight=None, # all classes are treated equally 
-                 verbose=False, # print the logs 
-                 max_iter=-1, # no limit, let it run
-                 decision_function_shape=None, # will use one vs rest explicitly 
-                 random_state=None)
+# classifier = SVC(C=100, # penalty parameter, setting it to a larger value 
+#                  kernel='rbf', # kernel type, rbf working fine here
+#                  degree=3, # default value, not tuned yet
+#                  gamma=1, # kernel coefficient, not tuned yet
+#                  coef0=1, # change to 1 from default value of 0.0
+#                  shrinking=True, # using shrinking heuristics
+#                  tol=0.001, # stopping criterion tolerance 
+#                  probability=False, # no need to enable probability estimates
+#                  cache_size=200, # 200 MB cache size
+#                  class_weight=None, # all classes are treated equally 
+#                  verbose=False, # print the logs 
+#                  max_iter=-1, # no limit, let it run
+#                  decision_function_shape=None, # will use one vs rest explicitly 
+#                  random_state=None)
 
-svc_model = OneVsRestClassifier (classifier, n_jobs=2)
+svc_model = OneVsRestClassifier (classifier, n_jobs=1)
 svc_model.fit(X_train,y_train)
 
 # knc_model =KNeighborsClassifier(n_neighbors=5)

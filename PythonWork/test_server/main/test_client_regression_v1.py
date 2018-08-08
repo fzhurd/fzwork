@@ -32,8 +32,9 @@ class TestJsonRPC20Server(unittest.TestCase):
     def tearDown(cls):
         pass
 
-
     def test_add(self):
+        # import pdb
+        # pdb.set_trace()
         self.first_res = self.server.add_numbers(first_number=36,second_number=72)
         self.assertEqual(self.first_res, 108)
 
@@ -42,11 +43,14 @@ class TestJsonRPC20Server(unittest.TestCase):
         self.assertEqual(self.first_res, -36)
 
     def test_request(self):
+        # res=jsonrpc.JsonRpc20().dumps_request("some method")
         res=jsonrpc.JsonRpc20().dumps_request("some method")
         expected_results = '{"jsonrpc": "2.0", "method": "some method", "id": 0}' 
         self.assertEqual(res, expected_results)
 
     def test_request_with_int_id(self):
+        import pdb
+        pdb.set_trace()
         res=jsonrpc.JsonRpc20().dumps_request(method="some method", id=100)
         expected_results = '{"jsonrpc": "2.0", "method": "some method", "id": 100}' 
         self.assertEqual(res, expected_results)

@@ -68,14 +68,6 @@ for f in xrange(X_train.shape[1]):
 # filter out the most important features
 threshold = 0.01
 
-# selected_features = X_train[:, importances > threshold]
-# print selected_features.shape
-
-# predicted = rf.predict(X_test)
-
-# scores = cross_val_score(rf, X_train, y_train, cv=5)
-
-# print 'RF: Accuracy with a single train/test split', knc_model.score(y_test, predicted)
 predicted = rf.predict(X_test)
 print 'RF: Accuracy with a single train/test split', accuracy_score(y_test, predicted)
 

@@ -4,6 +4,12 @@
 import numpy as np
 import pandas as pd
 
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import cross_val_score
+
 
 data_raw_train = pd.read_csv('../input/train.csv')
 data_raw_test = pd.read_csv('../input/test.csv')
@@ -20,9 +26,6 @@ print data_raw_train.columns
 
 print data_raw_train['Cover_Type'].value_counts()
 print data_raw_train.dtypes
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, VotingClassifier
-
 
 features = ['Id', 'Elevation', 'Aspect', 'Slope',
        'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology',
@@ -61,5 +64,25 @@ indicies = np.argsort(importances)[::-1]
 
 for f in xrange(X_train.shape[1]):
     print feat_labels[indicies[f]], importances[indicies[f]]
+
+# filter out the most important features
+threshold = 0.01
+
+# selected_features = X_train[:, importances > threshold]
+# print selected_features.shape
+
+# predicted = rf.predict(X_test)
+
+# scores = cross_val_score(rf, X_train, y_train, cv=5)
+
+# print 'RF: Accuracy with a single train/test split', knc_model.score(y_test, predicted)
+predicted = rf.predict(X_test)
+print 'RF: Accuracy with a single train/test split', accuracy_score(y_test, predicted)
+
+scores = cross_val_score(rf, X_train, y_train, cv=5)
+
+print 'RF: the mean of Accuracy with a cross value train/test split is: ', scores.mean()
+
+print 'RF:The std of Accuracy with a cross value train/test split is', scores.std()
 
 

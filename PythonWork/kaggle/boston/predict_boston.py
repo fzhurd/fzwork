@@ -4,6 +4,8 @@ import sklearn.ensemble
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier, RandomForestRegressor
+
+# to run the script
 # python ./predict_boston.py
 
 boston = load_boston()
@@ -39,7 +41,7 @@ explainer = lime.lime_tabular.LimeTabularExplainer(train, feature_names=boston.f
 i = 25
 exp = explainer.explain_instance(test[i], rf.predict, num_features=5)
 
-
-
 exp.show_in_notebook(show_table=True)
+
+exp.as_list()
 

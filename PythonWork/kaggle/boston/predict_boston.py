@@ -37,11 +37,11 @@ import lime
 import lime.lime_tabular
 
 explainer = lime.lime_tabular.LimeTabularExplainer(train, feature_names=boston.feature_names, class_names=['price'], categorical_features=categorical_features, verbose=True, mode='regression')
-
+print type(boston.feature_names)
 i = 25
 exp = explainer.explain_instance(test[i], rf.predict, num_features=5)
 
-exp.show_in_notebook(show_table=True)
+print exp.show_in_notebook(show_table=True)
 
-exp.as_list()
+print exp.as_list()
 

@@ -9,6 +9,8 @@ from sklearn.ensemble import RandomForestClassifier, VotingClassifier, RandomFor
 # python ./predict_boston.py
 
 boston = load_boston()
+print boston.data[:5]
+print boston.feature_names
 
 rf = RandomForestRegressor(n_estimators=1000)
 
@@ -37,7 +39,7 @@ import lime
 import lime.lime_tabular
 
 explainer = lime.lime_tabular.LimeTabularExplainer(train, feature_names=boston.feature_names, class_names=['price'], categorical_features=categorical_features, verbose=True, mode='regression')
-print type(boston.feature_names)
+print type(boston.feature_names), test
 i = 25
 exp = explainer.explain_instance(test[i], rf.predict, num_features=5)
 

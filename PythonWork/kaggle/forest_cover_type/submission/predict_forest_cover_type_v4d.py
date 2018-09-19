@@ -110,6 +110,7 @@ class_names = [5, 2, 1, 7, 3, 6, 4]
 # print np.unique(y)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+print X_train.head()
 
 # gbc =  GradientBoostingClassifier()
 # gbc.fit(X_train, y_train)
@@ -120,7 +121,32 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 etc = ExtraTreesClassifier()
 etc.fit(X_train, y_train)
 
-explainer = lime.lime_tabular.LimeTabularExplainer(X_train, feature_names=features, class_names=['Cover_Type'], categorical_features=features, verbose=True, mode='classifier')
+print type(data_raw_train.columns.values), data_raw_train.columns.values
+
+all_features = data_raw_train.columns.values
+
+explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, 
+       feature_names=all_features, class_names=y_train.values, 
+       verbose=True, 
+       mode='classification')
+
+# explainer = lime.lime_tabular.LimeTabularExplainer(X_train.iloc[1], 
+#        feature_names=all_features, class_names=y_train.iloc[1], 
+#        verbose=True, 
+#        mode='classification')
+
+# explainer = lime.lime_tabular.LimeTabularExplainer(X_train, 
+#        feature_names=all_features, class_names=y_train, verbose=True, 
+#        mode='classification')
+# from lime.lime_text import LimeTextExplainer
+# explainer = lime.lime_text.LimeTextExplainer(class_names = data_raw_train['Cover_Type'])
+# idx = 5195
+# exp = explainer.explain_instance(X_train, etc.predict_proba, num_features=3)
+# print('Document id: %d' % idx)
+# print('Probability(christian) =', etc.predict_proba([X_test])[0,1])
+# print('True class: %s' % class_names[X_test])
+# print('Probability(christian) =', etc.predict_proba([X_test.head(1)])[0,1])
+# print('True class: %s' % class_names[X_test.head(1)])
 
 # explain_etc = LimeTextExplainer(class_names=class_names)
 # exp = explain_etc.explain_instance()

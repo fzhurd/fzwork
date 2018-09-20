@@ -19,6 +19,9 @@ from lime import lime_text
 import lime.lime_tabular
 from lime.lime_text import LimeTextExplainer
 
+from matplotlib import pyplot as plt
+plt.plot([1, 2, 3, 4])
+plt.show()
 data_raw_train = pd.read_csv('../input/train.csv')
 data_raw_test = pd.read_csv('../input/test.csv')
 
@@ -228,8 +231,9 @@ print X_train.iloc[1]
 
 # exp = explainer.explain_instance(data_row =X_train.iloc[1], predict_fn=rf.predict)
 exp = explainer.explain_instance(X_train.iloc[1], rf.predict, num_features=5)
-print exp.as_list
+print exp.as_list()
+print exp.as_map()
 exp.as_pyplot_figure()
-exp.show()
+# exp.show()
 
 

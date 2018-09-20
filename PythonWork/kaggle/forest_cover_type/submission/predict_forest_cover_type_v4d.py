@@ -115,29 +115,35 @@ print X_train.head()
 # gbc =  GradientBoostingClassifier()
 # gbc.fit(X_train, y_train)
 
-# rf =  RandomForestClassifier()
-# rf.fit(X_train, y_train)
+rf =  RandomForestClassifier()
+rf.fit(X_train, y_train)
 
-etc = ExtraTreesClassifier()
-etc.fit(X_train, y_train)
+# etc = ExtraTreesClassifier()
+# etc.fit(X_train, y_train)
 
 print type(data_raw_train.columns.values), data_raw_train.columns.values
 
-all_features = data_raw_train.columns.values
+# all_features = data_raw_train.columns.values
 
-explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, 
-       feature_names=all_features, class_names=y_train.values, 
-       verbose=True, 
-       mode='classification')
-
-# explainer = lime.lime_tabular.LimeTabularExplainer(X_train.iloc[1], 
-#        feature_names=all_features, class_names=y_train.iloc[1], 
+# explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, 
+#        feature_names=all_features, class_names=y_train.values, 
 #        verbose=True, 
 #        mode='classification')
 
-# explainer = lime.lime_tabular.LimeTabularExplainer(X_train, 
-#        feature_names=all_features, class_names=y_train, verbose=True, 
+# explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, 
+#        feature_names=all_features, class_names=y_train.values, 
+#        verbose=True, 
 #        mode='classification')
+
+# exp = explainer.explain_instance(data_row =X_train.iloc[1], predict_fn=rf.predict)
+# print exp.as_list
+# exp.as_pyplot_figure()
+
+
+
+
+
+
 # from lime.lime_text import LimeTextExplainer
 # explainer = lime.lime_text.LimeTextExplainer(class_names = data_raw_train['Cover_Type'])
 # idx = 5195
@@ -184,12 +190,12 @@ data_raw_test['Mean_Amenities']=(data_raw_test.Horizontal_Distance_To_Fire_Point
 # filter out the most important features
 threshold = 0.01
 
-# predicted = rf.predict(X_test)
-predicted = etc.predict(X_test)
+predicted = rf.predict(X_test)
+# predicted = etc.predict(X_test)
 print 'RF: Accuracy with a single train/test split', accuracy_score(y_test, predicted)
 
-# scores = cross_val_score(rf, X_train, y_train, cv=5)
-scores = cross_val_score(etc, X_train, y_train, cv=5)
+scores = cross_val_score(rf, X_train, y_train, cv=5)
+# scores = cross_val_score(etc, X_train, y_train, cv=5)
 
 print 'RF: the mean of Accuracy with a cross value train/test split is: ', scores.mean()
 
@@ -200,9 +206,30 @@ sub['Id'] = data_raw_test.sort_values(by='Id' , ascending=True)
 
 sub['Id'] =  sub['Id'].apply( lambda i: int(i))
 
-# sub['Cover_Type'] =rf.predict(data_raw_test)
-sub['Cover_Type'] = etc.predict(data_raw_test)
+sub['Cover_Type'] =rf.predict(data_raw_test)
+# sub['Cover_Type'] = etc.predict(data_raw_test)
 
 sub[['Id' , 'Cover_Type' ]].to_csv("etc_res_v4.csv", index=False)
+
+
+all_features = data_raw_train.columns.values
+
+# import pdb
+# pdb.set_trace()
+# explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, 
+#        feature_names=all_features, class_names=y_train.values, 
+#        verbose=True, 
+#        mode='classification')
+explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, 
+       feature_names=all_features, class_names=y_train.values, 
+       verbose=True, 
+       mode='regression')
+print X_train.iloc[1]
+
+# exp = explainer.explain_instance(data_row =X_train.iloc[1], predict_fn=rf.predict)
+exp = explainer.explain_instance(X_train.iloc[1], rf.predict, num_features=5)
+print exp.as_list
+exp.as_pyplot_figure()
+exp.show()
 
 

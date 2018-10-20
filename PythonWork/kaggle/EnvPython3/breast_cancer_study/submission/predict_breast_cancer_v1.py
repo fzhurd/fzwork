@@ -82,6 +82,20 @@ print ('recall score-weighted: ', recall_score_weighted)
 
 recall_score_none= metrics.recall_score(y_test.values.ravel(),predicted, average=None)
 print ('recall score-none: ', recall_score_none)
+
+# calculate the f1 score
+f1_score_macro= metrics.f1_score(y_test.values.ravel(),predicted, average="macro")
+print ('F1 score-macro: ', f1_score_macro)
+
+f1_score_micro= metrics.f1_score(y_test.values.ravel(),predicted, average="micro")
+print ('F1 score-micro: ', f1_score_micro)
+
+f1_score_weighted= metrics.f1_score(y_test.values.ravel(),predicted, average="weighted")
+print ('F1 score-weighted: ', f1_score_weighted)
+
+f1_score_none= metrics.f1_score(y_test.values.ravel(),predicted, average=None)
+print ('F1 score-none: ', f1_score_none)
+
 # calculate roc_curve, auc_score
 # from sklearn.metrics import roc_curve, auc
 # false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test.values.ravel(), y_prob)

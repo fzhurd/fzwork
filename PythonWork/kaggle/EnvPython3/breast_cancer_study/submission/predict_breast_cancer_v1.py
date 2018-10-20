@@ -48,6 +48,11 @@ y_dummy = pd.get_dummies(y, prefix='dummy').iloc[:,1:]
 print (y_dummy.shape)
 print (y_dummy.values.ravel().shape)
 
+print ('#'*30)
+print (y_dummy.values)
+print (y_dummy.values.ravel())
+print ('#'*30)
+
 X_train, X_test, y_train,y_test = train_test_split(X, y_dummy, test_size=0.2)
 
 rf_model=RandomForestClassifier()
@@ -70,7 +75,12 @@ print 'confustion matrix: ', confusion_matrix
 auc_roc=metrics.roc_auc_score(y_test.values.ravel(), predicted)
 print 'roc_auc_score: ', auc_roc
 
+y_test_value2= map(lambda x: x[0], y_test.values)
+print (y_test_value2)
 # calculate recall_score
+recall_score_macro_test= metrics.recall_score(y_test_value2,predicted, average="macro")
+print ('recall score-macro_test: ', recall_score_macro_test)
+
 recall_score_macro= metrics.recall_score(y_test.values.ravel(),predicted, average="macro")
 print ('recall score-macro: ', recall_score_macro)
 

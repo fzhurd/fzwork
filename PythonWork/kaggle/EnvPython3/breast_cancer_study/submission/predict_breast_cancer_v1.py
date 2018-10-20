@@ -114,3 +114,9 @@ feature_importances =  pd.DataFrame(rf_model.feature_importances_,
 	index =X_train.columns, columns = ['importance']).sort_values('importance', ascending=False)
 print (feature_importances)
 
+################################# Explore correlation ###########
+
+new_data = pd.concat([X, y_dummy], axis=1)
+print (new_data.head())
+
+print (new_data.corr())

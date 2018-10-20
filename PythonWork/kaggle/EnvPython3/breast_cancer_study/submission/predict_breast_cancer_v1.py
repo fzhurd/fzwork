@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
+from sklearn import metrics
 
 data = pd.read_csv("../input/data.csv")
 print (data.head())
@@ -54,9 +55,25 @@ rf_model=RandomForestClassifier()
 rf_model.fit(X_train, y_train.values.ravel())
 predicted = rf_model.predict(X_test)
 
+y_prob = rf_model.predict_proba(X_test)[:,1]  
+y_pred = np.where(y_prob > 0.8, 1, 0) 
 
 print ('RF: Accuracy with a single train/test split', accuracy_score(y_test.values.ravel(), predicted))
 
 scores = cross_val_score(rf_model, X_train, y_train, cv=5)
 print (scores)
+
+# calculate the confusion_matrix
+confusion_matrix=metrics.confusion_matrix(y_test.values.ravel(),predicted)
+print 'confustion matrix: ', confusion_matrix
+
+# calculate roc_auc_score
+auc_roc=metrics.roc_auc_score(y_test.values.ravel(), predicted)
+print 'roc_auc_score: ', auc_roc
+
+# calculate roc_curve, auc_score
+from sklearn.metrics import roc_curve, auc
+false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test.values.ravel(), y_prob)
+roc_auc = auc(false_positive_rate, true_positive_rate)
+print 'roc_auc: ',roc_auc
 

@@ -17,6 +17,10 @@ print (data.isnull().sum())
 print (data.columns)
 
 
+# 1. Need Recall, F-score
+# 2. need get_dummies for ys
+
+
 columns = ['id', 'diagnosis', 'radius_mean', 'texture_mean', 'perimeter_mean',
        'area_mean', 'smoothness_mean', 'compactness_mean',
        'concavity_mean', 'concave points_mean', 'symmetry_mean',
@@ -40,8 +44,11 @@ features=['id', 'radius_mean', 'texture_mean', 'perimeter_mean',
 
 X = data[features]
 y=data['diagnosis']
+y_dummy = pd.get_dummies(y, prefix='dummy').iloc[:,1:]
+# y_dummy = pd.get_dummies(y, prefix='dummy')
+print (y_dummy)
 
-X_train, X_test, y_train,y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_test, y_train,y_test = train_test_split(X, y_dummy, test_size=0.2)
 
 rf_model=RandomForestClassifier()
 rf_model.fit(X_train, y_train)

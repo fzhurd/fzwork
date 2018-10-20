@@ -46,16 +46,16 @@ X = data[features]
 y=data['diagnosis']
 y_dummy = pd.get_dummies(y, prefix='dummy').iloc[:,1:]
 # y_dummy = pd.get_dummies(y, prefix='dummy')
-print (y_dummy)
+print (y_dummy.shape)
 
 X_train, X_test, y_train,y_test = train_test_split(X, y_dummy, test_size=0.2)
 
 rf_model=RandomForestClassifier()
-rf_model.fit(X_train, y_train)
+rf_model.fit(X_train, y_train.values.ravel())
 predicted = rf_model.predict(X_test)
 
 
-print ('RF: Accuracy with a single train/test split', accuracy_score(y_test, predicted))
+print ('RF: Accuracy with a single train/test split', accuracy_score(y_test.values.ravel(), predicted))
 
 scores = cross_val_score(rf_model, X_train, y_train, cv=5)
 print (scores)

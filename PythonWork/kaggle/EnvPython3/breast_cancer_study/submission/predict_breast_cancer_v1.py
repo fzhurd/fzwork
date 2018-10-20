@@ -19,8 +19,6 @@ print (data.columns)
 
 
 # 1. Need Recall, F-score
-# 2. need get_dummies for ys
-
 
 columns = ['id', 'diagnosis', 'radius_mean', 'texture_mean', 'perimeter_mean',
        'area_mean', 'smoothness_mean', 'compactness_mean',
@@ -48,6 +46,7 @@ y=data['diagnosis']
 y_dummy = pd.get_dummies(y, prefix='dummy').iloc[:,1:]
 # y_dummy = pd.get_dummies(y, prefix='dummy')
 print (y_dummy.shape)
+print (y_dummy.values.ravel().shape)
 
 X_train, X_test, y_train,y_test = train_test_split(X, y_dummy, test_size=0.2)
 
@@ -60,7 +59,7 @@ y_pred = np.where(y_prob > 0.8, 1, 0)
 
 print ('RF: Accuracy with a single train/test split', accuracy_score(y_test.values.ravel(), predicted))
 
-scores = cross_val_score(rf_model, X_train, y_train, cv=5)
+scores = cross_val_score(rf_model, X_train, y_train.values.ravel(), cv=5)
 print (scores)
 
 # calculate the confusion_matrix
@@ -71,9 +70,21 @@ print 'confustion matrix: ', confusion_matrix
 auc_roc=metrics.roc_auc_score(y_test.values.ravel(), predicted)
 print 'roc_auc_score: ', auc_roc
 
+# calculate recall_score
+recall_score_macro= metrics.recall_score(y_test.values.ravel(),predicted, average="macro")
+print ('recall score-macro: ', recall_score_macro)
+
+recall_score_micro= metrics.recall_score(y_test.values.ravel(),predicted, average="micro")
+print ('recall score-micro: ', recall_score_micro)
+
+recall_score_weighted= metrics.recall_score(y_test.values.ravel(),predicted, average="weighted")
+print ('recall score-weighted: ', recall_score_weighted)
+
+recall_score_none= metrics.recall_score(y_test.values.ravel(),predicted, average=None)
+print ('recall score-none: ', recall_score_none)
 # calculate roc_curve, auc_score
-from sklearn.metrics import roc_curve, auc
-false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test.values.ravel(), y_prob)
-roc_auc = auc(false_positive_rate, true_positive_rate)
-print 'roc_auc: ',roc_auc
+# from sklearn.metrics import roc_curve, auc
+# false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test.values.ravel(), y_prob)
+# roc_auc = auc(false_positive_rate, true_positive_rate)
+# print 'roc_auc: ',roc_auc
 

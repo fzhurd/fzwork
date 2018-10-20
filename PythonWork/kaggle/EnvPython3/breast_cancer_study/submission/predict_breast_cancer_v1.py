@@ -96,9 +96,11 @@ print ('F1 score-weighted: ', f1_score_weighted)
 f1_score_none= metrics.f1_score(y_test.values.ravel(),predicted, average=None)
 print ('F1 score-none: ', f1_score_none)
 
-# calculate roc_curve, auc_score
-# from sklearn.metrics import roc_curve, auc
-# false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test.values.ravel(), y_prob)
-# roc_auc = auc(false_positive_rate, true_positive_rate)
-# print 'roc_auc: ',roc_auc
+############################## Explore data #####################
+
+print (rf_model.feature_importances_)
+
+feature_importances =  pd.DataFrame(rf_model.feature_importances_, 
+	index =X_train.columns, columns = ['importance']).sort_values('importance', ascending=False)
+print (feature_importances)
 

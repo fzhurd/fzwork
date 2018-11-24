@@ -14,7 +14,6 @@ from keras.models import Model
 from keras.layers import Dense, Dropout, Bidirectional, CuDNNGRU, Reshape, GlobalMaxPooling1D, GlobalAveragePooling1D, Input, concatenate, BatchNormalization
 from keras.optimizers import Adam
 
-
 data=pd.read_json("../input/train.json")
 print (data.head())
 print (data.shape)
@@ -24,8 +23,6 @@ print (data.info)
 
 print (data['is_turkey'].head(20))
 df_test = pd.read_json('../input/test.json')
-
-# print (data.columns)
 
 features= ['audio_embedding', 'end_time_seconds_youtube_clip', 'is_turkey',
        'start_time_seconds_youtube_clip', 'vid_id']
@@ -52,7 +49,7 @@ X_test = pad_sequences(df_test['audio_embedding'], maxlen=10, padding='post')
 
 y = df_train['is_turkey'].values
 
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3)
 
 def build_model():
     inp = Input(shape=(max_len, feature_size))
@@ -67,20 +64,19 @@ def build_model():
     output = Dense(1, activation="sigmoid")(concat)
     model = Model(inputs=inp, outputs=output)
     model.compile(loss='binary_crossentropy', optimizer=Adam(lr=0.0001), metrics=['accuracy'])
-    # model.compile(optimizer=Adam(lr=0.0001), metrics=['accuracy'])
     return model
 
 model = build_model()
 
 from keras.callbacks import ReduceLROnPlateau
 
-reduce_lr = ReduceLROnPlateau(monitor='val_acc', factor=0.1, patience=2, verbose=1, min_lr=1e-8)
+reduce_lr = ReduceLROnPlateau(monitor='val_acc', factor=0.1, patience=2, verbose=1, 
+	min_lr=1e-8)
 
-epochs = 20
+epochs = 50
 
 # history = model.fit(X_train, y_train, batch_size=256, epochs=epochs, validation_data=[X_val, y_val], callbacks=[reduce_lr], verbose=2)
 history = model.fit(X_train, y_train, batch_size=256, epochs=epochs, validation_data=[X_val, y_val], callbacks=[reduce_lr], verbose=2)
-from sklearn.metrics import accuracy_score
 
 val = model.evaluate(X_val, y_val, verbose=1)
 print("Accuracy on validation data : ", val[1])
@@ -88,12 +84,12 @@ print("Accuracy on validation data : ", val[1])
 model_final = build_model()
 reduce_lr_final = ReduceLROnPlateau(monitor='acc', factor=0.1, patience=2, verbose=1, min_lr=1e-8)
 
-model_final.fit(X, y, epochs=10, batch_size=256, verbose=2, callbacks=[reduce_lr_final])
+model_final.fit(X, y, epochs=50, batch_size=256, verbose=2, callbacks=[reduce_lr_final])
 
 y_test = model_final.predict(X_test, verbose=1)
 submission = pd.DataFrame({'vid_id': df_test['vid_id'].values, 'is_turkey': list(y_test.flatten())})
 
 submission.head()
 
-submission.to_csv("submission.csv", index=False)
+submission.to_csv("submission3.csv", index=False)
 

@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
 from sklearn import metrics
+import tensorflow as tf
 
 data = pd.read_csv("../input/data.csv")
 print (data.head())
@@ -120,3 +121,17 @@ new_data = pd.concat([X, y_dummy], axis=1)
 print (new_data.head())
 
 print (new_data.corr())
+
+################################# Start tensorflow #########
+
+print ("#"*60,"TF", "#"*60)
+import tensorflow as tf
+from keras.models import Sequential, load_model
+from keras.layers import Dense
+from keras.layers import LSTM
+
+tf_model = Sequential()
+tf_model.add(Dense(1))
+tf_model.compile(loss='mean_squared_error', optimizer='adam')
+tf_model.fit(X_train, y_train, nb_epoch=5, batch_size=1, 
+	validation_data=(X_test, y_test), verbose=2)

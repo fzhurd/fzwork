@@ -138,4 +138,14 @@ tf_model.compile(loss='mean_squared_error', optimizer='adam')
 # tf_model.fit(X_train, y_train)
 print (X_train.shape)
 print (y_train.shape)
-tf_model.fit(X_train, y_train)
+print (X_train.values)
+# tf_model.fit(X_train.values, y_train.values, epochs=5, batch_size=1,
+# 	validation_data=(X_test, y_test), verbose=2, metrics=['accuracy'])
+tf_model.fit(X_train.values, y_train.values, epochs=30, batch_size=5,
+	 verbose=2)
+predicted_keras = tf_model.predict(X_test.values)
+print (predicted_keras)
+
+score=tf_model.evaluate(X_test.values, y_test.values, batch_size=5)
+print (score)
+# print (acc)

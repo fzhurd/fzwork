@@ -133,5 +133,8 @@ from keras.layers import LSTM
 tf_model = Sequential()
 tf_model.add(Dense(1))
 tf_model.compile(loss='mean_squared_error', optimizer='adam')
-tf_model.fit(X_train, y_train, nb_epoch=5, batch_size=1, 
-	validation_data=(X_test, y_test), verbose=2)
+# tf_model.fit(X_train, y_train, epochs=5, batch_size=1, 
+# 	validation_data=(X_test, y_test), verbose=2)
+# tf_model.fit(X_train, y_train)
+print (X_train.shape)
+print (y_train.shape)

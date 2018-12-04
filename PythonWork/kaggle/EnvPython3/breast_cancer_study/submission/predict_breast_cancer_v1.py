@@ -134,7 +134,8 @@ from keras import metrics
 
 tf_model = Sequential()
 tf_model.add(Dense(1))
-tf_model.compile(loss='mean_squared_error', optimizer='adam', metrics=['acc'])
+# tf_model.compile(loss='mean_squared_error', optimizer='adam', metrics=['acc'])
+tf_model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['acc'])
 # tf_model.fit(X_train, y_train, epochs=5, batch_size=1, 
 # 	validation_data=(X_test, y_test), verbose=2)
 # tf_model.fit(X_train, y_train)
@@ -143,14 +144,16 @@ print (y_train.shape)
 print (X_train.values)
 # tf_model.fit(X_train.values, y_train.values, epochs=5, batch_size=1,
 # 	validation_data=(X_test, y_test), verbose=2, metrics=['accuracy'])
-tf_model.fit(X_train.values, y_train.values, epochs=30, batch_size=5,
+tf_model.fit(X_train.values, y_train.values, epochs=30, batch_size=1,
 	 verbose=2)
 predicted_keras = tf_model.predict(X_test.values)
 print (predicted_keras.shape)
 print (y_test.shape)
-print (metrics.categorical_accuracy(predicted_keras, y_test.values))
+# print (metrics.categorical_accuracy(predicted_keras, y_test.values))
+print (predicted_keras)
 
-# test_score=tf_model.evaluate(X_test.values, y_test.values, batch_size=5)
+test_score=tf_model.evaluate(X_test.values, y_test.values, batch_size=1)
 # print (math.sqrt(test_score[0]))
-# print (test_score)
+print (test_score[0])
+print (y_test)
 # print (acc)

@@ -131,13 +131,25 @@ from keras.layers import Dense
 from keras.layers import LSTM
 import math
 from keras import metrics
+from sklearn.preprocessing import MinMaxScaler
+
+print (X_train.shape)
+print (y_train.shape)
+print (len(X_train.values), len(X_train.values[0]))
+print (X_train.values[0])
+print (X_train.head(2))
+
+scaler = MinMaxScaler(feature_range=(0, 1))
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
 tf_model = Sequential()
 # tf_model.add(Dense(1))
-tf_model.add(Dense(12, input_dim=31, activation='relu'))
+tf_model.add(Dense(100, input_dim=31, activation='relu'))
 tf_model.add(Dense(1, activation='sigmoid'))
 # tf_model.compile(loss='mean_squared_error', optimizer='adam', metrics=['acc'])
-tf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+# tf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+tf_model.compile(loss='mean_squared_error', optimizer='adam', metrics=['acc'])
 # tf_model.fit(X_train, y_train, epochs=5, batch_size=1, 
 # 	validation_data=(X_test, y_test), verbose=2)
 # tf_model.fit(X_train, y_train)
@@ -148,17 +160,16 @@ tf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
 # 	validation_data=(X_test, y_test), verbose=2)
 # tf_model.fit(X_train.values, y_train.values,validation_data=(X_test.values, y_test.values),  epochs=30, batch_size=1,
 # 	 verbose=2, epochs=5)
-history=tf_model.fit(X_train.values, y_train.values, epochs=30, batch_size=20,verbose=2)
-predicted_keras = tf_model.predict(X_test.values)
+history=tf_model.fit(X_train, y_train.values, epochs=30, batch_size=10,verbose=2)
+predicted_keras = tf_model.predict(X_test)
 print (predicted_keras.shape)
 print (y_test.shape)
 # print (metrics.categorical_accuracy(predicted_keras, y_test.values))
 print (predicted_keras)
 
-test_score=tf_model.evaluate(X_test.values, y_test.values, batch_size=20)
+test_score=tf_model.evaluate(X_test, y_test.values, batch_size=10)
 # print (math.sqrt(test_score[0]))
 print (test_score[0])
 # print (y_test)
 # print (acc)
 
-print (X_train.values)

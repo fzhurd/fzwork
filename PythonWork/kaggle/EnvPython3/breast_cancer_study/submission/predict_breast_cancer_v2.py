@@ -144,23 +144,11 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 tf_model = Sequential()
-# tf_model.add(Dense(1))
 tf_model.add(Dense(100, input_dim=31, activation='relu'))
 tf_model.add(Dense(1, activation='sigmoid'))
-# tf_model.compile(loss='mean_squared_error', optimizer='adam', metrics=['acc'])
-# tf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
-# tf_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+
 tf_model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['acc'])
-# tf_model.fit(X_train, y_train, epochs=5, batch_size=1, 
-# 	validation_data=(X_test, y_test), verbose=2)
-# tf_model.fit(X_train, y_train)
-# print (X_train.shape)
-# print (y_train.shape)
-# print (X_train.values)
-# history=tf_model.fit(X_train.values, y_train.values, epochs=30, batch_size=20,
-# 	validation_data=(X_test, y_test), verbose=2)
-# tf_model.fit(X_train.values, y_train.values,validation_data=(X_test.values, y_test.values),  epochs=30, batch_size=1,
-# 	 verbose=2, epochs=5)
+
 history=tf_model.fit(X_train, y_train.values, epochs=30, batch_size=10,verbose=2)
 predicted_keras = tf_model.predict(X_test)
 print (predicted_keras.shape)
@@ -173,4 +161,12 @@ test_score=tf_model.evaluate(X_test, y_test.values, batch_size=10)
 print (test_score[0])
 # print (y_test)
 # print (acc)
+res=tf_model.predict_classes(X_test)
+# print (res.ravel())
+print (y_test.values)
+
+from sklearn.metrics import accuracy_score
+accuracy_score_macro_keras = accuracy_score(y_test.values,res)
+print ('recall score-macro: ', accuracy_score_macro_keras)
+
 

@@ -167,6 +167,11 @@ print (y_test.values)
 
 from sklearn.metrics import accuracy_score
 accuracy_score_macro_keras = accuracy_score(y_test.values,res)
-print ('recall score-macro: ', accuracy_score_macro_keras)
+print ('accuracy score-macro: ', accuracy_score_macro_keras)
 
+from sklearn import metrics
+recall_score_macro= metrics.recall_score(y_test.values, res, average="macro")
+print ('recall score-macro: ', recall_score_macro)
 
+precision_score = metrics.average_precision_score(y_test.values, res)
+print ('precision score: ', recall_score_macro)

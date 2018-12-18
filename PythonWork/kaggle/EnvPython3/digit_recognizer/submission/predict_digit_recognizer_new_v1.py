@@ -32,7 +32,8 @@ print (predicted[:10])
 accuracy_score = accuracy_score(y_test, predicted)
 print (accuracy_score)
 
-np.savetxt('rf_model_results.csv', np.c_[range(1,len(predicted)+1),predicted], 
+test_label = rf_model.predict(test_data)
+np.savetxt('rf_model_results.csv', np.c_[range(1,len(test_label)+1),test_label], 
     delimiter=',', header = 'ImageId,Label', comments = '', fmt='%d')
 
 # average_precision_score = average_precision_score(y_test, predicted)

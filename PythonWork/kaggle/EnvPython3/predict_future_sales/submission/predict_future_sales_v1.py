@@ -36,5 +36,18 @@ print (test.info())
 print (test.isnull().sum())
 
 print ('*'*100)
-train_sales_items =  train_sales.join(items, on='item_id', rsuffix='_')
+train_sales_items =  train_sales.join(items, on='item_id', rsuffix='_', how='outer')
 print (train_sales_items.head())
+print (train_sales_items.shape)
+
+train_sales_items_categories = train_sales_items.join(item_categories, 
+    on='item_id', rsuffix='_', how='outer')
+
+print (train_sales_items_categories.shape)
+print (train_sales_items_categories.columns)
+
+train_sales_items_categories_sales = train_sales_items_categories.join(sales, 
+    on='shop_id', rsuffix='_', how='outer')
+
+print (train_sales_items_categories_sales.shape)
+print (train_sales_items_categories_sales.columns)

@@ -11,11 +11,11 @@ print (train_sales.head())
 print (train_sales.info())
 print (train_sales.isnull().sum())
 
-sales = pd.read_csv('../input/shops.csv')
-print ('sales first 5 records: \n')
-print (sales.head())
-print (sales.info())
-print (sales.isnull().sum())
+shops = pd.read_csv('../input/shops.csv')
+print ('shops first 5 records: \n')
+print (shops.head())
+print (shops.info())
+print (shops.isnull().sum())
 
 items = pd.read_csv('../input/items.csv')
 print ('items first 5 records: \n')
@@ -36,18 +36,26 @@ print (test.info())
 print (test.isnull().sum())
 
 print ('*'*100)
-train_sales_items =  train_sales.join(items, on='item_id', rsuffix='_', how='outer')
+train_sales_items =  train_sales.join(items, on='item_id', rsuffix='_', how='inner')
 print (train_sales_items.head())
 print (train_sales_items.shape)
 
 train_sales_items_categories = train_sales_items.join(item_categories, 
-    on='item_id', rsuffix='_', how='outer')
+    on='item_id', rsuffix='_', how='inner')
 
 print (train_sales_items_categories.shape)
 print (train_sales_items_categories.columns)
 
-train_sales_items_categories_sales = train_sales_items_categories.join(sales, 
-    on='shop_id', rsuffix='_', how='outer')
+train_sales_items_categories_shops = train_sales_items_categories.join(shops, 
+    on='shop_id', rsuffix='_', how='inner')
 
-print (train_sales_items_categories_sales.shape)
-print (train_sales_items_categories_sales.columns)
+print (train_sales_items_categories_shops.shape)
+print (train_sales_items_categories_shops.columns)
+
+print (train_sales_items_categories_shops.head())
+
+print (train_sales_items_categories_shops.isnull().sum())
+
+
+print (train_sales_items_categories_shops['date'].min())
+print (train_sales_items_categories_shops['date'].max())

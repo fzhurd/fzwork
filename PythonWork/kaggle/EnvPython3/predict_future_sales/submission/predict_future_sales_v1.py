@@ -65,11 +65,17 @@ print ('*'*100)
 train_sales_items_cat_shops_dt = pd.to_datetime(train_sales_items_categories_shops['date'])
 
 train_sales_items_categories_shops['year'] = train_sales_items_cat_shops_dt.dt.year
-
 train_sales_items_categories_shops['month'] = train_sales_items_cat_shops_dt.dt.month
-
 train_sales_items_categories_shops['day'] = train_sales_items_cat_shops_dt.dt.day
 
 print (train_sales_items_categories_shops.head())
 
+print ('*'*100+' EDA '+'*'*100)
+
+train_sales_items_categories_shops['one_time_sale'] = train_sales_items_categories_shops['item_price'] * train_sales_items_categories_shops['item_cnt_day']
+
+train_sales_items_categories_shops.groupby(['shop_id'])['one_time_sale'].sum().reset_index(name='total')
+
+print (train_sales_items_categories_shops.head(100))
+print (train_sales_items_categories_shops['shop_id'].unique())
 

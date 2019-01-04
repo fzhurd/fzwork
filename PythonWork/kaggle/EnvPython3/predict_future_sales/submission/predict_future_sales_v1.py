@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
 import numpy as np
 import pandas as pd
 
-train_sales =  pd.read_csv('../input/sales_train_v2.csv')
+# load the data and EDA
+train_sales = pd.read_csv('../input/sales_train_v2.csv')
 print ('train_sales first 5 records: \n')
 print (train_sales.head())
 print (train_sales.info())
@@ -36,7 +36,7 @@ print (test.info())
 print (test.isnull().sum())
 
 print ('*'*100)
-train_sales_items =  train_sales.join(items, on='item_id', rsuffix='_', how='inner')
+train_sales_items = train_sales.join(items, on='item_id', rsuffix='_', how='inner')
 print (train_sales_items.head())
 print (train_sales_items.shape)
 
@@ -59,3 +59,17 @@ print (train_sales_items_categories_shops.isnull().sum())
 
 print (train_sales_items_categories_shops['date'].min())
 print (train_sales_items_categories_shops['date'].max())
+
+print ('*'*100)
+
+train_sales_items_cat_shops_dt = pd.to_datetime(train_sales_items_categories_shops['date'])
+
+train_sales_items_categories_shops['year'] = train_sales_items_cat_shops_dt.dt.year
+
+train_sales_items_categories_shops['month'] = train_sales_items_cat_shops_dt.dt.month
+
+train_sales_items_categories_shops['day'] = train_sales_items_cat_shops_dt.dt.day
+
+print (train_sales_items_categories_shops.head())
+
+

@@ -53,7 +53,6 @@ print (train_sales_items_categories_shops.shape)
 print (train_sales_items_categories_shops.columns)
 
 print (train_sales_items_categories_shops.head())
-
 print (train_sales_items_categories_shops.isnull().sum())
 
 
@@ -74,8 +73,11 @@ print ('*'*100+' EDA '+'*'*100)
 
 train_sales_items_categories_shops['one_time_sale'] = train_sales_items_categories_shops['item_price'] * train_sales_items_categories_shops['item_cnt_day']
 
-train_sales_items_categories_shops.groupby(['shop_id'])['one_time_sale'].sum().reset_index(name='total')
+total_sales = train_sales_items_categories_shops.groupby(['shop_id'])['one_time_sale'].sum().reset_index(name='total sold')
 
-print (train_sales_items_categories_shops.head(100))
+print (total_sales.head(10))
+print (train_sales_items_categories_shops.columns)
 print (train_sales_items_categories_shops['shop_id'].unique())
+
+# print (train_sales_items_categories_shops.groupby(['shop_id']))
 

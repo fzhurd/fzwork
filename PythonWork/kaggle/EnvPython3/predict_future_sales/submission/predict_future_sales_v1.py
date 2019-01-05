@@ -81,3 +81,9 @@ print (train_sales_items_categories_shops['shop_id'].unique())
 
 # print (train_sales_items_categories_shops.groupby(['shop_id']))
 
+total_sold_oneitem = train_sales_items_categories_shops.groupby(['shop_id', 'item_id', 
+    'date_block_num'])['one_time_sale'].sum().reset_index(
+    name='total_sold_one_item')
+
+print (total_sold_oneitem.head())
+

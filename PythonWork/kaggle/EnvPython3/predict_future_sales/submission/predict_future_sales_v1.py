@@ -3,6 +3,7 @@
 
 import numpy as np
 import pandas as pd
+import  matplotlib.pyplot as plt
 
 # load the data and EDA
 train_sales = pd.read_csv('../input/sales_train_v2.csv')
@@ -86,4 +87,16 @@ total_sold_oneitem = train_sales_items_categories_shops.groupby(['shop_id', 'ite
     name='total_sold_one_item')
 
 print (total_sold_oneitem.head())
+
+# plt.title('total sales on date_block_num')
+# plt.bar(total_sold_oneitem['date_block_num'],total_sold_oneitem['total_sold_one_item'])
+# plt.show()
+
+# plt.title('total sales on shops')
+# plt.xlabel('shop id')
+# plt.ylabel('total sale of one item')
+# plt.bar(total_sold_oneitem['shop_id'],total_sold_oneitem['total_sold_one_item'])
+# plt.show()
+
+
 

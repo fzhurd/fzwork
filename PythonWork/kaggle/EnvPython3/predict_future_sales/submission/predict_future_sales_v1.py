@@ -11,6 +11,7 @@ print ('train_sales first 5 records: \n')
 print (train_sales.head())
 print (train_sales.info())
 print (train_sales.isnull().sum())
+print (train_sales.date_block_num.max())
 
 shops = pd.read_csv('../input/shops.csv')
 print ('shops first 5 records: \n')
@@ -36,8 +37,23 @@ print (test.head())
 print (test.info())
 print (test.isnull().sum())
 
+print ('*'*30, 'shop id in train not in test data set', '*'*30)
+train_shops = train_sales['shop_id'].unique().tolist()
+print ('train_shops: ', train_shops)
+
+test_shops = test['shop_id'].unique().tolist()
+print ('test shops: ', test_shops)
+
+train_test_shop_diff =  [s for s in train_shops if s not in test_shops]
+print (train_test_shop_diff)
+
+print ('*'*30, 'shop id in test not in train data set', '*'*30)
+
+test_train_shop_diff =  [s for s in test_shops if s not in train_shops]
+print (test_train_shop_diff)
+
 print ('*'*100)
-train_sales_items = train_sales.join(items, on='item_id', rsuffix='_', how='inner')
+train_sales_items = train_sales.join(items, on='item_id', rsuffix='_', how='left')
 print (train_sales_items.head())
 print (train_sales_items.shape)
 
@@ -48,7 +64,9 @@ print (train_sales_items_categories.shape)
 print (train_sales_items_categories.columns)
 
 train_sales_items_categories_shops = train_sales_items_categories.join(shops, 
-    on='shop_id', rsuffix='_', how='inner')
+    on='shop_id', rsuffix='_', how='left')
+
+train_sales_items_categories_shops.fillna(0.0)
 
 print (train_sales_items_categories_shops.shape)
 print (train_sales_items_categories_shops.columns)
@@ -97,6 +115,21 @@ print (total_sold_oneitem.head())
 # plt.ylabel('total sale of one item')
 # plt.bar(total_sold_oneitem['shop_id'],total_sold_oneitem['total_sold_one_item'])
 # plt.show()
+
+test = pd.read_csv('../input/test.csv')
+print (test.shape)
+print (test.head())
+print (test.isnull().sum())
+
+# test_shopid = test.groupby(['shop_id'])
+print ('*'*100)
+total_sold_one_item_month = train_sales_items_categories_shops.groupby(['shop_id', 'item_id', 
+    'year','month'])['one_time_sale'].sum().reset_index(
+    name='total_sold_one_item_month')
+
+print ( total_sold_one_item_month[ 
+    total_sold_one_item_month['shop_id']==5 
+    ] )
 
 
 

@@ -81,6 +81,19 @@ for block_num in train_sales['date_block_num'].unique():
     grid.append(np.array(list(product(*[cur_shops, cur_items, [block_num]])),dtype='int32'))
 
 grid = pd.DataFrame(np.vstack(grid), columns=index_cols,dtype=np.int32)
+
+train_sales_month = train_sales.groupby(['shop_id',
+    'date_block_num','item_id']).agg({'item_cnt_day':'sum', 
+    'item_price':np.mean}).reset_index()
+
+print (train_sales_month.head())
+
+print ('*'*30, 'test data as date_block_num == 34', '*'*30)
+sales_month_test = test.copy()
+sales_month_test['date_block_num'] = 34
+sales_month_test['item_cnt_day'] = 0
+sales_month_test['item_price']= '??????'
+
 # print (grid)
 # train_sales_items = train_sales.join(items, on='item_id', rsuffix='_', how='left')
 # print (train_sales_items.head())

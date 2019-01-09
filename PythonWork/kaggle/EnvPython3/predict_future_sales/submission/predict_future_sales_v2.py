@@ -176,8 +176,39 @@ print (all_data.shape)
 print (all_data.head())
 print (all_data.columns)
 
+print ('*'*30, 'Mean encoding', '*'*30)
 
+mean_encoding = pd.DataFrame(all_data.groupby(['shop_id', 
+    'item_category_id']).target.agg(['mean','var']).reset_index())
 
+print (mean_encoding.columns)
+
+mean_encoding.columns = ['shop_id', 'item_category_id', 'mean_enc_cat_id', 'mean_enc_cat_var']
+
+print (mean_encoding.columns)
+
+all_data =  pd.merge(all_data, mean_encoding, how='left', on=['shop_id', 'item_category_id'])
+del mean_encoding
+
+all_data = downcast_dtypes(all_data)
+
+print (all_data.shape)
+print (all_data.head())
+
+print ('*'*30, 'train test data split', '*'*30)
+test_data = all_data.loc[all_data['date_block_num']==34].fillna(0)
+train_data = all_data.loc[all_data['date_block_num']==34].fillna(0)
+
+print (test_data.shape)
+print (test_data.head())
+
+print ('*'*30, 'validation data', '*'*30)
+dates = all_data['date_block_num']
+train_date = [ d for d in dates if d not in [30, 31, 32, 33]]
+val_date = [dates.isin([30, 31, 32, 33])]
+
+print ('train date: ', set(train_date))
+print ('val date: ', val_date)
 
 
 

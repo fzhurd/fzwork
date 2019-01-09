@@ -8,19 +8,113 @@ import sklearn
 import scipy.sparse
 # import lightgbm
 from itertools import product
+import gc
 
 for p in [np, pd, sklearn, scipy ]:
     print (p.__version__)
 
+def downcast_dtypes(df):
+
+    # Select columns to downcast
+    float_cols = [c for c in df if df[c].dtype == "float64"]
+    int_cols =   [c for c in df if df[c].dtype == "int64"]
+    
+    # Downcast
+    df[float_cols] = df[float_cols].astype(np.float32)
+    df[int_cols]   = df[int_cols].astype(np.int32)
+    
+    return df
+
+
+def get_feature_matrix(sales,test, items):
+
+    # Create "grid" with columns
+    index_cols = ['shop_id', 'item_id', 'date_block_num']
+
+    # For every month we create a grid from all shops/items combinations from that month
+    grid = [] 
+
+    for block_num in sales['date_block_num'].unique():
+        cur_shops = sales.loc[sales['date_block_num'] == block_num, 'shop_id'].unique()
+        cur_items = sales.loc[sales['date_block_num'] == block_num, 'item_id'].unique()
+        grid.append(np.array(list(product(*[cur_shops, cur_items, [block_num]])),dtype='int32'))
+
+    grid = pd.DataFrame(np.vstack(grid), columns = index_cols,dtype=np.int32)
+
+    test['date_block_num'] = 34
+    grid = grid.append(test[['shop_id', 'item_id', 'date_block_num']])
+    # Groupby data to get shop-item-month aggregates
+    gb = sales.groupby(index_cols,as_index=False).agg({'item_cnt_day':{'target':'sum'}})
+
+    # Fix column names
+    gb.columns = [col[0] if col[-1]=='' else col[-1] for col in gb.columns.values] 
+
+    # Join it to the grid
+    all_data = pd.merge(grid, gb, how='left', on=index_cols).fillna(0)
+
+    # Same as above but with shop-month aggregates
+    gb = sales.groupby(['shop_id', 'date_block_num'],as_index=False).agg({'item_cnt_day':{'target_shop':'sum'}})
+    gb.columns = [col[0] if col[-1]=='' else col[-1] for col in gb.columns.values]
+    all_data = pd.merge(all_data, gb, how='left', on=['shop_id', 'date_block_num']).fillna(0)
+
+    # Same as above but with item-month aggregates
+    gb = sales.groupby(['item_id', 'date_block_num'],as_index=False).agg({'item_cnt_day':{'target_item':'sum'}})
+    gb.columns = [col[0] if col[-1] == '' else col[-1] for col in gb.columns.values]
+    all_data = pd.merge(all_data, gb, how='left', on=['item_id', 'date_block_num']).fillna(0)
+
+    # Downcast dtypes from 64 to 32 bit to save memory
+    all_data = downcast_dtypes(all_data)
+    del grid, gb 
+    gc.collect();
+
+    print ('*'*100)
+
+    # List of columns that we will use to create lags
+    cols_to_rename = list(all_data.columns.difference(index_cols))
+    print (cols_to_rename)
+
+    shift_range = [1, 2, 3, 4, 5, 12]
+
+    for month_shift in shift_range:
+        train_shift = all_data[index_cols + cols_to_rename].copy()
+
+        train_shift['date_block_num'] = train_shift['date_block_num'] + month_shift
+        
+        foo = lambda x: '{}_lag_{}'.format(x, month_shift) if x in cols_to_rename else x
+        train_shift = train_shift.rename(columns=foo)
+
+        all_data = pd.merge(all_data, train_shift, on=index_cols, how='left').fillna(0)
+
+    del train_shift
+
+    # Don't use old data from year 2013
+    all_data = all_data[all_data['date_block_num'] >= 12] 
+
+    # List of all lagged features
+    fit_cols = [col for col in all_data.columns if col[-1] in [str(item) for item in shift_range]] 
+
+    # We will drop these at fitting stage
+    to_drop_cols = list(set(list(all_data.columns)) - (set(fit_cols)|set(index_cols))) + ['date_block_num'] 
+
+    # Category for each item
+    item_category_mapping = items[['item_id','item_category_id']].drop_duplicates()
+
+    all_data = pd.merge(all_data, item_category_mapping, how='left', on='item_id')
+    all_data = downcast_dtypes(all_data)
+    gc.collect();
+
+    return [all_data, to_drop_cols]
+
+
 # load the data and EDA
-train_sales = pd.read_csv('../input/sales_train_v2.csv')
-print ('train_sales first 5 records: \n')
-print (train_sales.head())
-print (train_sales.info())
-print (train_sales.isnull().sum())
-print (train_sales.date_block_num.max())
-print (train_sales.describe())
-print (train_sales.shape)
+sales = pd.read_csv('../input/sales_train_v2.csv')
+print ('sales first 5 records: \n')
+print (sales.head())
+print (sales.info())
+print (sales.isnull().sum())
+print (sales.date_block_num.max())
+print (sales.describe())
+print (sales.shape)
 
 shops = pd.read_csv('../input/shops.csv')
 print ('shops first 5 records: \n')
@@ -47,7 +141,7 @@ print (test.info())
 print (test.isnull().sum())
 
 print ('*'*30, 'shop id in train not in test data set', '*'*30)
-train_shops = train_sales['shop_id'].unique().tolist()
+train_shops = sales['shop_id'].unique().tolist()
 print ('train_shops: ', train_shops)
 
 test_shops = test['shop_id'].unique().tolist()
@@ -63,36 +157,58 @@ print (test_train_shop_diff)
 
 print ('*'*30, 'remove the outlier','*'*30)
 print ('item_price min is < 0, remove the outlier ')
-print (train_sales.shape)
-train_sales = train_sales.loc[(train_sales['item_price']>0) & (train_sales['item_price']<100000)]
-print (train_sales.shape)
+print (sales.shape)
+sales = sales.loc[(sales['item_price']>0) & (sales['item_price']<100000)]
+print (sales.shape)
 
-train_sales = train_sales.loc[(train_sales['item_cnt_day']< 1000)]
-print (train_sales.shape)
+sales = sales.loc[(sales['item_cnt_day']< 1000)]
+print (sales.shape)
 
 print ('*'*30, 'start group','*'*30)
-index_cols = ['shop_id', 'item_id', 'date_block_num']
 
-grid = []
+sales_to_train = sales[sales.item_id.isin(test.item_id)]
 
-for block_num in train_sales['date_block_num'].unique():
-    cur_shops = train_sales.loc[train_sales['date_block_num']==block_num,'shop_id'].unique()
-    cur_items = train_sales.loc[train_sales['date_block_num']==block_num,'item_id'].unique()
-    grid.append(np.array(list(product(*[cur_shops, cur_items, [block_num]])),dtype='int32'))
+[all_data, to_drop_cols] = get_feature_matrix(sales_to_train, test, items)
 
-grid = pd.DataFrame(np.vstack(grid), columns=index_cols,dtype=np.int32)
+# print ([all_data, to_drop_cols])
 
-train_sales_month = train_sales.groupby(['shop_id',
-    'date_block_num','item_id']).agg({'item_cnt_day':'sum', 
-    'item_price':np.mean}).reset_index()
+print (all_data.shape)
+print (all_data.head())
+print (all_data.columns)
 
-print (train_sales_month.head())
 
-print ('*'*30, 'test data as date_block_num == 34', '*'*30)
-sales_month_test = test.copy()
-sales_month_test['date_block_num'] = 34
-sales_month_test['item_cnt_day'] = 0
-sales_month_test['item_price']= '??????'
+
+
+
+
+
+
+
+
+
+
+# index_cols = ['shop_id', 'item_id', 'date_block_num']
+
+# grid = []
+
+# for block_num in sales['date_block_num'].unique():
+#     cur_shops = sales.loc[sales['date_block_num']==block_num,'shop_id'].unique()
+#     cur_items = sales.loc[sales['date_block_num']==block_num,'item_id'].unique()
+#     grid.append(np.array(list(product(*[cur_shops, cur_items, [block_num]])),dtype='int32'))
+
+# grid = pd.DataFrame(np.vstack(grid), columns=index_cols,dtype=np.int32)
+
+# sales_month = sales.groupby(['shop_id',
+#     'date_block_num','item_id']).agg({'item_cnt_day':'sum', 
+#     'item_price':np.mean}).reset_index()
+
+# print (sales_month.head())
+
+# print ('*'*30, 'test data as date_block_num == 34', '*'*30)
+# sales_month_test = test.copy()
+# sales_month_test['date_block_num'] = 34
+# sales_month_test['item_cnt_day'] = 0
+# sales_month_test['item_price']= '??????'
 
 # print (grid)
 # train_sales_items = train_sales.join(items, on='item_id', rsuffix='_', how='left')

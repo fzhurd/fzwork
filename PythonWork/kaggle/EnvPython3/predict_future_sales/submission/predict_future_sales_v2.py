@@ -9,6 +9,7 @@ import scipy.sparse
 # import lightgbm
 from itertools import product
 import gc
+from sklearn.ensemble import RandomForestClassifier
 
 for p in [np, pd, sklearn, scipy ]:
     print (p.__version__)
@@ -197,7 +198,7 @@ print (all_data.head())
 
 print ('*'*30, 'train test data split', '*'*30)
 test_data = all_data.loc[all_data['date_block_num']==34].fillna(0)
-train_data = all_data.loc[all_data['date_block_num']==34].fillna(0)
+train_data = all_data.loc[all_data['date_block_num']<34].fillna(0)
 
 print (test_data.shape)
 print (test_data.head())
@@ -210,13 +211,32 @@ print ('*'*30, 'validation data', '*'*30)
 # print ('train date: ', set(train_date))
 # print ('val date: ', val_date)
 
-train_data = all_data.loc[~all_data['date_block_num'].isin([30, 31, 32, 33])]
-train_data = train_data.drop(to_drop_cols, axis=1)
-print (train_data.shape)
-print (train_data.columns)
+train_data = train_data.loc[~train_data['date_block_num'].isin([30, 31, 32, 33, 34])]
+X_train = train_data.drop(to_drop_cols, axis=1)
+y_train = train_data['target']
+print (X_train.shape)
+print (X_train.columns)
+print (X_train.head(5))
+print (y_train.head(5))
+print (y_train.head(5).values)
+print (y_train.shape)
 
-val_data = all_data.loc[all_data['date_block_num'].isin ([30, 31, 32, 33])]
-val_data = val_data.drop(to_drop_cols, axis=1)
+val_data = train_data.loc[train_data['date_block_num'].isin ([30, 31, 32, 33])]
+X_val = val_data.drop(to_drop_cols, axis=1)
+y_val = val_data['target']
+
+# print ('X_val: ', X_val.head())
+
+print (X_train[np.isnan(X_train)==True].shape)
+# print (X_train[np.isnan(X_train)==True])
+
+# print (np.nan_to_num(X_train))
+
+rf = RandomForestClassifier()
+rf.fit(X_train, y_train)
+# predicted = rf.predict(X_val)
+
+# print (predicted)
 
 
 
